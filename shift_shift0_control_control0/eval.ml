@@ -79,7 +79,7 @@ let rec f (expr : e_t) (ctxt : c_t) : v_t =
     let reduct = Reset (App (e1, e2)) in
     memo redex reduct ctxt_outside_reset;
     raise (Shift reduct)
-  | Cupto (k, e) ->
+  | Control0 (k, e) ->
     let hole_var = gen_var_name () in
     let (ctxt_inside_reset, ctxt_outside_reset) = match ctxt with
       | CHole (frames) -> (frames, CHole ([]))

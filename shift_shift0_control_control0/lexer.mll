@@ -22,8 +22,8 @@ rule token = parse
 | "+"    { PLUS }
 | "shift0" { SHIFT0 }
 | "shift" { SHIFT }
+| "control0" { CONTROL0 }
 | "control" { CONTROL }
-| "cupto" { CUPTO }
 | "reset" { RESET }
 | digit+                        (* 数字が１個以上 *)
 	 { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }

@@ -20,9 +20,9 @@ let rec subst (expr : e_t) (var : string) (value : v_t) : e_t =
   | Control (k, e) ->
     if k = var then expr
     else Control (k, subst e  var value)
-  | Cupto (k, e) ->
+  | Control0 (k, e) ->
     if k = var then expr
-    else Cupto (k, subst e  var value)
+    else Control0 (k, subst e  var value)
 
 (* プログラム内で使われている変数のリストを格納する変数 *)
 let var_names = ref []
@@ -53,7 +53,7 @@ let rec record_var_name (expr : e_t) : unit = match expr with
   | Shift (k, e) -> add_var_name k; record_var_name e
   | Shift0 (k, e) -> add_var_name k; record_var_name e
   | Control (k, e) -> add_var_name k; record_var_name e
-  | Cupto (k, e) -> add_var_name k; record_var_name e
+  | Control0 (k, e) -> add_var_name k; record_var_name e
 
 (* プログラム内でまだ使われていない変数名を生成して返す *)
 let gen_var_name () =
