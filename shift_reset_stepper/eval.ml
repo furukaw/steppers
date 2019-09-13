@@ -2,8 +2,12 @@ open Syntax
 open Util
 open Context
 
+(* shift 簡約後に継続を捨てるための例外、引数の式はプログラム全体 *)
 exception Shift of e_t
 
+(* 式とコンテキストの情報を受け取って評価して値を返す *)
+(* 簡約ごとに簡約の内容を標準出力する *)
+(* shift の簡約をしたら例外 Shift (その時点のプログラム全体) を起こす *)
 let rec f (expr : e_t) (ctxt : c_t) : v_t =
   match expr with
   | Value (v) -> v
@@ -50,6 +54,7 @@ let rec f (expr : e_t) (ctxt : c_t) : v_t =
     let expr' = plug (Value v) ctxt_outside_reset in
     raise (Shift expr')
 
-let stepper (expr : e_t) (ctxt : c_t) : v_t =
-  try f expr ctxt
-  with Shift e -> f e (CHole ([]))
+(* 式を受け取って空のコンテキストで評価を始める、shift が起こったらその時の式でやり直す *)
+let rec stepper (expr : e_t) : v_t =
+  try f expr (CHole ([]))
+  with Shift e -> stepper e

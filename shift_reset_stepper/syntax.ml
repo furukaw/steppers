@@ -10,6 +10,7 @@ and e_t = Value of v_t
         | Reset of e_t           (* <e> *)
         | Shift of string * e_t  (* Sk.e *)
 
+(* 結合の優先順位（大きいほど弱くて括弧を付ける（普通逆か）） *)
 let prior (e : e_t) : int = match e with
   | Value (Lam _) -> 80
   | Value (Num _) -> 0
@@ -38,10 +39,12 @@ and e_to_string (e : e_t) (n : int): string =
   then str
   else "(" ^ str ^ ")"
 
+(* 式を標準出力する *)
 let print_exp (e : e_t) : unit =
   print_string "  ";
   print_endline (e_to_string e 100)
 
+(* 値を標準出力する *)
 let print_value (v : v_t) : unit =
   print_string "  ";
   print_endline (v_to_string v)

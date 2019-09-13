@@ -6,7 +6,7 @@ let go () =
   Syntax.print_exp program;		(* 入力を表示する *)
   print_newline ();
   Util.record_var_name program;
-  let result = Eval.stepper program (Context.CHole ([])) in
+  let result = Eval.stepper program in
   print_string "Result :";
   Syntax.print_value result;
   print_newline ()
