@@ -6,7 +6,7 @@ open Syntax
 /* 以降、どういうわけかコメントが C 式になることに注意 */
 /* トークンの定義 */
 %token LPAREN RPAREN
-%token FUN ARROW PLUS SHIFT RESET
+%token FUN ARROW PLUS SHIFT RESET SHIFT0 CONTROL CUPTO
 %token <int> NUMBER
 /* これは、数字には int 型の値が伴うことを示している */
 %token <string> VAR
@@ -48,5 +48,11 @@ expr:
         { Plus ($1, $3) }
 | SHIFT LPAREN FUN VAR ARROW expr RPAREN
         { Shift ($4, $6) }
+| SHIFT0 LPAREN FUN VAR ARROW expr RPAREN
+        { Shift0 ($4, $6) }
+| CONTROL LPAREN FUN VAR ARROW expr RPAREN
+        { Control ($4, $6) }
+| CUPTO LPAREN FUN VAR ARROW expr RPAREN
+        { Cupto ($4, $6) }
 | RESET LPAREN FUN LPAREN RPAREN ARROW expr RPAREN
         { Reset ($7) }
