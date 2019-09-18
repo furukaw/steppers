@@ -1,2 +1,0 @@
-syntax.cmo :
-syntax.cmx :
