@@ -23,5 +23,8 @@ let print_step () : unit =
   print_string ("Step " ^ string_of_int !step_counter ^ ":  ")
 
 let memo (redex : c_t) (reduct : c_t) (ctxt : ctx_t) : unit =
+  print_step ();
   print_computation (plug_all redex ctxt);
+  step_counter := 1 + !step_counter;
+  print_step ();
   print_computation (plug_all reduct ctxt)

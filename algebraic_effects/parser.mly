@@ -62,7 +62,7 @@ com:
         { Return ($1) }
 | RETURN value
         { Return ($2) }
-| VAR LPAREN value SEMI VAR DOT com
+| VAR LPAREN value SEMI VAR DOT com RPAREN
         { Op ($1, $3, $5, $7) }
 | DO VAR LEFT com IN com
         { Do ($2, $4, $6) }
@@ -75,9 +75,9 @@ com:
 
 handler:
 | handler_return COMMA handler_ops
-        { (Some $1, $3) }
+        { (Some $1, List.rev $3) }
 | handler_ops
-        { (None, $1) }
+        { (None, List.rev $1) }
 
 handler_return:
 | RETURN VAR RIGHT com

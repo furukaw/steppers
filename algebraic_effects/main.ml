@@ -6,9 +6,9 @@ let go () =
     print_string "Parsed:  ";
     Syntax.print_computation program;		(* 入力を表示する *)
     Util.record_var_name program;
-    print_string "Result:  ";
   end;
   let result = Eval.f program [] in
+  print_string "Result:  ";
   Syntax.print_computation result
 
 (* スタートアップ *)

@@ -27,13 +27,46 @@ and subst_handler (handler : h_t) (var : string) (value : v_t) : h_t =
         op_lst in
     (return, ops)
 
-and subst_value (value : v_t) (var : string) (value : v_t) : v_t =
-  match value with
-  | Var (x) -> if x = var then value else value
-  | Fun (x, c) -> if x = var then value else Fun (x, subst c var value)
+and subst_value (v : v_t) (var : string) (value : v_t) : v_t = match v with
+  | Var (x) -> if x = var then value else v
+  | Fun (x, c) -> if x = var then v else Fun (x, subst c var value)
   | Handler (h) -> Handler (subst_handler h var value)
-  | _ -> value
-    
+  | _ -> v
+
+let rec subst2 : c_t -> (string * v_t * string * v_t) -> c_t =
+  fun com ((var1, val1, var2, val2) as targets) -> match com with
+    | Return (v) -> Return (subst2_value v targets)
+    | Op (name, v, y, c) ->
+      Op (name, v, y, if y = var1 || y = var2 then c else subst2 c targets)    
+    | Do (x, c1, c2) ->
+      Do (x, subst2 c1 targets, subst2 c2 targets)
+    | If (v, c1, c2) ->
+      If (subst2_value v targets, subst2 c1 targets, subst2 c2 targets)
+    | App (v1, v2) ->
+      App (subst2_value v1 targets, subst2_value v2 targets)
+    | With (v, c) ->
+      With (subst2_value v targets, subst2 c targets)
+
+and subst2_handler : h_t -> (string * v_t * string * v_t) -> h_t =
+  fun (return_opt, op_lst) ((var1, val1, var2, val2) as targets) ->
+    let return = match return_opt with
+      | None -> None
+      | Some (x, c) ->
+        Some (x, if x = var1 || x = var2 then c else subst2 c targets) in
+    let ops =
+      List.map
+        (fun (name, x, k, c) ->
+           (name, x, k, if x = var1 || x = var2 then c else subst2 c targets))
+        op_lst in
+    (return, ops)
+
+and subst2_value : v_t -> (string * v_t * string * v_t) -> v_t =
+  fun value ((var1, val1, var2, val2) as targets) -> match value with
+    | Var (x) -> if x = var1 then val1 else if x = var2 then val2 else value
+    | Fun (x, c) ->
+      if x = var1 || x = var2 then value else Fun (x, subst2 c targets)
+    | Handler (h) -> Handler (subst2_handler h targets)
+    | _ -> value
 
 (* プログラム内で使われている変数のリストを格納する変数 *)
 let var_names = ref []

@@ -17,9 +17,11 @@ and c_t = Return of v_t                      (* 値 *)
         | With of v_t * c_t                  (* ハンドリング *)
 
 (* 結合の優先順位（大きいほど弱くて括弧を付ける） *)
+let prior_outside_value (v : v_t) : int = match v with
+  | Fun _ -> 100
+  | Handler _ -> 10
+  | _ -> 0
 let prior_outside (c : c_t) : int = match c with
-  | Return (Fun _) -> 100
-  | Return (Handler _) -> 80
   | Return _ -> 0
   | Op _ -> 0
   | Do _ -> 40
@@ -34,7 +36,7 @@ let prior_inside (c : c_t) : int = match c with
   | Return (Fun _) -> 99
   | Return (Handler _) -> prior_handler_inside
   | Return _ -> 79
-  | Op _ -> 1
+  | Op _ -> 80
   | Do _ -> 19
   | If _ -> 19
   | App _ -> 0
@@ -42,7 +44,7 @@ let prior_inside (c : c_t) : int = match c with
 
 let rec handler_op_to_string (info : string * string * string * c_t) : string =
   match info with
-  | (op, x, k, c) -> op ^ " (" ^ x ^ "; " ^ k ^ " -> "
+  | (op, x, k, c) -> op ^ "(" ^ x ^ "; " ^ k ^ ") -> "
                      ^ c_to_string c prior_handler_inside
 
 and handler_to_string (h : h_t) : string =
@@ -69,15 +71,15 @@ and v_to_string (v : v_t) (n : int) : string =
     | False -> "false"
     | Fun (x, c0) -> "fun " ^ x ^ " -> " ^ c_to_string c0 p
     | Handler (h) -> handler_to_string h in
-  if prior_outside (Return v) <= n
+  if prior_outside_value v <= n
   then str
   else "(" ^ str ^ ")"
 
 (* 式を受け取って文字列にする *)
-and c_to_string (c : c_t) (n : int)  : string =
+and c_to_string (c : c_t) (n : int) : string =
   let p = prior_inside c in
   let str = match c with
-    | Return (v) -> v_to_string v p
+    | Return (v) -> v_to_string v n
     | Op (name, v, y, c0) ->
       name ^ "(" ^ v_to_string v p ^ "; "
       ^ y ^ ". " ^ c_to_string c0 p ^ ")"
@@ -100,9 +102,9 @@ and c_to_string (c : c_t) (n : int)  : string =
 
 (* 式を標準出力する *)
 let print_computation (c : c_t) : unit =
-  print_endline (c_to_string c 100)
+  print_endline (c_to_string c 1000)
 
 (* 値を標準出力する *)
 let print_value (v : v_t) : unit =
-  print_endline (v_to_string v 100)
+  print_endline (v_to_string v 1000)
 
