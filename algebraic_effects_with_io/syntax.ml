@@ -24,21 +24,21 @@ and h_t  = (string * c_t) option *              (* return 節 *)
 and c_t = Return of v_t                      (* 値 *)
         | Op of op_t * v_t * string * c_t    (* オペレーション呼び出し *)
         | Do of pattern_t * c_t * c_t        (* 束縛付き逐次実行 *)
-        | Semi of c_t * c_t                  (* 逐次実行 *)
+        | Seq of c_t * c_t                  (* 逐次実行 *)
         | If of v_t * c_t * c_t              (* 条件分岐 *)
         | App of v_t * v_t                   (* 関数適用 *)
         | With of v_t * c_t                  (* ハンドリング *)
 
 (* 結合の優先順位（大きいほど弱くて括弧を付ける） *)
 let prior_outside_value (v : v_t) : int = match v with
-  | Fun _ | Rec _ -> 100
+  | Fun _ -> 100
   | Handler _ -> 10
-  | Pair _ -> 10000
   | _ -> 0
 let prior_outside (c : c_t) : int = match c with
   | Return _ -> 0
   | Op _ -> 0
   | Do _ -> 40
+  | Seq _ -> 70
   | If _ -> 20
   | App _ -> 0
   | With _ -> 60
@@ -52,16 +52,23 @@ let prior_inside (c : c_t) : int = match c with
   | Return _ -> 79
   | Op _ -> 80
   | Do _ -> 19
+  | Seq _ -> 50
   | If _ -> 19
   | App _ -> 0
   | With _ -> 59
 
-let int_op_to_string (op : int_op_t) : string = match op with
-  | Plus -> " + "
+let op_to_string (op : op_t) : string = match op with
+  | Read -> "read"
+  | Print -> "print"
 
-let rec handler_op_to_string (info : string * string * string * c_t) : string =
+let rec pattern_to_string (pat : pattern_t) : string = match pat with
+  | PVar (x) -> x
+  | PPair (p1, p2) ->
+    "(" ^ pattern_to_string p1 ^ ", " ^ pattern_to_string p2 ^ ")"
+
+let rec handler_op_to_string (info : op_t * string * string * c_t) : string =
   match info with
-  | (op, x, k, c) -> op ^ "(" ^ x ^ "; " ^ k ^ ") -> "
+  | (op, x, k, c) -> op_to_string op ^ "(" ^ x ^ "; " ^ k ^ ") -> "
                      ^ c_to_string c prior_handler_inside
 
 and handler_to_string (h : h_t) : string =
@@ -88,13 +95,10 @@ and v_to_string (v : v_t) (n : int) : string =
     | False -> "false"
     | Fun (x, c0) -> "fun " ^ x ^ " -> " ^ c_to_string c0 p
     | Handler (h) -> handler_to_string h
-    | Int (n) -> string_of_int n
-    | IntOp (op) -> int_op_to_string op
     | String (s) -> "\"" ^ s ^ "\""
-    | Rec (f, x, c) ->
-      "rec fun " ^ f ^ " " ^ x ^ " -> " ^ c_to_string c p
     | Unit -> "()"
-    | Pair (v1, v2) -> v_to_string v1 p ^ ", " ^ v_to_string v2 p
+    | Pair (v1, v2) -> "(" ^ v_to_string v1 p ^ ", " ^ v_to_string v2 p ^ ")"
+    | DefinedFun (Join) -> "join"
   in
   if prior_outside_value v <= n
   then str
@@ -105,12 +109,14 @@ and c_to_string (c : c_t) (n : int) : string =
   let p = prior_inside c in
   let str = match c with
     | Return (v) -> v_to_string v n
-    | Op (name, v, y, c0) ->
-      name ^ "(" ^ v_to_string v p ^ "; "
+    | Op (op, v, y, c0) ->
+      op_to_string op ^ "(" ^ v_to_string v p ^ "; "
       ^ y ^ ". " ^ c_to_string c0 p ^ ")"
     | Do (x, c1, c2) ->
-      "do " ^ x ^ " <- " ^ c_to_string c1 p ^
+      "do " ^ pattern_to_string x ^ " <- " ^ c_to_string c1 p ^
       " in " ^ c_to_string c2 p
+    | Seq (c1, c2) ->
+      c_to_string c1 p ^ "; " ^ c_to_string c2 p
     | If (v, c1, c2) ->
       "if " ^ v_to_string v p ^
       " then " ^ c_to_string c1 p ^
@@ -125,9 +131,11 @@ and c_to_string (c : c_t) (n : int) : string =
   then str
   else "(" ^ str ^ ")"
 
+let c_to_string (c : c_t) : string = c_to_string c 1000
+
 (* 式を標準出力する *)
 let print_computation (c : c_t) : unit =
-  print_endline (c_to_string c 1000)
+  print_endline (c_to_string c)
 
 (* 値を標準出力する *)
 let print_value (v : v_t) : unit =

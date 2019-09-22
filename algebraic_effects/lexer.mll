@@ -36,6 +36,8 @@ rule token = parse
 | "else" { ELSE }
 | "with" { WITH }
 | "handle" { HANDLE }
+| "read" { READ }
+| "print" { PRINT }
 | digit+                        (* 数字が１個以上 *)
 	 { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }
 | lower+(alpha | digit)*

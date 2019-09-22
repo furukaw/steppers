@@ -36,10 +36,11 @@ rule token = parse
 | "else" { ELSE }
 | "with" { WITH }
 | "handle" { HANDLE }
-| "rec"  { REC }
 | "\"" [^ '"']* "\""
 	 { let s = Lexing.lexeme lexbuf in
 	   STRING (String.sub s 1 (String.length s - 2)) }
+| "read" { READ }
+| "print" { PRINT }
 | digit+                        (* 数字が１個以上 *)
 	 { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }
 | lower+(alpha | digit)*

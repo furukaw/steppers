@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR=~/lab/steppers/algebraic_effects
+DIR=~/lab/steppers/algebraic_effects_with_io
 TEST_DIR=$DIR/output_test
 TMP_FILE=$DIR/tmp-testing.txt
 PROGRAM=$DIR/interpreter

@@ -1,2 +1,2 @@
-with handler {return x -> x, a(x; k) -> (fun u -> k x), b(x; k) -> fun y -> y}
-handle c(true; z. false)
+with handler {return x -> x, read(x; k) -> (fun u -> k x)}
+handle print(true; z. false)

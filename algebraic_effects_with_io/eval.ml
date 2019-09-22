@@ -5,14 +5,14 @@ open Context
 (* 式とコンテキストの情報を受け取って評価して値を返す *)
 (* 簡約ごとに簡約の内容を標準出力する *)
 let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
-  | Do (x, c1, c2) ->
-    let c1_result = f c1 (CDo (x, c2) :: ctxt) in
+  | Do (p, c1, c2) ->
+    let c1_result = f c1 (CDo (p, c2) :: ctxt) in
     let reduct = match c1_result with
-      | Return (v) -> subst c2 x v
+      | Return (v) -> subst_pattern c2 p v
       | Op (name, v, y, c3) ->
-        Op (name, v, y, Do (x, c3, c2))
-      | _ -> failwith "type error" in
-    memo (Do (x, c1_result, c2)) reduct ctxt;
+        Op (name, v, y, Do (p, c3, c2))
+      | _ -> failwith ("type error: " ^ c_to_string com) in
+    memo (Do (p, c1_result, c2)) reduct ctxt;
     f reduct ctxt
   | If (True, c1, c2) ->
     memo com c1 ctxt;
@@ -35,7 +35,7 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
           try
             let (_, x, k, c_n) =
               List.find (fun (n, _, _, _) -> n = name) op_lst in
-            subst2 c_n (x, v, k, Fun (y, With (Handler (h), c)))
+            subst_all c_n [(x, v); (k, Fun (y, With (Handler (h), c)))]
           with Not_found -> Op (name, v, y, With (Handler (h), c))
         end
       | _ -> failwith "type error" in

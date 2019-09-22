@@ -1,8 +1,8 @@
 open Syntax
 
 (* コンテキストフレームの型 *)
-type cframe_t = CDo of string * c_t  (* do x <- [.] in c *)
-              | CWith of v_t         (* with h handle [.] *)
+type cframe_t = CDo of pattern_t * c_t  (* do x <- [.] in c *)
+              | CWith of v_t            (* with h handle [.] *)
 
 (* 継続の型 *)
 and ctx_t = cframe_t list

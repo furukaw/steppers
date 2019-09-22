@@ -7,6 +7,7 @@ open Syntax
 /* トークンの定義 */
 %token LPAREN RPAREN
 %token TRUE FALSE FUN RIGHT HANDLER LBRACK RBRACK COMMA RETURN SEMI DOT DO LEFT IN IF THEN ELSE WITH HANDLE
+%token READ PRINT
 %token <int> NUMBER
 /* これは、数字には int 型の値が伴うことを示している */
 %token <string> VAR
@@ -21,6 +22,9 @@ open Syntax
 
 /* 演算子の優先順位を指定する */
 /* 下に行くほど強く結合する */
+%nonassoc COMMA
+%nonassoc SEMI DOT
+%nonassoc LEFT
 %right FUN RIGHT
 %nonassoc HANDLER
 %nonassoc WITH HANDLE
@@ -33,36 +37,40 @@ open Syntax
 /* 以下の %% は省略不可。それ以降に文法規則を書く */
 %%
 
-simple_value:
+core_value:
 | VAR
         { Var ($1) }
 | TRUE
         { True }
 | FALSE
         { False }
-| LPAREN value RPAREN
-        { $2 }
 
-value:
-| simple_value
+value_without_pq:
+| core_value
         { $1 }
 | FUN VAR RIGHT com
         { Fun ($2, $4) }
 | HANDLER LBRACK handler RBRACK
         { Handler ($3) }
 
-simple_com:
-| LPAREN com RPAREN
+simple_value:
+| core_value
+        { $1 }
+| LPAREN value_without_pq RPAREN
+        { $2 }
+
+value:
+| value_without_pq
+        { $1 }
+| LPAREN value_without_pq RPAREN
         { $2 }
 
 com:
-| simple_com
-        { $1 }
 | value
         { Return ($1) }
 | RETURN value
         { Return ($2) }
-| VAR LPAREN value SEMI VAR DOT com RPAREN
+| op LPAREN value SEMI VAR DOT com RPAREN
         { Op ($1, $3, $5, $7) }
 | DO VAR LEFT com IN com
         { Do ($2, $4, $6) }
@@ -90,5 +98,11 @@ handler_ops:
         { $1 :: $3 }
 
 handler_op:
-| VAR LPAREN VAR SEMI VAR RPAREN RIGHT com
+| op LPAREN VAR SEMI VAR RPAREN RIGHT com
         { ($1, $3, $5, $8) }
+
+op:
+| READ
+        { Read }
+| PRINT
+        { Print }

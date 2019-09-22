@@ -93,8 +93,8 @@ let rec record_var_name (com : c_t) : unit = match com with
   | Return (Fun (x, c)) -> add_var_name x; record_var_name c
   | Return (Handler (h)) -> record_var_name_handler h
   | Return (v) -> record_var_name_value v
-  | Op (name, v, y, c) ->
-    add_var_name name; record_var_name_value v;
+  | Op (op, v, y, c) ->
+    record_var_name_value v;
     add_var_name y; record_var_name c
   | Do (x, c1, c2) -> add_var_name x; record_var_name c1; record_var_name c2
   | If (v, c1, c2) ->
@@ -110,7 +110,7 @@ and record_var_name_handler ((return_opt, op_lst) : h_t) : unit =
   end;
   List.iter
     (fun (name, x, k, c) ->
-       add_var_name name; add_var_name x; add_var_name k; record_var_name c)
+       add_var_name x; add_var_name k; record_var_name c)
     op_lst
 
 and record_var_name_value (value : v_t) : unit = match value with

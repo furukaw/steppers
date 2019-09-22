@@ -1,3 +1,5 @@
+type op_t = Read | Print
+
 (* value の型 *)
 type v_t = Var of string        (* 変数 *)
          | True | False         (* bool 型定数 *)
@@ -6,11 +8,11 @@ type v_t = Var of string        (* 変数 *)
 
 (* handler の型 *)
 and h_t  = (string * c_t) option *                (* return 節 *)
-           (string * string * string * c_t) list  (* op_n(x; k)->c_n *)
+           (op_t * string * string * c_t) list  (* op_n(x; k)->c_n *)
 
 (* computation の型 *)
 and c_t = Return of v_t                      (* 値 *)
-        | Op of string * v_t * string * c_t  (* オペレーション呼び出し *)
+        | Op of op_t * v_t * string * c_t  (* オペレーション呼び出し *)
         | Do of string * c_t * c_t           (* 逐次実行 *)
         | If of v_t * c_t * c_t              (* 条件分岐 *)
         | App of v_t * v_t                   (* 関数適用 *)
@@ -42,9 +44,13 @@ let prior_inside (c : c_t) : int = match c with
   | App _ -> 0
   | With _ -> 59
 
-let rec handler_op_to_string (info : string * string * string * c_t) : string =
+let op_to_string (op : op_t) : string = match op with
+  | Read -> "read"
+  | Print -> "print"
+
+let rec handler_op_to_string (info : op_t * string * string * c_t) : string =
   match info with
-  | (op, x, k, c) -> op ^ "(" ^ x ^ "; " ^ k ^ ") -> "
+  | (op, x, k, c) -> op_to_string op ^ "(" ^ x ^ "; " ^ k ^ ") -> "
                      ^ c_to_string c prior_handler_inside
 
 and handler_to_string (h : h_t) : string =
@@ -80,8 +86,8 @@ and c_to_string (c : c_t) (n : int) : string =
   let p = prior_inside c in
   let str = match c with
     | Return (v) -> v_to_string v n
-    | Op (name, v, y, c0) ->
-      name ^ "(" ^ v_to_string v p ^ "; "
+    | Op (op, v, y, c0) ->
+      op_to_string op ^ "(" ^ v_to_string v p ^ "; "
       ^ y ^ ". " ^ c_to_string c0 p ^ ")"
     | Do (x, c1, c2) ->
       "do " ^ x ^ " <- " ^ c_to_string c1 p ^

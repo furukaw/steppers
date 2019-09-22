@@ -1,1 +1,1 @@
-with handler {return x -> x, a(x; k) -> x} handle if true then return (fun x -> x) else return (fun y -> y)
+with handler {return x -> x, read(x; k) -> x} handle if true then return (fun x -> x) else return (fun y -> y)

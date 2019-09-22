@@ -1,3 +1,3 @@
-Step 0:  with handler {return x -> x, a(x; k) -> (fun u -> k x), b(x; k) -> (fun y -> y)} handle c(true; z. false)
-Step 1:  c(true; z. with handler {return x -> x, a(x; k) -> (fun u -> k x), b(x; k) -> (fun y -> y)} handle false)
-Result:  c(true; z. with handler {return x -> x, a(x; k) -> (fun u -> k x), b(x; k) -> (fun y -> y)} handle false)
+Step 0:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle print(true; z. false)
+Step 1:  print(true; z. with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle false)
+Result:  print(true; z. with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle false)

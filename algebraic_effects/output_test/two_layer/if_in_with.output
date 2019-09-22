@@ -1,5 +1,5 @@
-Step 0:  with handler {return x -> x, a(x; k) -> x} handle if true then (fun x -> x) else (fun y -> y)
-Step 1:  with handler {return x -> x, a(x; k) -> x} handle (fun x -> x)
-Step 1:  with handler {return x -> x, a(x; k) -> x} handle (fun x -> x)
+Step 0:  with handler {return x -> x, read(x; k) -> x} handle if true then (fun x -> x) else (fun y -> y)
+Step 1:  with handler {return x -> x, read(x; k) -> x} handle (fun x -> x)
+Step 1:  with handler {return x -> x, read(x; k) -> x} handle (fun x -> x)
 Step 2:  fun x -> x
 Result:  fun x -> x
