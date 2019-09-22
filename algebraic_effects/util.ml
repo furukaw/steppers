@@ -39,7 +39,8 @@ let rec subst2 : c_t -> (string * v_t * string * v_t) -> c_t =
     | Op (name, v, y, c) ->
       Op (name, v, y, if y = var1 || y = var2 then c else subst2 c targets)    
     | Do (x, c1, c2) ->
-      Do (x, subst2 c1 targets, subst2 c2 targets)
+      Do (x, subst2 c1 targets,
+          if x = var1 || x = var2 then c2 else subst2 c2 targets)
     | If (v, c1, c2) ->
       If (subst2_value v targets, subst2 c1 targets, subst2 c2 targets)
     | App (v1, v2) ->
@@ -76,7 +77,8 @@ let var_name_examples =
   let rec a_to_w i =
     if i > 119 then [] else Char.escaped (Char.chr i) :: a_to_w (i + 1) in
   let rec x_to_z i =
-    if i > 122 then a_to_w 97 else Char.escaped (Char.chr i) :: x_to_z (i + 1) in
+    if i > 122 then a_to_w 97
+    else Char.escaped (Char.chr i) :: x_to_z (i + 1) in
   x_to_z 120
 
 (* 使われている変数リストに新しい変数名を追加する *)
@@ -115,7 +117,7 @@ and record_var_name_value (value : v_t) : unit = match value with
   | Fun (x, c) -> add_var_name x; record_var_name c
   | Handler (h) -> record_var_name_handler h
   | _ -> ()
-  
+
 (* プログラム内でまだ使われていない変数名を生成して返す *)
 let gen_var_name () =
   let new_var =
