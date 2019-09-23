@@ -44,7 +44,7 @@ rule token = parse
 | "join" { JOIN }
 | digit+                        (* 数字が１個以上 *)
 	 { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }
-| lower+(alpha | digit)*
+| (lower | '_')+(alpha | digit)*
   	 { VAR (Lexing.lexeme lexbuf) }
 | eof	 { EOF }                (* 入力終了 *)
 | _	 { failwith ("unknown token: " ^ Lexing.lexeme lexbuf) }

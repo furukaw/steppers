@@ -52,7 +52,7 @@ let prior_inside (c : c_t) : int = match c with
   | Return (Handler _) -> prior_handler_inside
   | Return (Op2 _) -> 0
   | Return _ -> 79
-  | Op _ -> 80
+  | Op _ -> 65
   | Do _ -> 19
   | Seq _ -> 50
   | If _ -> 19

@@ -5,7 +5,8 @@ let rec subst (com : c_t) (var : string) (value : v_t) : c_t =
   match com with
   | Return (v) -> Return (subst_value v var value)
   | Op (name, v, y, c) ->
-    Op (name, v, y, if y = var then c else subst c var value)
+    Op (name, subst_value v var value, y,
+        if y = var then c else subst c var value)
   | Do (x, c1, c2) ->
     Do (x, subst c1 var value, if x = var then c2 else subst c2 var value)
   | If (v, c1, c2) ->

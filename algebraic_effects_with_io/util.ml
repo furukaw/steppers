@@ -38,6 +38,7 @@ and subst_value (v : v_t) (var : string) (value : v_t) : v_t = match v with
   | Var (x) -> if x = var then value else v
   | Fun (x, c) -> if x = var then v else Fun (x, subst c var value)
   | Handler (h) -> Handler (subst_handler h var value)
+  | Pair (v1, v2) -> Pair (subst_value v1 var value, subst_value v2 var value)
   | Op2 (op, v1, v2) ->
     Op2 (op, subst_value v1 var value, subst_value v2 var value)
   | _ -> v

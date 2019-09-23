@@ -1,7 +1,6 @@
 #!/bin/bash
 DIR=~/lab/steppers/algebraic_effects_with_io
 TEST_DIR=$DIR/output_test
-TMP_FILE=$DIR/tmp-testing.txt
 PROGRAM=$DIR/interpreter
 
 success=0
@@ -16,12 +15,14 @@ for classification in $TEST_DIR/*; do
 	then input_file=$path.input
 	else input_file=""
 	fi
-	cat $file | $PROGRAM -n $input_file >$TMP_FILE 2>&1
+	result_file=$path.result
+	cat $file | $PROGRAM -n $input_file >$result_file 2>&1
 	if [ ! -e "$path.output" ]; then
 	    echo "No $class_name/$name.output found"
-	elif [ -z "`diff $TMP_FILE $path.output`" ]; then
+	elif [ -z "`diff $result_file $path.output`" ]; then
 	    let success++
 	    echo "Passed: $class_name/$name"
+	    rm $result_file
 	else
 	    let failure++
 	    printf "\e[31mFailed: ${class_name}/${name}\n\e[m"
@@ -33,7 +34,7 @@ for classification in $TEST_DIR/*; do
 	    printf "\e[m"
 	    echo "----- Your output ---------------------------------"
 	    printf "\e[31m"
-	    cat $TMP_FILE
+	    cat $result_file
 	    printf "\e[m"
 	    echo "---------------------------------------------------"
 	    echo ""
@@ -42,4 +43,3 @@ for classification in $TEST_DIR/*; do
 done
 printf "\e[32m${success} tests passed\n"
 printf "\e[31m${failure} tests failed\n\e[m"
-rm $TMP_FILE

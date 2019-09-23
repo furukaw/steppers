@@ -1,0 +1,2 @@
+with handler {print(s; k) -> k (); print s}
+handle (print "A"; print "B"; print "C")
