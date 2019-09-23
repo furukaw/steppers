@@ -54,12 +54,7 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
     f c2 ctxt
   | If (_, _, _) -> failwith ("type error: " ^ c_to_string com)
   | App (Fun (x, c), v) ->
-    let v' = match v with
-      | Op2 (op, v1, v2) ->
-        let reduct_op = do_op2 op v1 v2 in
-        memo (App (Fun (x, c), v)) (App (Fun (x, c), reduct_op)) ctxt;
-        reduct_op
-      | _ -> v in
+    let v' = eval_value v (CApp1 (Fun (x, c), ctxt)) in
     let redex = App (Fun (x, c), v') in
     let reduct = subst c x v' in
     memo redex reduct ctxt;
