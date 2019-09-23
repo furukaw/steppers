@@ -8,6 +8,7 @@ open Syntax
 %token LPAREN RPAREN
 %token TRUE FALSE FUN RIGHT HANDLER LBRACK RBRACK COMMA RETURN SEMI DOT DO LEFT IN IF THEN ELSE WITH HANDLE
 %token READ PRINT
+%token JOIN
 %token <string> STRING
 %token <int> NUMBER
 /* これは、数字には int 型の値が伴うことを示している */
@@ -23,11 +24,13 @@ open Syntax
 
 /* 演算子の優先順位を指定する */
 /* 下に行くほど強く結合する */
+%right DO IN
+%left SEMI
 %right FUN RIGHT
 %nonassoc HANDLER
 %nonassoc WITH HANDLE
-%right DO IN
 %right IF THEN ELSE
+%left JOIN
 %right RETURN
 /* nonassoc は結合なし（毎回、かっこを書かなくてはならない）、
    left は左結合、right は右結合 */
@@ -42,6 +45,14 @@ core_value:
         { True }
 | FALSE
         { False }
+| STRING
+        { String ($1) }
+| LPAREN RPAREN
+        { Unit }
+| LPAREN value COMMA value RPAREN
+        { Pair ($2, $4) }
+| op
+        { Fun ("x", Op ($1, Var ("x"), "y", Return (Var "y"))) }
 
 value_without_pq:
 | core_value
@@ -50,6 +61,8 @@ value_without_pq:
         { Fun ($2, $4) }
 | HANDLER LBRACK handler RBRACK
         { Handler ($3) }
+| op2 simple_value simple_value
+        { Op2 ($1, $2, $3) }
 
 simple_value:
 | core_value
@@ -63,21 +76,27 @@ value:
 | LPAREN value_without_pq RPAREN
         { $2 }
 
-com:
-| value
-        { Return ($1) }
+com_without_value:
 | RETURN value
         { Return ($2) }
-| op LPAREN value SEMI VAR DOT com RPAREN
-        { Op ($1, $3, $5, $7) }
 | DO pattern LEFT com IN com
         { Do ($2, $4, $6) }
+| com SEMI com
+        { Seq ($1, $3) }
 | IF value THEN com ELSE com
         { If ($2, $4, $6) }
 | simple_value simple_value
         { App ($1, $2) }
 | WITH value HANDLE com
         { With ($2, $4) }
+
+com:
+| value
+        { Return ($1) }
+| com_without_value
+        { $1 }
+| LPAREN com_without_value RPAREN
+        { $2 }
 
 handler:
 | handler_return COMMA handler_ops
@@ -110,3 +129,7 @@ op:
         { Read }
 | PRINT
         { Print }
+
+op2:
+| JOIN
+        { Join }

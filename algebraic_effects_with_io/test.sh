@@ -9,10 +9,14 @@ failure=0
 
 for classification in $TEST_DIR/*; do
     class_name=`basename $classification`
-    for file in $classification/*.input; do
-	name=`basename ${file} .input`
+    for file in $classification/*.txt; do
+	name=`basename ${file} .txt`
 	path=$classification/$name
-	cat $file | $PROGRAM -n >$TMP_FILE 2>&1
+	if [ -e "$path.input" ]
+	then input_file=$path.input
+	else input_file=""
+	fi
+	cat $file | $PROGRAM -n $input_file >$TMP_FILE 2>&1
 	if [ ! -e "$path.output" ]; then
 	    echo "No $class_name/$name.output found"
 	elif [ -z "`diff $TMP_FILE $path.output`" ]; then

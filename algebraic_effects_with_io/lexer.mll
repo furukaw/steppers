@@ -41,6 +41,7 @@ rule token = parse
 	   STRING (String.sub s 1 (String.length s - 2)) }
 | "read" { READ }
 | "print" { PRINT }
+| "join" { JOIN }
 | digit+                        (* 数字が１個以上 *)
 	 { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }
 | lower+(alpha | digit)*

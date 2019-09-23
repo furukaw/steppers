@@ -1,3 +1,14 @@
-Step 0:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle print(true; z. false)
-Step 1:  print(true; z. with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle false)
-Result:  print(true; z. with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle false)
+Step 0:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle (fun x -> print(x; y. y)) "ho"
+Step 1:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle print("ho"; y. y)
+Step 1:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle print("ho"; y. y)
+Step 2:  print("ho"; y. with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle y)
+Step 2:  print("ho"; y. with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle y)
+Step 3:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle ()
+  Output:  ho
+
+Step 3:  with handler {return x -> x, read(x; k) -> (fun u -> k x)} handle ()
+  Output:  ho
+Step 4:  ()
+  Output:  ho
+
+Result:  ()

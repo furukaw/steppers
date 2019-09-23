@@ -14,7 +14,7 @@ type v_t = Var of string                   (* 変数 *)
          | String of string                (* 文字列定数 *)
          | Unit                            (* () *)
          | Pair of v_t * v_t               (* (v, v) *)
-         | DefinedFun of defined_fun_t     (* 組み込み関数 *)
+         | Op2 of defined_fun_t * v_t * v_t  (* 組み込み二項演算子 *)
 
 (* handler の型 *)
 and h_t  = (string * c_t) option *              (* return 節 *)
@@ -24,7 +24,7 @@ and h_t  = (string * c_t) option *              (* return 節 *)
 and c_t = Return of v_t                      (* 値 *)
         | Op of op_t * v_t * string * c_t    (* オペレーション呼び出し *)
         | Do of pattern_t * c_t * c_t        (* 束縛付き逐次実行 *)
-        | Seq of c_t * c_t                  (* 逐次実行 *)
+        | Seq of c_t * c_t                   (* 逐次実行 *)
         | If of v_t * c_t * c_t              (* 条件分岐 *)
         | App of v_t * v_t                   (* 関数適用 *)
         | With of v_t * c_t                  (* ハンドリング *)
@@ -33,6 +33,7 @@ and c_t = Return of v_t                      (* 値 *)
 let prior_outside_value (v : v_t) : int = match v with
   | Fun _ -> 100
   | Handler _ -> 10
+  | Op2 _ -> 55
   | _ -> 0
 let prior_outside (c : c_t) : int = match c with
   | Return _ -> 0
@@ -49,6 +50,7 @@ let prior_handler_inside = 81
 let prior_inside (c : c_t) : int = match c with
   | Return (Fun _) -> 99
   | Return (Handler _) -> prior_handler_inside
+  | Return (Op2 _) -> 0
   | Return _ -> 79
   | Op _ -> 80
   | Do _ -> 19
@@ -60,6 +62,8 @@ let prior_inside (c : c_t) : int = match c with
 let op_to_string (op : op_t) : string = match op with
   | Read -> "read"
   | Print -> "print"
+
+let fun_to_string (f : defined_fun_t) : string = "join"
 
 let rec pattern_to_string (pat : pattern_t) : string = match pat with
   | PVar (x) -> x
@@ -98,7 +102,8 @@ and v_to_string (v : v_t) (n : int) : string =
     | String (s) -> "\"" ^ s ^ "\""
     | Unit -> "()"
     | Pair (v1, v2) -> "(" ^ v_to_string v1 p ^ ", " ^ v_to_string v2 p ^ ")"
-    | DefinedFun (Join) -> "join"
+    | Op2 (op, v1, v2) ->
+      fun_to_string op ^ " " ^ v_to_string v1 p ^ " " ^ v_to_string v2 p
   in
   if prior_outside_value v <= n
   then str

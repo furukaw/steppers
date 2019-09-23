@@ -9,7 +9,8 @@ let rec subst (com : c_t) (var : string) (value : v_t) : c_t =
   match com with
   | Return (v) -> Return (subst_value v var value)
   | Op (name, v, y, c) ->
-    Op (name, v, y, if y = var then c else subst c var value)
+    Op (name, subst_value v var value, y,
+        if y = var then c else subst c var value)
   | Do (p, c1, c2) ->
     Do (p, subst c1 var value, if exists p var then c2 else subst c2 var value)
   | Seq (c1, c2) ->
@@ -37,6 +38,8 @@ and subst_value (v : v_t) (var : string) (value : v_t) : v_t = match v with
   | Var (x) -> if x = var then value else v
   | Fun (x, c) -> if x = var then v else Fun (x, subst c var value)
   | Handler (h) -> Handler (subst_handler h var value)
+  | Op2 (op, v1, v2) ->
+    Op2 (op, subst_value v1 var value, subst_value v2 var value)
   | _ -> v
 
 let rec subst_all (com : c_t) (pairs : (string * v_t) list) : c_t =
@@ -86,6 +89,8 @@ and subst_all_value (value : v_t) (pairs : (string * v_t) list) : v_t =
   | Handler (h) -> Handler (subst_all_handler h pairs)
   | Pair (v1, v2) ->
     Pair (subst_all_value v1 pairs, subst_all_value v2 pairs)
+  | Op2 (op, v1, v2) ->
+    Op2 (op, subst_all_value v1 pairs, subst_all_value v2 pairs)
   | _ -> value
 
 let rec flatten_pattern (pat : pattern_t) (value : v_t) : (string * v_t) list =
@@ -149,6 +154,7 @@ and record_var_name_handler ((return_opt, op_lst) : h_t) : unit =
 and record_var_name_value (value : v_t) : unit = match value with
   | Fun (x, c) -> add_var_name x; record_var_name c
   | Handler (h) -> record_var_name_handler h
+  | Op2 (op, v1, v2) -> record_var_name_value v1; record_var_name_value v2
   | _ -> ()
   
 (* プログラム内でまだ使われていない変数名を生成して返す *)

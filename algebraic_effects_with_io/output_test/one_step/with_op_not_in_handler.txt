@@ -1,2 +1,2 @@
 with handler {return x -> x, read(x; k) -> (fun u -> k x)}
-handle print(true; z. false)
+handle print "ho"

@@ -1,2 +1,0 @@
-with handler {return x -> x, read(x; k) -> (fun u -> k x), print(x; k) -> fun y -> y}
-handle read(true; z. false)
