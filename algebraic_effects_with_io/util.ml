@@ -21,6 +21,8 @@ let rec subst (com : c_t) (var : string) (value : v_t) : c_t =
     App (subst_value v1 var value, subst_value v2 var value)
   | With (v, c) ->
     With (subst_value v var value, subst c var value)
+  | Op2 (op, v1, v2) ->
+    Op2 (op, subst_value v1 var value, subst_value v2 var value)
 
 and subst_handler (handler : h_t) (var : string) (value : v_t) : h_t =
   match handler with (return_opt, op_lst) ->
@@ -39,8 +41,6 @@ and subst_value (v : v_t) (var : string) (value : v_t) : v_t = match v with
   | Fun (x, c) -> if x = var then v else Fun (x, subst c var value)
   | Handler (h) -> Handler (subst_handler h var value)
   | Pair (v1, v2) -> Pair (subst_value v1 var value, subst_value v2 var value)
-  | Op2 (op, v1, v2) ->
-    Op2 (op, subst_value v1 var value, subst_value v2 var value)
   | _ -> v
 
 let rec subst_all (com : c_t) (pairs : (string * v_t) list) : c_t =
@@ -62,6 +62,8 @@ let rec subst_all (com : c_t) (pairs : (string * v_t) list) : c_t =
     App (subst_all_value v1 pairs, subst_all_value v2 pairs)
   | With (v, c) ->
     With (subst_all_value v pairs, subst_all c pairs)
+  | Op2 (op, v1, v2) ->
+    Op2 (op, subst_all_value v1 pairs, subst_all_value v2 pairs)
 
 and subst_all_handler (handler : h_t) (pairs : (string * v_t) list) : h_t =
   match handler with (return_opt, op_lst) ->
@@ -90,8 +92,6 @@ and subst_all_value (value : v_t) (pairs : (string * v_t) list) : v_t =
   | Handler (h) -> Handler (subst_all_handler h pairs)
   | Pair (v1, v2) ->
     Pair (subst_all_value v1 pairs, subst_all_value v2 pairs)
-  | Op2 (op, v1, v2) ->
-    Op2 (op, subst_all_value v1 pairs, subst_all_value v2 pairs)
   | _ -> value
 
 let rec flatten_pattern (pat : pattern_t) (value : v_t) : (string * v_t) list =
@@ -140,6 +140,7 @@ let rec record_var_name (com : c_t) : unit = match com with
     record_var_name_value v; record_var_name c1; record_var_name c2
   | App (v1, v2) -> record_var_name_value v1; record_var_name_value v2
   | With (v, c) -> record_var_name_value v; record_var_name c
+  | Op2 (op, v1, v2) -> record_var_name_value v1; record_var_name_value v2
 
 and record_var_name_handler ((return_opt, op_lst) : h_t) : unit =
   begin
@@ -155,7 +156,6 @@ and record_var_name_handler ((return_opt, op_lst) : h_t) : unit =
 and record_var_name_value (value : v_t) : unit = match value with
   | Fun (x, c) -> add_var_name x; record_var_name c
   | Handler (h) -> record_var_name_handler h
-  | Op2 (op, v1, v2) -> record_var_name_value v1; record_var_name_value v2
   | _ -> ()
   
 (* プログラム内でまだ使われていない変数名を生成して返す *)

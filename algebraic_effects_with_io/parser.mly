@@ -61,8 +61,6 @@ value_without_pq:
         { Fun ($2, $4) }
 | HANDLER LBRACK handler RBRACK
         { Handler ($3) }
-| op2 simple_value simple_value
-        { Op2 ($1, $2, $3) }
 
 simple_value:
 | core_value
@@ -89,6 +87,8 @@ com_without_value:
         { App ($1, $2) }
 | WITH value HANDLE com
         { With ($2, $4) }
+| op2 simple_value simple_value
+        { Op2 ($1, $2, $3) }
 
 com:
 | value

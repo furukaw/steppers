@@ -1,141 +1,152 @@
-Step 0:  (fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-Step 1:  print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-Step 1:  print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-Step 2:  print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 2:  print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 3:  (); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 0:  (fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+Step 1:  print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+Step 1:  print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+Step 2:  print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 2:  print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 3:  (); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
 
-Step 3:  (); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 3:  (); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
-Step 4:  do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-  Output:  What is your forename?
-
-Step 4:  do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-  Output:  What is your forename?
-Step 5:  do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 4:  do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
 
-Step 5:  do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 4:  do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
-Step 6:  read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
+Step 5:  do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+
+Step 5:  do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+Step 6:  read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
   Output:  What is your forename?
 
 new input> Kenichi
 
-Step 6:  read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
+Step 6:  read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
   Output:  What is your forename?
-Step 7:  do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 7:  do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Input:   Kenichi
   Output:  What is your forename?
 
-Step 7:  do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 7:  do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Input:   Kenichi
   Output:  What is your forename?
-Step 8:  (fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
-  Input:   Kenichi
-  Output:  What is your forename?
-
-Step 8:  (fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
-  Input:   Kenichi
-  Output:  What is your forename?
-Step 9:  print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
+Step 8:  (fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
 
-Step 9:  print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
+Step 8:  (fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
-Step 10:  print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)))
+Step 9:  print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
 
-Step 10:  print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)))
+Step 9:  print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
-Step 11:  (); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
+Step 10:  print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 10:  print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 11:  (); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
            What is your surname?
 
-Step 11:  (); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
+Step 11:  (); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
            What is your surname?
-Step 12:  do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
-  Input:   Kenichi
-  Output:  What is your forename?
-           What is your surname?
-
-Step 12:  do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)
-  Input:   Kenichi
-  Output:  What is your forename?
-           What is your surname?
-Step 13:  do surname <- read((); y. y) in (fun x -> print(x; y. y)) (join "Kenichi" surname)
+Step 12:  do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
            What is your surname?
 
-Step 13:  do surname <- read((); y. y) in (fun x -> print(x; y. y)) (join "Kenichi" surname)
+Step 12:  do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
   Output:  What is your forename?
            What is your surname?
-Step 14:  read((); y. do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname))
+Step 13:  do surname <- read((); y. y) in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 13:  do surname <- read((); y. y) in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 14:  read((); y. do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
   Input:   Kenichi
   Output:  What is your forename?
            What is your surname?
 
 new input> Asai
 
-Step 14:  read((); y. do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname))
+Step 14:  read((); y. do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
   Input:   Kenichi
   Output:  What is your forename?
            What is your surname?
-Step 15:  do surname <- "Asai" in (fun x -> print(x; y. y)) (join "Kenichi" surname)
-  Input:   Kenichi
-           Asai
-  Output:  What is your forename?
-           What is your surname?
-
-Step 15:  do surname <- "Asai" in (fun x -> print(x; y. y)) (join "Kenichi" surname)
-  Input:   Kenichi
-           Asai
-  Output:  What is your forename?
-           What is your surname?
-Step 16:  (fun x -> print(x; y. y)) (join "Kenichi" "Asai")
+Step 15:  do surname <- "Asai" in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
            Asai
   Output:  What is your forename?
            What is your surname?
 
-Step 16:  (fun x -> print(x; y. y)) (join "Kenichi" "Asai")
+Step 15:  do surname <- "Asai" in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
   Input:   Kenichi
            Asai
   Output:  What is your forename?
            What is your surname?
-Step 17:  (fun x -> print(x; y. y)) "Kenichi Asai"
-  Input:   Kenichi
-           Asai
-  Output:  What is your forename?
-           What is your surname?
-
-Step 17:  (fun x -> print(x; y. y)) "Kenichi Asai"
-  Input:   Kenichi
-           Asai
-  Output:  What is your forename?
-           What is your surname?
-Step 18:  print("Kenichi Asai"; y. y)
+Step 16:  do fullname <- (join "Kenichi" "Asai") in (fun x -> print(x; y. y)) fullname
   Input:   Kenichi
            Asai
   Output:  What is your forename?
            What is your surname?
 
-Step 18:  print("Kenichi Asai"; y. y)
+Step 16:  do fullname <- (join "Kenichi" "Asai") in (fun x -> print(x; y. y)) fullname
   Input:   Kenichi
            Asai
   Output:  What is your forename?
            What is your surname?
-Step 19:  ()
+Step 17:  do fullname <- "Kenichi Asai" in (fun x -> print(x; y. y)) fullname
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 17:  do fullname <- "Kenichi Asai" in (fun x -> print(x; y. y)) fullname
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 18:  (fun x -> print(x; y. y)) "Kenichi Asai"
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 18:  (fun x -> print(x; y. y)) "Kenichi Asai"
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 19:  print("Kenichi Asai"; y. y)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 19:  print("Kenichi Asai"; y. y)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 20:  ()
   Input:   Kenichi
            Asai
   Output:  What is your forename?

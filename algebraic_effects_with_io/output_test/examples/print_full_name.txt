@@ -2,4 +2,5 @@ print "What is your forename?";
 do forename <- read () in
 print "What is your surname?";
 do surname <- read () in
-print (join forename surname)
+do fullname <- join forename surname in
+print fullname

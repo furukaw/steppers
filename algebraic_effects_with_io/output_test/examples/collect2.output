@@ -1,213 +1,241 @@
-Step 0:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in main ""
-Step 1:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in main ""
-Step 1:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in main ""
-Step 2:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))) in main ""
-Step 2:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))) in main ""
-Step 3:  do main <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) () in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 3:  do main <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) () in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 4:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 4:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 5:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 5:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 6:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 6:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 7:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 7:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 8:  do main <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 8:  do main <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 9:  do main <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 9:  do main <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-Step 10:  read((); y. do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main "")
+Step 0:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in main ""
+Step 1:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in main ""
+Step 1:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in main ""
+Step 2:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))) in main ""
+Step 2:  do main <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))) in main ""
+Step 3:  do main <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) () in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 3:  do main <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) () in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 4:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 4:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 5:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 5:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 6:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 6:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 7:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 7:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 8:  do main <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 8:  do main <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 9:  do main <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 9:  do main <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+Step 10:  read((); y. do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main "")
 new input> Kenichi
 
-Step 10:  read((); y. do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main "")
-Step 11:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 10:  read((); y. do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main "")
+Step 11:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 11:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 11:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 12:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-
-Step 12:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-Step 13:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 12:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 13:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 12:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 14:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-
-Step 14:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-Step 15:  do main <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) () in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 13:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 15:  do main <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) () in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 13:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 16:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-
-Step 16:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ((); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-Step 17:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 14:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 17:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 14:  do main <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 18:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- read((); y. y) in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-
-Step 18:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- read((); y. y) in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-Step 19:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle read((); y. do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 15:  do main <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) () in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 19:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle read((); y. do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 15:  do main <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) () in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 20:  do main <- (do f <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-
-Step 20:  do main <- (do f <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-Step 21:  do main <- (do f <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 16:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 21:  do main <- (do f <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 16:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ((); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 22:  do main <- read((); y. do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 17:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
 
-Step 22:  do main <- read((); y. do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 17:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
-Step 23:  read((); y. do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main "")
+Step 18:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- read((); y. y) in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+
+Step 18:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- read((); y. y) in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+Step 19:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle read((); y. do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+
+Step 19:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle read((); y. do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+Step 20:  do main <- (do f <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+
+Step 20:  do main <- (do f <- (do f <- read((); y. with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+Step 21:  do main <- (do f <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+
+Step 21:  do main <- (do f <- read((); y. do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+Step 22:  do main <- read((); y. do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+
+Step 22:  do main <- read((); y. do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+Step 23:  read((); y. do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main "")
   Input:   Kenichi
 
 new input> Asai
 
-Step 23:  read((); y. do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- y in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main "")
+Step 23:  read((); y. do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main "")
   Input:   Kenichi
-Step 24:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- "Asai" in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-
-Step 24:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle do surname <- "Asai" in (fun x -> print(x; y. y)) (join "Kenichi" surname)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-Step 25:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (fun x -> print(x; y. y)) (join "Kenichi" "Asai")) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 24:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- "Asai" in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 25:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (fun x -> print(x; y. y)) (join "Kenichi" "Asai")) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 24:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do surname <- "Asai" in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 26:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (fun x -> print(x; y. y)) "Kenichi Asai") in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-
-Step 26:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle (fun x -> print(x; y. y)) "Kenichi Asai") in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-Step 27:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle print("Kenichi Asai"; y. y)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 25:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do fullname <- (join "Kenichi" "Asai") in (fun x -> print(x; y. y)) fullname) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 27:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle print("Kenichi Asai"; y. y)) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 25:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do fullname <- (join "Kenichi" "Asai") in (fun x -> print(x; y. y)) fullname) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 28:  do main <- (do f <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle y) () in (fun acc -> f (join acc "Kenichi Asai"))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-
-Step 28:  do main <- (do f <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle y) () in (fun acc -> f (join acc "Kenichi Asai"))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-Step 29:  do main <- (do f <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ()) in (fun acc -> f (join acc "Kenichi Asai"))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 26:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do fullname <- "Kenichi Asai" in (fun x -> print(x; y. y)) fullname) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 29:  do main <- (do f <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> f (join acc s))} handle ()) in (fun acc -> f (join acc "Kenichi Asai"))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 26:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle do fullname <- "Kenichi Asai" in (fun x -> print(x; y. y)) fullname) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 30:  do main <- (do f <- (do f <- (do f <- (fun acc -> ((), acc)) in (fun acc -> f (join acc "Kenichi Asai"))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-
-Step 30:  do main <- (do f <- (do f <- (do f <- (fun acc -> ((), acc)) in (fun acc -> f (join acc "Kenichi Asai"))) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-Step 31:  do main <- (do f <- (do f <- (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 27:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (fun x -> print(x; y. y)) "Kenichi Asai") in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 31:  do main <- (do f <- (do f <- (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) in (fun acc -> f (join acc "What is your surname?"))) in (fun acc -> f (join acc "What is your forename?"))) in main ""
+Step 27:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle (fun x -> print(x; y. y)) "Kenichi Asai") in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 32:  do main <- (do f <- (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-
-Step 32:  do main <- (do f <- (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) in (fun acc -> f (join acc "What is your forename?"))) in main ""
-  Input:   Kenichi
-           Asai
-Step 33:  do main <- (fun acc -> (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) (join acc "What is your forename?")) in main ""
+Step 28:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle print("Kenichi Asai"; y. y)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 33:  do main <- (fun acc -> (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) (join acc "What is your forename?")) in main ""
+Step 28:  do main <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle print("Kenichi Asai"; y. y)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 34:  (fun acc -> (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) (join acc "What is your forename?")) ""
-  Input:   Kenichi
-           Asai
-
-Step 34:  (fun acc -> (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) (join acc "What is your forename?")) ""
-  Input:   Kenichi
-           Asai
-Step 35:  (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) (join "" "What is your forename?")
+Step 29:  do main <- (do f <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle y) () in (fun acc -> do joined <- (join acc "Kenichi Asai") in f joined)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 35:  (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) (join "" "What is your forename?")
+Step 29:  do main <- (do f <- (do f <- (do f <- (fun y -> with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle y) () in (fun acc -> do joined <- (join acc "Kenichi Asai") in f joined)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 36:  (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) "What is your forename?"
-  Input:   Kenichi
-           Asai
-
-Step 36:  (fun acc -> (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join acc "What is your surname?")) "What is your forename?"
-  Input:   Kenichi
-           Asai
-Step 37:  (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join "What is your forename?" "What is your surname?")
+Step 30:  do main <- (do f <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ()) in (fun acc -> do joined <- (join acc "Kenichi Asai") in f joined)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 37:  (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) (join "What is your forename?" "What is your surname?")
+Step 30:  do main <- (do f <- (do f <- (do f <- (with handler {return x -> (fun acc -> (x, acc)), print(s; k) -> do f <- k () in (fun acc -> do joined <- (join acc s) in f joined)} handle ()) in (fun acc -> do joined <- (join acc "Kenichi Asai") in f joined)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 38:  (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) "What is your forename? What is your surname?"
-  Input:   Kenichi
-           Asai
-
-Step 38:  (fun acc -> (fun acc -> ((), acc)) (join acc "Kenichi Asai")) "What is your forename? What is your surname?"
-  Input:   Kenichi
-           Asai
-Step 39:  (fun acc -> ((), acc)) (join "What is your forename? What is your surname?" "Kenichi Asai")
+Step 31:  do main <- (do f <- (do f <- (do f <- (fun acc -> ((), acc)) in (fun acc -> do joined <- (join acc "Kenichi Asai") in f joined)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 39:  (fun acc -> ((), acc)) (join "What is your forename? What is your surname?" "Kenichi Asai")
+Step 31:  do main <- (do f <- (do f <- (do f <- (fun acc -> ((), acc)) in (fun acc -> do joined <- (join acc "Kenichi Asai") in f joined)) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 40:  (fun acc -> ((), acc)) "What is your forename? What is your surname? Kenichi Asai"
+Step 32:  do main <- (do f <- (do f <- (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
 
-Step 40:  (fun acc -> ((), acc)) "What is your forename? What is your surname? Kenichi Asai"
+Step 32:  do main <- (do f <- (do f <- (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) in (fun acc -> do joined <- (join acc "What is your surname?") in f joined)) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
   Input:   Kenichi
            Asai
-Step 41:  ((), "What is your forename? What is your surname? Kenichi Asai")
+Step 33:  do main <- (do f <- (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+           Asai
+
+Step 33:  do main <- (do f <- (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) in (fun acc -> do joined <- (join acc "What is your forename?") in f joined)) in main ""
+  Input:   Kenichi
+           Asai
+Step 34:  do main <- (fun acc -> do joined <- (join acc "What is your forename?") in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined) in main ""
+  Input:   Kenichi
+           Asai
+
+Step 34:  do main <- (fun acc -> do joined <- (join acc "What is your forename?") in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined) in main ""
+  Input:   Kenichi
+           Asai
+Step 35:  (fun acc -> do joined <- (join acc "What is your forename?") in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined) ""
+  Input:   Kenichi
+           Asai
+
+Step 35:  (fun acc -> do joined <- (join acc "What is your forename?") in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined) ""
+  Input:   Kenichi
+           Asai
+Step 36:  do joined <- (join "" "What is your forename?") in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined
+  Input:   Kenichi
+           Asai
+
+Step 36:  do joined <- (join "" "What is your forename?") in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined
+  Input:   Kenichi
+           Asai
+Step 37:  do joined <- "What is your forename?" in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined
+  Input:   Kenichi
+           Asai
+
+Step 37:  do joined <- "What is your forename?" in (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) joined
+  Input:   Kenichi
+           Asai
+Step 38:  (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) "What is your forename?"
+  Input:   Kenichi
+           Asai
+
+Step 38:  (fun acc -> do joined <- (join acc "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined) "What is your forename?"
+  Input:   Kenichi
+           Asai
+Step 39:  do joined <- (join "What is your forename?" "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined
+  Input:   Kenichi
+           Asai
+
+Step 39:  do joined <- (join "What is your forename?" "What is your surname?") in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined
+  Input:   Kenichi
+           Asai
+Step 40:  do joined <- "What is your forename? What is your surname?" in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined
+  Input:   Kenichi
+           Asai
+
+Step 40:  do joined <- "What is your forename? What is your surname?" in (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) joined
+  Input:   Kenichi
+           Asai
+Step 41:  (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) "What is your forename? What is your surname?"
+  Input:   Kenichi
+           Asai
+
+Step 41:  (fun acc -> do joined <- (join acc "Kenichi Asai") in (fun acc -> ((), acc)) joined) "What is your forename? What is your surname?"
+  Input:   Kenichi
+           Asai
+Step 42:  do joined <- (join "What is your forename? What is your surname?" "Kenichi Asai") in (fun acc -> ((), acc)) joined
+  Input:   Kenichi
+           Asai
+
+Step 42:  do joined <- (join "What is your forename? What is your surname?" "Kenichi Asai") in (fun acc -> ((), acc)) joined
+  Input:   Kenichi
+           Asai
+Step 43:  do joined <- "What is your forename? What is your surname? Kenichi Asai" in (fun acc -> ((), acc)) joined
+  Input:   Kenichi
+           Asai
+
+Step 43:  do joined <- "What is your forename? What is your surname? Kenichi Asai" in (fun acc -> ((), acc)) joined
+  Input:   Kenichi
+           Asai
+Step 44:  (fun acc -> ((), acc)) "What is your forename? What is your surname? Kenichi Asai"
+  Input:   Kenichi
+           Asai
+
+Step 44:  (fun acc -> ((), acc)) "What is your forename? What is your surname? Kenichi Asai"
+  Input:   Kenichi
+           Asai
+Step 45:  ((), "What is your forename? What is your surname? Kenichi Asai")
   Input:   Kenichi
            Asai
 

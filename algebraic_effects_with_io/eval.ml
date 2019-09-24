@@ -9,22 +9,6 @@ let do_op2 (op : defined_fun_t) (arg1 : v_t) (arg2 : v_t) : v_t =
     if s1 = "" || s2 = "" then String (s1 ^ s2) else String (s1 ^ " " ^ s2)
   | _ -> failwith "type error in op2"
 
-(* join のせいで生まれた関数 *)
-let rec eval_value (value : v_t) (ctxt : cvalue_t) : v_t =
-  match value with
-  | Pair (v1, v2) ->
-    let v2' = eval_value v2 (CPair2 (v1, ctxt)) in
-    let v1' = eval_value v1 (CPair1 (v2', ctxt)) in
-    Pair (v1', v2')
-  | Op2 (op, v1, v2) ->
-    let v2' = eval_value v2 (CPair2 (v1, ctxt)) in
-    let v1' = eval_value v1 (CPair1 (v2', ctxt)) in
-    let redex = Op2 (op, v1', v2') in
-    let reduct = do_op2 op v1' v2' in
-    memo_for_value redex reduct ctxt;
-    reduct
-  | _ -> value
-
 (* 式とコンテキストの情報を受け取って評価して値を返す *)
 (* 簡約ごとに簡約の内容を標準出力する *)
 let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
@@ -54,10 +38,8 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
     f c2 ctxt
   | If (_, _, _) -> failwith ("type error: " ^ c_to_string com)
   | App (Fun (x, c), v) ->
-    let v' = eval_value v (CApp1 (Fun (x, c), ctxt)) in
-    let redex = App (Fun (x, c), v') in
-    let reduct = subst c x v' in
-    memo redex reduct ctxt;
+    let reduct = subst c x v in
+    memo com reduct ctxt;
     f reduct ctxt
   | App (_, _) -> failwith ("type error: " ^ c_to_string com)
   | With (Handler (h), c) ->
@@ -87,9 +69,8 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
         memo com reduct ~input:input ~output:output ctxt;
         f reduct ctxt
     end
-  | Return (Op2 (op, v1, v2)) ->
+  | Op2 (op, v1, v2) ->
     let reduct = Return (do_op2 op v1 v2) in
     memo com reduct ctxt;
     reduct
-  | Return (v) -> Return (eval_value v (CReturn ctxt))
-
+  | Return _ -> com

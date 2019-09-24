@@ -2,7 +2,8 @@ with handler {
     return x -> return (x, ""),
     print(s; k) ->
         do (x, acc) <- k () in
-        return (x, join s acc)
+        do joined <- join s acc in
+        return (x, joined)
 } handle (
     with handler {print(s; k) -> k (); print s}
     handle (print "A"; print "B"; print "C")

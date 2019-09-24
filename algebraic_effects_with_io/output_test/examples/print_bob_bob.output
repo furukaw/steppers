@@ -1,144 +1,151 @@
-Step 0:  do h <- (fun s -> handler {read(_; k) -> k s}) "Bob" in (with h handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 1:  do h <- handler {read(_; k) -> k "Bob"} in (with h handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 1:  do h <- handler {read(_; k) -> k "Bob"} in (with h handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 2:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
-Step 2:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
-Step 3:  with handler {read(_; k) -> k "Bob"} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
-Step 3:  with handler {read(_; k) -> k "Bob"} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
-Step 4:  with handler {read(_; k) -> k "Bob"} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 4:  with handler {read(_; k) -> k "Bob"} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 5:  print("What is your forename?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 5:  print("What is your forename?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))))
-Step 6:  with handler {read(_; k) -> k "Bob"} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
+Step 0:  do h <- (fun s -> handler {read(_; k) -> k s}) "Bob" in (with h handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 1:  do h <- handler {read(_; k) -> k "Bob"} in (with h handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 1:  do h <- handler {read(_; k) -> k "Bob"} in (with h handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 2:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 2:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 3:  with handler {read(_; k) -> k "Bob"} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 3:  with handler {read(_; k) -> k "Bob"} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 4:  with handler {read(_; k) -> k "Bob"} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 4:  with handler {read(_; k) -> k "Bob"} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 5:  print("What is your forename?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 5:  print("What is your forename?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 6:  with handler {read(_; k) -> k "Bob"} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
   Output:  What is your forename?
 
-Step 6:  with handler {read(_; k) -> k "Bob"} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
+Step 6:  with handler {read(_; k) -> k "Bob"} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
   Output:  What is your forename?
-Step 7:  with handler {read(_; k) -> k "Bob"} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-  Output:  What is your forename?
-
-Step 7:  with handler {read(_; k) -> k "Bob"} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-  Output:  What is your forename?
-Step 8:  with handler {read(_; k) -> k "Bob"} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 7:  with handler {read(_; k) -> k "Bob"} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
 
-Step 8:  with handler {read(_; k) -> k "Bob"} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
+Step 7:  with handler {read(_; k) -> k "Bob"} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
-Step 9:  with handler {read(_; k) -> k "Bob"} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
-  Output:  What is your forename?
-
-Step 9:  with handler {read(_; k) -> k "Bob"} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname)))
-  Output:  What is your forename?
-Step 10:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) "Bob"
+Step 8:  with handler {read(_; k) -> k "Bob"} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
 
-Step 10:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))) "Bob"
+Step 8:  with handler {read(_; k) -> k "Bob"} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
-Step 11:  with handler {read(_; k) -> k "Bob"} handle do forename <- "Bob" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-  Output:  What is your forename?
-
-Step 11:  with handler {read(_; k) -> k "Bob"} handle do forename <- "Bob" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join forename surname))
-  Output:  What is your forename?
-Step 12:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname))
+Step 9:  with handler {read(_; k) -> k "Bob"} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
   Output:  What is your forename?
 
-Step 12:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname))
+Step 9:  with handler {read(_; k) -> k "Bob"} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
   Output:  What is your forename?
-Step 13:  with handler {read(_; k) -> k "Bob"} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname))
-  Output:  What is your forename?
-
-Step 13:  with handler {read(_; k) -> k "Bob"} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname))
-  Output:  What is your forename?
-Step 14:  with handler {read(_; k) -> k "Bob"} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname)))
+Step 10:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) "Bob"
   Output:  What is your forename?
 
-Step 14:  with handler {read(_; k) -> k "Bob"} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname)))
+Step 10:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) "Bob"
   Output:  What is your forename?
-Step 15:  print("What is your surname?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname)))
+Step 11:  with handler {read(_; k) -> k "Bob"} handle do forename <- "Bob" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
 
-Step 15:  print("What is your surname?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname)))
+Step 11:  with handler {read(_; k) -> k "Bob"} handle do forename <- "Bob" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
-Step 16:  with handler {read(_; k) -> k "Bob"} handle ((); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname))
+Step 12:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+
+Step 12:  with handler {read(_; k) -> k "Bob"} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+Step 13:  with handler {read(_; k) -> k "Bob"} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+
+Step 13:  with handler {read(_; k) -> k "Bob"} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+Step 14:  with handler {read(_; k) -> k "Bob"} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+
+Step 14:  with handler {read(_; k) -> k "Bob"} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+Step 15:  print("What is your surname?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+
+Step 15:  print("What is your surname?"; y. with handler {read(_; k) -> k "Bob"} handle (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+Step 16:  with handler {read(_; k) -> k "Bob"} handle ((); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
            What is your surname?
 
-Step 16:  with handler {read(_; k) -> k "Bob"} handle ((); do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname))
+Step 16:  with handler {read(_; k) -> k "Bob"} handle ((); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
            What is your surname?
-Step 17:  with handler {read(_; k) -> k "Bob"} handle do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname)
-  Output:  What is your forename?
-           What is your surname?
-
-Step 17:  with handler {read(_; k) -> k "Bob"} handle do surname <- (fun x -> read(x; y. y)) () in (fun x -> print(x; y. y)) (join "Bob" surname)
-  Output:  What is your forename?
-           What is your surname?
-Step 18:  with handler {read(_; k) -> k "Bob"} handle do surname <- read((); y. y) in (fun x -> print(x; y. y)) (join "Bob" surname)
+Step 17:  with handler {read(_; k) -> k "Bob"} handle do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)
   Output:  What is your forename?
            What is your surname?
 
-Step 18:  with handler {read(_; k) -> k "Bob"} handle do surname <- read((); y. y) in (fun x -> print(x; y. y)) (join "Bob" surname)
+Step 17:  with handler {read(_; k) -> k "Bob"} handle do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)
   Output:  What is your forename?
            What is your surname?
-Step 19:  with handler {read(_; k) -> k "Bob"} handle read((); y. do surname <- y in (fun x -> print(x; y. y)) (join "Bob" surname))
-  Output:  What is your forename?
-           What is your surname?
-
-Step 19:  with handler {read(_; k) -> k "Bob"} handle read((); y. do surname <- y in (fun x -> print(x; y. y)) (join "Bob" surname))
-  Output:  What is your forename?
-           What is your surname?
-Step 20:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do surname <- y in (fun x -> print(x; y. y)) (join "Bob" surname)) "Bob"
+Step 18:  with handler {read(_; k) -> k "Bob"} handle do surname <- read((); y. y) in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)
   Output:  What is your forename?
            What is your surname?
 
-Step 20:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do surname <- y in (fun x -> print(x; y. y)) (join "Bob" surname)) "Bob"
+Step 18:  with handler {read(_; k) -> k "Bob"} handle do surname <- read((); y. y) in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)
   Output:  What is your forename?
            What is your surname?
-Step 21:  with handler {read(_; k) -> k "Bob"} handle do surname <- "Bob" in (fun x -> print(x; y. y)) (join "Bob" surname)
-  Output:  What is your forename?
-           What is your surname?
-
-Step 21:  with handler {read(_; k) -> k "Bob"} handle do surname <- "Bob" in (fun x -> print(x; y. y)) (join "Bob" surname)
-  Output:  What is your forename?
-           What is your surname?
-Step 22:  with handler {read(_; k) -> k "Bob"} handle (fun x -> print(x; y. y)) (join "Bob" "Bob")
+Step 19:  with handler {read(_; k) -> k "Bob"} handle read((); y. do surname <- y in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
            What is your surname?
 
-Step 22:  with handler {read(_; k) -> k "Bob"} handle (fun x -> print(x; y. y)) (join "Bob" "Bob")
+Step 19:  with handler {read(_; k) -> k "Bob"} handle read((); y. do surname <- y in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname))
   Output:  What is your forename?
            What is your surname?
-Step 23:  with handler {read(_; k) -> k "Bob"} handle (fun x -> print(x; y. y)) "Bob Bob"
-  Output:  What is your forename?
-           What is your surname?
-
-Step 23:  with handler {read(_; k) -> k "Bob"} handle (fun x -> print(x; y. y)) "Bob Bob"
-  Output:  What is your forename?
-           What is your surname?
-Step 24:  with handler {read(_; k) -> k "Bob"} handle print("Bob Bob"; y. y)
+Step 20:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do surname <- y in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)) "Bob"
   Output:  What is your forename?
            What is your surname?
 
-Step 24:  with handler {read(_; k) -> k "Bob"} handle print("Bob Bob"; y. y)
+Step 20:  (fun y -> with handler {read(_; k) -> k "Bob"} handle do surname <- y in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)) "Bob"
   Output:  What is your forename?
            What is your surname?
-Step 25:  print("Bob Bob"; y. with handler {read(_; k) -> k "Bob"} handle y)
+Step 21:  with handler {read(_; k) -> k "Bob"} handle do surname <- "Bob" in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)
   Output:  What is your forename?
            What is your surname?
 
-Step 25:  print("Bob Bob"; y. with handler {read(_; k) -> k "Bob"} handle y)
+Step 21:  with handler {read(_; k) -> k "Bob"} handle do surname <- "Bob" in (do fullname <- (join "Bob" surname) in (fun x -> print(x; y. y)) fullname)
   Output:  What is your forename?
            What is your surname?
-Step 26:  with handler {read(_; k) -> k "Bob"} handle ()
+Step 22:  with handler {read(_; k) -> k "Bob"} handle do fullname <- (join "Bob" "Bob") in (fun x -> print(x; y. y)) fullname
+  Output:  What is your forename?
+           What is your surname?
+
+Step 22:  with handler {read(_; k) -> k "Bob"} handle do fullname <- (join "Bob" "Bob") in (fun x -> print(x; y. y)) fullname
+  Output:  What is your forename?
+           What is your surname?
+Step 23:  with handler {read(_; k) -> k "Bob"} handle do fullname <- "Bob Bob" in (fun x -> print(x; y. y)) fullname
+  Output:  What is your forename?
+           What is your surname?
+
+Step 23:  with handler {read(_; k) -> k "Bob"} handle do fullname <- "Bob Bob" in (fun x -> print(x; y. y)) fullname
+  Output:  What is your forename?
+           What is your surname?
+Step 24:  with handler {read(_; k) -> k "Bob"} handle (fun x -> print(x; y. y)) "Bob Bob"
+  Output:  What is your forename?
+           What is your surname?
+
+Step 24:  with handler {read(_; k) -> k "Bob"} handle (fun x -> print(x; y. y)) "Bob Bob"
+  Output:  What is your forename?
+           What is your surname?
+Step 25:  with handler {read(_; k) -> k "Bob"} handle print("Bob Bob"; y. y)
+  Output:  What is your forename?
+           What is your surname?
+
+Step 25:  with handler {read(_; k) -> k "Bob"} handle print("Bob Bob"; y. y)
+  Output:  What is your forename?
+           What is your surname?
+Step 26:  print("Bob Bob"; y. with handler {read(_; k) -> k "Bob"} handle y)
+  Output:  What is your forename?
+           What is your surname?
+
+Step 26:  print("Bob Bob"; y. with handler {read(_; k) -> k "Bob"} handle y)
+  Output:  What is your forename?
+           What is your surname?
+Step 27:  with handler {read(_; k) -> k "Bob"} handle ()
   Output:  What is your forename?
            What is your surname?
            Bob Bob
 
-Step 26:  with handler {read(_; k) -> k "Bob"} handle ()
+Step 27:  with handler {read(_; k) -> k "Bob"} handle ()
   Output:  What is your forename?
            What is your surname?
            Bob Bob
-Step 27:  ()
+Step 28:  ()
   Output:  What is your forename?
            What is your surname?
            Bob Bob
