@@ -1,0 +1,16 @@
+Step 0:  do x <- (fun x -> read(x; y. y)) () in x
+Step 1:  do x <- read((); y. y) in x
+Step 1:  do x <- read((); y. y) in x
+Step 2:  read((); y. do x <- y in x)
+new input> aza
+
+Step 2:  read((); y. do x <- y in x)
+Step 3:  do x <- "aza" in x
+  Input:   aza
+
+Step 3:  do x <- "aza" in x
+  Input:   aza
+Step 4:  "aza"
+  Input:   aza
+
+Result:  "aza"

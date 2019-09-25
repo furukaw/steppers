@@ -1,0 +1,7 @@
+Step 0:  (fun x -> print(x; y. y)) "fo"
+Step 1:  print("fo"; y. y)
+Step 1:  print("fo"; y. y)
+Step 2:  ()
+  Output:  fo
+
+Result:  ()

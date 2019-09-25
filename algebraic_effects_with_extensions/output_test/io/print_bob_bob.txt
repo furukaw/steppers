@@ -1,0 +1,10 @@
+do h <- (fun s -> handler {read(_; k) -> k s}) "Bob" in
+with h
+handle (
+print "What is your forename?";
+do forename <- read () in
+print "What is your surname?";
+do surname <- read () in
+do fullname <- join forename surname in
+print fullname
+)

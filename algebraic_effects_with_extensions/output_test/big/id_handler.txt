@@ -1,0 +1,9 @@
+with handler {read(s; k) -> do result <- read s in k result}
+handle (
+print "What is your forename?";
+do forename <- read () in
+print "What is your surname?";
+do surname <- read () in
+do fullname <- join forename surname in
+print fullname
+)

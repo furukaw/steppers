@@ -1,0 +1,86 @@
+Step 0:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (((fun x -> print(x; y. y)) "A"; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")
+Step 1:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((print("A"; y. y); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")
+Step 1:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((print("A"; y. y); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")
+Step 2:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (print("A"; y. (y; (fun x -> print(x; y. y)) "B")); (fun x -> print(x; y. y)) "C")
+Step 2:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (print("A"; y. (y; (fun x -> print(x; y. y)) "B")); (fun x -> print(x; y. y)) "C")
+Step 3:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle print("A"; y. ((y; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C"))
+Step 3:  with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle print("A"; y. ((y; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C"))
+Step 4:  (fun y -> with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((y; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")) (); (fun x -> print(x; y. y)) "A"
+Step 4:  (fun y -> with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((y; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")) (); (fun x -> print(x; y. y)) "A"
+Step 5:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (((); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "A"
+Step 5:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (((); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "A"
+Step 6:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((fun x -> print(x; y. y)) "B"; (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "A"
+Step 6:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((fun x -> print(x; y. y)) "B"; (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "A"
+Step 7:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (print("B"; y. y); (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "A"
+Step 7:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (print("B"; y. y); (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "A"
+Step 8:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle print("B"; y. (y; (fun x -> print(x; y. y)) "C"))); (fun x -> print(x; y. y)) "A"
+Step 8:  (with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle print("B"; y. (y; (fun x -> print(x; y. y)) "C"))); (fun x -> print(x; y. y)) "A"
+Step 9:  ((fun y -> with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (y; (fun x -> print(x; y. y)) "C")) (); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 9:  ((fun y -> with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (y; (fun x -> print(x; y. y)) "C")) (); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 10:  ((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((); (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 10:  ((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ((); (fun x -> print(x; y. y)) "C")); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 11:  ((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 11:  ((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 12:  ((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle print("C"; y. y)); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 12:  ((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle print("C"; y. y)); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 13:  (((fun y -> with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle y) (); (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 13:  (((fun y -> with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle y) (); (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 14:  (((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ()); (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 14:  (((with handler {print(s; k) -> k (); (fun x -> print(x; y. y)) s} handle ()); (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 15:  (((); (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 15:  (((); (fun x -> print(x; y. y)) "C"); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 16:  ((fun x -> print(x; y. y)) "C"; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 16:  ((fun x -> print(x; y. y)) "C"; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 17:  (print("C"; y. y); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 17:  (print("C"; y. y); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+Step 18:  print("C"; y. (y; (fun x -> print(x; y. y)) "B")); (fun x -> print(x; y. y)) "A"
+Step 18:  print("C"; y. (y; (fun x -> print(x; y. y)) "B")); (fun x -> print(x; y. y)) "A"
+Step 19:  print("C"; y. ((y; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"))
+Step 19:  print("C"; y. ((y; (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"))
+Step 20:  ((); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+  Output:  C
+
+Step 20:  ((); (fun x -> print(x; y. y)) "B"); (fun x -> print(x; y. y)) "A"
+  Output:  C
+Step 21:  (fun x -> print(x; y. y)) "B"; (fun x -> print(x; y. y)) "A"
+  Output:  C
+
+Step 21:  (fun x -> print(x; y. y)) "B"; (fun x -> print(x; y. y)) "A"
+  Output:  C
+Step 22:  print("B"; y. y); (fun x -> print(x; y. y)) "A"
+  Output:  C
+
+Step 22:  print("B"; y. y); (fun x -> print(x; y. y)) "A"
+  Output:  C
+Step 23:  print("B"; y. (y; (fun x -> print(x; y. y)) "A"))
+  Output:  C
+
+Step 23:  print("B"; y. (y; (fun x -> print(x; y. y)) "A"))
+  Output:  C
+Step 24:  (); (fun x -> print(x; y. y)) "A"
+  Output:  C
+           B
+
+Step 24:  (); (fun x -> print(x; y. y)) "A"
+  Output:  C
+           B
+Step 25:  (fun x -> print(x; y. y)) "A"
+  Output:  C
+           B
+
+Step 25:  (fun x -> print(x; y. y)) "A"
+  Output:  C
+           B
+Step 26:  print("A"; y. y)
+  Output:  C
+           B
+
+Step 26:  print("A"; y. y)
+  Output:  C
+           B
+Step 27:  ()
+  Output:  C
+           B
+           A
+
+Result:  ()

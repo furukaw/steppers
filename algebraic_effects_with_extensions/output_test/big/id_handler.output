@@ -1,0 +1,267 @@
+Step 0:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((fun x -> print(x; y. y)) "What is your forename?"; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 1:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 1:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (print("What is your forename?"; y. y); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+Step 2:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 2:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle print("What is your forename?"; y. (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 3:  print("What is your forename?"; y. with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 3:  print("What is your forename?"; y. with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (y; do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))))
+Step 4:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+
+Step 4:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((); do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+Step 5:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+
+Step 5:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- (fun x -> read(x; y. y)) () in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+Step 6:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+
+Step 6:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- read((); y. y) in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Output:  What is your forename?
+Step 7:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+
+Step 7:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle read((); y. do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname)))
+  Output:  What is your forename?
+Step 8:  do result <- (fun x -> read(x; y. y)) () in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result
+  Output:  What is your forename?
+
+Step 8:  do result <- (fun x -> read(x; y. y)) () in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result
+  Output:  What is your forename?
+Step 9:  do result <- read((); y. y) in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result
+  Output:  What is your forename?
+
+Step 9:  do result <- read((); y. y) in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result
+  Output:  What is your forename?
+Step 10:  read((); y. do result <- y in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result)
+  Output:  What is your forename?
+
+new input> Kenichi
+
+Step 10:  read((); y. do result <- y in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result)
+  Output:  What is your forename?
+Step 11:  do result <- "Kenichi" in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 11:  do result <- "Kenichi" in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) result
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 12:  (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) "Kenichi"
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 12:  (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- y in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))) "Kenichi"
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 13:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 13:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do forename <- "Kenichi" in ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join forename surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 14:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 14:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((fun x -> print(x; y. y)) "What is your surname?"; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 15:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 15:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (print("What is your surname?"; y. y); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 16:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 16:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle print("What is your surname?"; y. (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 17:  print("What is your surname?"; y. with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))
+  Input:   Kenichi
+  Output:  What is your forename?
+
+Step 17:  print("What is your surname?"; y. with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (y; do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)))
+  Input:   Kenichi
+  Output:  What is your forename?
+Step 18:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 18:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ((); do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 19:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 19:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- (fun x -> read(x; y. y)) () in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 20:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- read((); y. y) in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 20:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- read((); y. y) in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 21:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle read((); y. do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 21:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle read((); y. do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname))
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 22:  do result <- (fun x -> read(x; y. y)) () in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 22:  do result <- (fun x -> read(x; y. y)) () in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 23:  do result <- read((); y. y) in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+Step 23:  do result <- read((); y. y) in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 24:  read((); y. do result <- y in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+
+new input> Asai
+
+Step 24:  read((); y. do result <- y in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result)
+  Input:   Kenichi
+  Output:  What is your forename?
+           What is your surname?
+Step 25:  do result <- "Asai" in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 25:  do result <- "Asai" in (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) result
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 26:  (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) "Asai"
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 26:  (fun y -> with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- y in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)) "Asai"
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 27:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- "Asai" in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 27:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do surname <- "Asai" in (do fullname <- (join "Kenichi" surname) in (fun x -> print(x; y. y)) fullname)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 28:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do fullname <- (join "Kenichi" "Asai") in (fun x -> print(x; y. y)) fullname
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 28:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do fullname <- (join "Kenichi" "Asai") in (fun x -> print(x; y. y)) fullname
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 29:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do fullname <- "Kenichi Asai" in (fun x -> print(x; y. y)) fullname
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 29:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle do fullname <- "Kenichi Asai" in (fun x -> print(x; y. y)) fullname
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 30:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (fun x -> print(x; y. y)) "Kenichi Asai"
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 30:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle (fun x -> print(x; y. y)) "Kenichi Asai"
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 31:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle print("Kenichi Asai"; y. y)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 31:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle print("Kenichi Asai"; y. y)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 32:  print("Kenichi Asai"; y. with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle y)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+
+Step 32:  print("Kenichi Asai"; y. with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle y)
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+Step 33:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ()
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+           Kenichi Asai
+
+Step 33:  with handler {read(s; k) -> do result <- (fun x -> read(x; y. y)) s in k result} handle ()
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+           Kenichi Asai
+Step 34:  ()
+  Input:   Kenichi
+           Asai
+  Output:  What is your forename?
+           What is your surname?
+           Kenichi Asai
+
+Result:  ()

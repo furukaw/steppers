@@ -1,0 +1,9 @@
+Step 0:  do default <- (fun x -> handler {raise(_; _) -> x}) "raised" in (with default handle (fun x -> raise(x; y. y)) "go")
+Step 1:  do default <- handler {raise(_; _) -> "raised"} in (with default handle (fun x -> raise(x; y. y)) "go")
+Step 1:  do default <- handler {raise(_; _) -> "raised"} in (with default handle (fun x -> raise(x; y. y)) "go")
+Step 2:  with handler {raise(_; _) -> "raised"} handle (fun x -> raise(x; y. y)) "go"
+Step 2:  with handler {raise(_; _) -> "raised"} handle (fun x -> raise(x; y. y)) "go"
+Step 3:  with handler {raise(_; _) -> "raised"} handle raise("go"; y. y)
+Step 3:  with handler {raise(_; _) -> "raised"} handle raise("go"; y. y)
+Step 4:  "raised"
+Result:  "raised"

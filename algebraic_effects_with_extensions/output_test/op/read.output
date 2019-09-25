@@ -1,0 +1,9 @@
+Step 0:  (fun x -> read(x; y. y)) ()
+Step 1:  read((); y. y)
+new input> wa
+
+Step 1:  read((); y. y)
+Step 2:  "wa"
+  Input:   wa
+
+Result:  "wa"

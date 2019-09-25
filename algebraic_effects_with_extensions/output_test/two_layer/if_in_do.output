@@ -1,0 +1,5 @@
+Step 0:  do x <- (if true then (fun x -> x) else (fun y -> y)) in x
+Step 1:  do x <- (fun x -> x) in x
+Step 1:  do x <- (fun x -> x) in x
+Step 2:  fun x -> x
+Result:  fun x -> x
