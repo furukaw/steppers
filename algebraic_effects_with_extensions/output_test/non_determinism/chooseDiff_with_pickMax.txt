@@ -1,0 +1,20 @@
+do pickMax <-
+    handler {
+        decide (_; k) ->
+            do xt <- k true in
+            do xf <- k false in
+            do result <- max (xt, xf) in
+            return result
+    }
+in
+do choose <-
+    fun (x, y) ->
+        do b <- decide () in
+        if b then (return x) else (return y)
+in
+with pickMax handle (
+    do x1 <- choose (15, 30) in
+    do x2 <- choose (5, 10) in
+    do result <- x1 - x2 in
+    return result
+)

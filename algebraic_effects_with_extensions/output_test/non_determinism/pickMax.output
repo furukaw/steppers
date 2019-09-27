@@ -1,0 +1,1 @@
+Result:  handler {decide(_; k) -> do xt <- k true in (do xf <- k false in (do result <- max (xt, xf) in result))}

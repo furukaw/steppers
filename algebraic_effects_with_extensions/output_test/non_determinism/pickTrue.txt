@@ -1,0 +1,1 @@
+handler {decide(_; k) -> k true}

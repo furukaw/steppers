@@ -23,6 +23,8 @@ let rec subst (com : c_t) (var : string) (value : v_t) : c_t =
     With (subst_value v var value, subst c var value)
   | Op2 (op, v1, v2) ->
     Op2 (op, subst_value v1 var value, subst_value v2 var value)
+  | Op1 (op, v) ->
+    Op1 (op, subst_value v var value)
 
 and subst_handler (handler : h_t) (var : string) (value : v_t) : h_t =
   match handler with (return_opt, op_lst) ->
@@ -38,7 +40,7 @@ and subst_handler (handler : h_t) (var : string) (value : v_t) : h_t =
 
 and subst_value (v : v_t) (var : string) (value : v_t) : v_t = match v with
   | Var (x) -> if x = var then value else v
-  | Fun (x, c) -> if x = var then v else Fun (x, subst c var value)
+  | Fun (p, c) -> if exists p var then v else Fun (p, subst c var value)
   | Handler (h) -> Handler (subst_handler h var value)
   | Pair (v1, v2) -> Pair (subst_value v1 var value, subst_value v2 var value)
   | _ -> v
@@ -47,7 +49,7 @@ let rec subst_all (com : c_t) (pairs : (string * v_t) list) : c_t =
   match com with
   | Return (v) -> Return (subst_all_value v pairs)
   | Op (op, v, y, c) ->
-    Op (op, v, y,
+    Op (op, subst_all_value v pairs, y,
         if List.exists (fun (var, _) -> var = y) pairs
         then c else subst_all c pairs)
   | Do (p, c1, c2) ->
@@ -64,6 +66,8 @@ let rec subst_all (com : c_t) (pairs : (string * v_t) list) : c_t =
     With (subst_all_value v pairs, subst_all c pairs)
   | Op2 (op, v1, v2) ->
     Op2 (op, subst_all_value v1 pairs, subst_all_value v2 pairs)
+  | Op1 (op, v) ->
+    Op1 (op, subst_all_value v pairs)
 
 and subst_all_handler (handler : h_t) (pairs : (string * v_t) list) : h_t =
   match handler with (return_opt, op_lst) ->
@@ -86,9 +90,9 @@ and subst_all_value (value : v_t) (pairs : (string * v_t) list) : v_t =
   | Var (x) -> begin
       try snd (List.find (fun (var, _) -> var = x) pairs)
       with Not_found -> value end
-  | Fun (x, c) ->
-    if List.exists (fun (var, _) -> var = x) pairs
-    then value else Fun (x, subst_all c pairs)
+  | Fun (p, c) ->
+    if List.exists (fun (var, _) -> exists p var) pairs
+    then value else Fun (p, subst_all c pairs)
   | Handler (h) -> Handler (subst_all_handler h pairs)
   | Pair (v1, v2) ->
     Pair (subst_all_value v1 pairs, subst_all_value v2 pairs)
@@ -128,8 +132,6 @@ let rec add_var_names (pat : pattern_t) : unit = match pat with
 
 (* 式を受け取ってその中の変数名を !var_names に追加する *)
 let rec record_var_name (com : c_t) : unit = match com with
-  | Return (Fun (x, c)) -> add_var_name x; record_var_name c
-  | Return (Handler (h)) -> record_var_name_handler h
   | Return (v) -> record_var_name_value v
   | Op (name, v, y, c) ->
     record_var_name_value v;
@@ -141,6 +143,7 @@ let rec record_var_name (com : c_t) : unit = match com with
   | App (v1, v2) -> record_var_name_value v1; record_var_name_value v2
   | With (v, c) -> record_var_name_value v; record_var_name c
   | Op2 (op, v1, v2) -> record_var_name_value v1; record_var_name_value v2
+  | Op1 (op, v) -> record_var_name_value v
 
 and record_var_name_handler ((return_opt, op_lst) : h_t) : unit =
   begin
@@ -154,7 +157,7 @@ and record_var_name_handler ((return_opt, op_lst) : h_t) : unit =
     op_lst
 
 and record_var_name_value (value : v_t) : unit = match value with
-  | Fun (x, c) -> add_var_name x; record_var_name c
+  | Fun (p, c) -> add_var_names p; record_var_name c
   | Handler (h) -> record_var_name_handler h
   | _ -> ()
   

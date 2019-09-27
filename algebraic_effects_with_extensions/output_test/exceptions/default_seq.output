@@ -1,0 +1,37 @@
+Step 0:  do default <- (fun x -> handler {raise(_; _) -> x}) "raised" in (with default handle (((fun x -> print(x; y. y)) "a"; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 1:  do default <- handler {raise(_; _) -> "raised"} in (with default handle (((fun x -> print(x; y. y)) "a"; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 1:  do default <- handler {raise(_; _) -> "raised"} in (with default handle (((fun x -> print(x; y. y)) "a"; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 2:  with handler {raise(_; _) -> "raised"} handle (((fun x -> print(x; y. y)) "a"; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b")
+Step 2:  with handler {raise(_; _) -> "raised"} handle (((fun x -> print(x; y. y)) "a"; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b")
+Step 3:  with handler {raise(_; _) -> "raised"} handle ((print("a"; y. y); (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b")
+Step 3:  with handler {raise(_; _) -> "raised"} handle ((print("a"; y. y); (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b")
+Step 4:  with handler {raise(_; _) -> "raised"} handle (print("a"; y. (y; (fun x -> raise(x; y. y)) "go")); (fun x -> print(x; y. y)) "b")
+Step 4:  with handler {raise(_; _) -> "raised"} handle (print("a"; y. (y; (fun x -> raise(x; y. y)) "go")); (fun x -> print(x; y. y)) "b")
+Step 5:  with handler {raise(_; _) -> "raised"} handle print("a"; y. ((y; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 5:  with handler {raise(_; _) -> "raised"} handle print("a"; y. ((y; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 6:  print("a"; y. with handler {raise(_; _) -> "raised"} handle ((y; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 6:  print("a"; y. with handler {raise(_; _) -> "raised"} handle ((y; (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b"))
+Step 7:  with handler {raise(_; _) -> "raised"} handle (((); (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b")
+  Output:  a
+
+Step 7:  with handler {raise(_; _) -> "raised"} handle (((); (fun x -> raise(x; y. y)) "go"); (fun x -> print(x; y. y)) "b")
+  Output:  a
+Step 8:  with handler {raise(_; _) -> "raised"} handle ((fun x -> raise(x; y. y)) "go"; (fun x -> print(x; y. y)) "b")
+  Output:  a
+
+Step 8:  with handler {raise(_; _) -> "raised"} handle ((fun x -> raise(x; y. y)) "go"; (fun x -> print(x; y. y)) "b")
+  Output:  a
+Step 9:  with handler {raise(_; _) -> "raised"} handle (raise("go"; y. y); (fun x -> print(x; y. y)) "b")
+  Output:  a
+
+Step 9:  with handler {raise(_; _) -> "raised"} handle (raise("go"; y. y); (fun x -> print(x; y. y)) "b")
+  Output:  a
+Step 10:  with handler {raise(_; _) -> "raised"} handle raise("go"; y. (y; (fun x -> print(x; y. y)) "b"))
+  Output:  a
+
+Step 10:  with handler {raise(_; _) -> "raised"} handle raise("go"; y. (y; (fun x -> print(x; y. y)) "b"))
+  Output:  a
+Step 11:  "raised"
+  Output:  a
+
+Result:  "raised"

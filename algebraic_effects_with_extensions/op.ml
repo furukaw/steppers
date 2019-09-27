@@ -28,4 +28,5 @@ let do_op (op : op_t) (arg : v_t) : op_result_t = match (op, arg) with
     (Unit, None, Some (s))
   | (Raise, String (s)) ->
     raise (Raise s)
+  | (Decide, Unit) -> failwith ("no behavior defined for decide")
   | _ -> failwith ("type error in " ^ op_to_string op)

@@ -3,11 +3,18 @@ open Util
 open Context
 open Op
 
-let do_op2 (op : defined_fun_t) (arg1 : v_t) (arg2 : v_t) : v_t =
+let do_op2 (op : defined_fun2_t) (arg1 : v_t) (arg2 : v_t) : v_t =
   match (op, arg1, arg2) with
   | (Join, String (s1), String (s2)) ->
     if s1 = "" || s2 = "" then String (s1 ^ s2) else String (s1 ^ " " ^ s2)
+  | (Plus, Int (n1), Int (n2)) -> Int (n1 + n2)
+  | (Minus, Int (n1), Int (n2)) -> Int (n1 - n2)
   | _ -> failwith "type error in op2"
+
+let do_op1 (op : defined_fun1_t) (arg : v_t) : v_t =
+  match (op, arg) with
+  | (Max, Pair(Int (n1), Int (n2))) -> Int (max n1 n2)
+  | _ -> failwith "type error in op1"
 
 (* 式とコンテキストの情報を受け取って評価して値を返す *)
 (* 簡約ごとに簡約の内容を標準出力する *)
@@ -37,8 +44,8 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
     memo com c2 ctxt;
     f c2 ctxt
   | If (_, _, _) -> failwith ("type error: " ^ c_to_string com)
-  | App (Fun (x, c), v) ->
-    let reduct = subst c x v in
+  | App (Fun (p, c), v) ->
+    let reduct = subst_pattern c p v in
     memo com reduct ctxt;
     f reduct ctxt
   | App (_, _) -> failwith ("type error: " ^ c_to_string com)
@@ -51,7 +58,7 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
           try
             let (_, x, k, c_n) =
               List.find (fun (n, _, _, _) -> n = name) op_lst in
-            subst_all c_n [(x, v); (k, Fun (y, With (Handler (h), c)))]
+            subst_all c_n [(x, v); (k, Fun (PVar y, With (Handler (h), c)))]
           with Not_found -> Op (name, v, y, With (Handler (h), c))
         end
       | _ -> failwith "type error" in
@@ -71,6 +78,10 @@ let rec f (com : c_t) (ctxt : ctx_t) : c_t = match com with
     end
   | Op2 (op, v1, v2) ->
     let reduct = Return (do_op2 op v1 v2) in
+    memo com reduct ctxt;
+    reduct
+  | Op1 (op, v) ->
+    let reduct = Return (do_op1 op v) in
     memo com reduct ctxt;
     reduct
   | Return _ -> com

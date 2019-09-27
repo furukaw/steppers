@@ -1,8 +1,13 @@
 type op_t = Read
           | Print
           | Raise
+          | Decide
 
-type defined_fun_t = Join
+type defined_fun2_t = Join
+                    | Plus
+                    | Minus
+
+type defined_fun1_t = Max
 
 type pattern_t = PVar of string                  (* x *)
                | PPair of pattern_t * pattern_t  (* (p, p) *)
@@ -10,8 +15,9 @@ type pattern_t = PVar of string                  (* x *)
 (* value の型 *)
 type v_t = Var of string                   (* 変数 *)
          | True | False                    (* bool 型定数 *)
-         | Fun of string * c_t             (* 関数 *)
+         | Fun of pattern_t * c_t          (* 関数 *)
          | Handler of h_t                  (* ハンドラ *)
+         | Int of int                      (* 整数定数 *)
          | String of string                (* 文字列定数 *)
          | Unit                            (* () *)
          | Pair of v_t * v_t               (* (v, v) *)
@@ -28,7 +34,12 @@ and c_t = Return of v_t                      (* 値 *)
         | If of v_t * c_t * c_t              (* 条件分岐 *)
         | App of v_t * v_t                   (* 関数適用 *)
         | With of v_t * c_t                  (* ハンドリング *)
-        | Op2 of defined_fun_t * v_t * v_t   (* 組み込み二項演算子 *)
+        | Op2 of defined_fun2_t * v_t * v_t   (* 組み込み２引数関数 *)
+        | Op1 of defined_fun1_t * v_t         (* 組み込み１引数関数 *)
+
+let infix (f : defined_fun2_t) : bool = match f with
+  | Join -> false
+  | Plus | Minus -> true
 
 (* 結合の優先順位（大きいほど弱くて括弧を付ける） *)
 let prior_outside_value (v : v_t) : int = match v with
@@ -44,6 +55,7 @@ let prior_outside (c : c_t) : int = match c with
   | App _ -> 0
   | With _ -> 60
   | Op2 _ -> 55
+  | Op1 _ -> 10
 
 let prior_handler_inside = 81
 
@@ -59,13 +71,21 @@ let prior_inside (c : c_t) : int = match c with
   | App _ -> 0
   | With _ -> 59
   | Op2 _ -> 0
+  | Op1 _ -> 0
 
 let op_to_string (op : op_t) : string = match op with
   | Read -> "read"
   | Print -> "print"
   | Raise -> "raise"
+  | Decide -> "decide"
 
-let fun_to_string (f : defined_fun_t) : string = "join"
+let op2_to_string (f : defined_fun2_t) : string = match f with
+  | Join -> "join "
+  | Plus -> " + "
+  | Minus -> " - "
+
+let op1_to_string (f : defined_fun1_t) : string = match f with
+  | Max -> "max "
 
 let rec pattern_to_string (pat : pattern_t) : string = match pat with
   | PVar (x) -> x
@@ -99,8 +119,9 @@ and v_to_string (v : v_t) (n : int) : string =
     | Var (x) -> x
     | True -> "true"
     | False -> "false"
-    | Fun (x, c0) -> "fun " ^ x ^ " -> " ^ c_to_string c0 p
+    | Fun (x, c0) -> "fun " ^ pattern_to_string x ^ " -> " ^ c_to_string c0 p
     | Handler (h) -> handler_to_string h
+    | Int (n) -> string_of_int n
     | String (s) -> "\"" ^ s ^ "\""
     | Unit -> "()"
     | Pair (v1, v2) -> "(" ^ v_to_string v1 p ^ ", " ^ v_to_string v2 p ^ ")"
@@ -132,7 +153,11 @@ and c_to_string (c : c_t) (n : int) : string =
       "with " ^ v_to_string v p ^
       " handle " ^ c_to_string c0 p
     | Op2 (op, v1, v2) ->
-      fun_to_string op ^ " " ^ v_to_string v1 p ^ " " ^ v_to_string v2 p
+      if infix op
+      then v_to_string v1 p ^ op2_to_string op ^ v_to_string v2 p
+      else op2_to_string op ^ v_to_string v1 p ^ " " ^ v_to_string v2 p
+    | Op1 (op, v) ->
+      op1_to_string op ^ v_to_string v p
   in
   if prior_outside c <= n
   then str

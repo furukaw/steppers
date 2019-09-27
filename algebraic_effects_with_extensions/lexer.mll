@@ -42,10 +42,14 @@ rule token = parse
 | "read" { READ }
 | "print" { PRINT }
 | "raise" { RAISE }
+| "decide" { DECIDE }
 | "join" { JOIN }
+| "+"    { PLUS }
+| "-"    { MINUS }
+| "max"  { MAX }
 | digit+                        (* 数字が１個以上 *)
 	 { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }
-| (lower | '_')+(alpha | digit)*
+| (lower | '_')+(alpha | digit | '_')*
   	 { VAR (Lexing.lexeme lexbuf) }
 | eof	 { EOF }                (* 入力終了 *)
 | _	 { failwith ("unknown token: " ^ Lexing.lexeme lexbuf) }

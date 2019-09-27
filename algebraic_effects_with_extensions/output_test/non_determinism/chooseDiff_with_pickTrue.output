@@ -1,0 +1,45 @@
+Step 0:  with handler {decide(_; k) -> k true} handle do choose <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) in (do x1 <- choose (15, 30) in (do x2 <- choose (5, 10) in (do result <- (x1 - x2) in result)))
+Step 1:  with handler {decide(_; k) -> k true} handle do x1 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (15, 30) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 1:  with handler {decide(_; k) -> k true} handle do x1 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (15, 30) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 2:  with handler {decide(_; k) -> k true} handle do x1 <- (do b <- (fun x -> decide(x; y. y)) () in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 2:  with handler {decide(_; k) -> k true} handle do x1 <- (do b <- (fun x -> decide(x; y. y)) () in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 3:  with handler {decide(_; k) -> k true} handle do x1 <- (do b <- decide((); y. y) in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 3:  with handler {decide(_; k) -> k true} handle do x1 <- (do b <- decide((); y. y) in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 4:  with handler {decide(_; k) -> k true} handle do x1 <- decide((); y. do b <- y in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 4:  with handler {decide(_; k) -> k true} handle do x1 <- decide((); y. do b <- y in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 5:  with handler {decide(_; k) -> k true} handle decide((); y. do x1 <- (do b <- y in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result)))
+Step 5:  with handler {decide(_; k) -> k true} handle decide((); y. do x1 <- (do b <- y in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result)))
+Step 6:  (fun y -> with handler {decide(_; k) -> k true} handle do x1 <- (do b <- y in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))) true
+Step 6:  (fun y -> with handler {decide(_; k) -> k true} handle do x1 <- (do b <- y in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))) true
+Step 7:  with handler {decide(_; k) -> k true} handle do x1 <- (do b <- true in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 7:  with handler {decide(_; k) -> k true} handle do x1 <- (do b <- true in (if b then 15 else 30)) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 8:  with handler {decide(_; k) -> k true} handle do x1 <- (if true then 15 else 30) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 8:  with handler {decide(_; k) -> k true} handle do x1 <- (if true then 15 else 30) in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 9:  with handler {decide(_; k) -> k true} handle do x1 <- 15 in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 9:  with handler {decide(_; k) -> k true} handle do x1 <- 15 in (do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (x1 - x2) in result))
+Step 10:  with handler {decide(_; k) -> k true} handle do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (15 - x2) in result)
+Step 10:  with handler {decide(_; k) -> k true} handle do x2 <- (fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)) (5, 10) in (do result <- (15 - x2) in result)
+Step 11:  with handler {decide(_; k) -> k true} handle do x2 <- (do b <- (fun x -> decide(x; y. y)) () in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 11:  with handler {decide(_; k) -> k true} handle do x2 <- (do b <- (fun x -> decide(x; y. y)) () in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 12:  with handler {decide(_; k) -> k true} handle do x2 <- (do b <- decide((); y. y) in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 12:  with handler {decide(_; k) -> k true} handle do x2 <- (do b <- decide((); y. y) in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 13:  with handler {decide(_; k) -> k true} handle do x2 <- decide((); y. do b <- y in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 13:  with handler {decide(_; k) -> k true} handle do x2 <- decide((); y. do b <- y in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 14:  with handler {decide(_; k) -> k true} handle decide((); y. do x2 <- (do b <- y in (if b then 5 else 10)) in (do result <- (15 - x2) in result))
+Step 14:  with handler {decide(_; k) -> k true} handle decide((); y. do x2 <- (do b <- y in (if b then 5 else 10)) in (do result <- (15 - x2) in result))
+Step 15:  (fun y -> with handler {decide(_; k) -> k true} handle do x2 <- (do b <- y in (if b then 5 else 10)) in (do result <- (15 - x2) in result)) true
+Step 15:  (fun y -> with handler {decide(_; k) -> k true} handle do x2 <- (do b <- y in (if b then 5 else 10)) in (do result <- (15 - x2) in result)) true
+Step 16:  with handler {decide(_; k) -> k true} handle do x2 <- (do b <- true in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 16:  with handler {decide(_; k) -> k true} handle do x2 <- (do b <- true in (if b then 5 else 10)) in (do result <- (15 - x2) in result)
+Step 17:  with handler {decide(_; k) -> k true} handle do x2 <- (if true then 5 else 10) in (do result <- (15 - x2) in result)
+Step 17:  with handler {decide(_; k) -> k true} handle do x2 <- (if true then 5 else 10) in (do result <- (15 - x2) in result)
+Step 18:  with handler {decide(_; k) -> k true} handle do x2 <- 5 in (do result <- (15 - x2) in result)
+Step 18:  with handler {decide(_; k) -> k true} handle do x2 <- 5 in (do result <- (15 - x2) in result)
+Step 19:  with handler {decide(_; k) -> k true} handle do result <- (15 - 5) in result
+Step 19:  with handler {decide(_; k) -> k true} handle do result <- (15 - 5) in result
+Step 20:  with handler {decide(_; k) -> k true} handle do result <- 10 in result
+Step 20:  with handler {decide(_; k) -> k true} handle do result <- 10 in result
+Step 21:  with handler {decide(_; k) -> k true} handle 10
+Step 21:  with handler {decide(_; k) -> k true} handle 10
+Step 22:  10
+Result:  10

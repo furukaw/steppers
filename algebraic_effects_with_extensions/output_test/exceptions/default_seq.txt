@@ -1,0 +1,4 @@
+do default <- (fun x -> handler {raise (_; _) -> return x}) "raised" in
+with default handle (
+    print "a"; raise "go"; print "b"
+)

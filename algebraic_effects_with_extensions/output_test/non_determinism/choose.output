@@ -1,0 +1,1 @@
+Result:  fun (x, y) -> do b <- (fun x -> decide(x; y. y)) () in (if b then x else y)

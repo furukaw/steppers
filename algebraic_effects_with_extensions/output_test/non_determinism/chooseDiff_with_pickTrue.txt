@@ -1,0 +1,13 @@
+with
+handler {decide(_; k) -> k true}
+handle (
+    do choose <-
+        (fun (x, y) ->
+            do b <- decide () in
+            if b then (return x) else (return y))
+    in
+    do x1 <- choose (15, 30) in
+    do x2 <- choose (5, 10) in
+    do result <- x1 - x2 in
+    return result
+)

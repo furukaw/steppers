@@ -7,8 +7,8 @@ open Syntax
 /* トークンの定義 */
 %token LPAREN RPAREN
 %token TRUE FALSE FUN RIGHT HANDLER LBRACK RBRACK COMMA RETURN SEMI DOT DO LEFT IN IF THEN ELSE WITH HANDLE
-%token READ PRINT RAISE
-%token JOIN
+%token READ PRINT RAISE DECIDE
+%token JOIN PLUS MINUS MAX
 %token <string> STRING
 %token <int> NUMBER
 /* これは、数字には int 型の値が伴うことを示している */
@@ -31,6 +31,7 @@ open Syntax
 %nonassoc WITH HANDLE
 %right IF THEN ELSE
 %left JOIN
+%right PLUS MINUS
 %right RETURN
 /* nonassoc は結合なし（毎回、かっこを書かなくてはならない）、
    left は左結合、right は右結合 */
@@ -45,6 +46,8 @@ core_value:
         { True }
 | FALSE
         { False }
+| NUMBER
+        { Int ($1) }
 | STRING
         { String ($1) }
 | LPAREN RPAREN
@@ -52,12 +55,12 @@ core_value:
 | LPAREN value COMMA value RPAREN
         { Pair ($2, $4) }
 | op
-        { Fun ("x", Op ($1, Var ("x"), "y", Return (Var "y"))) }
+        { Fun (PVar "x", Op ($1, Var ("x"), "y", Return (Var "y"))) }
 
 value_without_pq:
 | core_value
         { $1 }
-| FUN VAR RIGHT com
+| FUN pattern RIGHT com
         { Fun ($2, $4) }
 | HANDLER LBRACK handler RBRACK
         { Handler ($3) }
@@ -87,8 +90,12 @@ com_without_value:
         { App ($1, $2) }
 | WITH value HANDLE com
         { With ($2, $4) }
-| op2 simple_value simple_value
+| op2_prefix simple_value simple_value
         { Op2 ($1, $2, $3) }
+| simple_value op2_infix simple_value
+        { Op2 ($2, $1, $3) }
+| op1 simple_value
+        { Op1 ($1, $2) }
 
 com:
 | value
@@ -131,7 +138,19 @@ op:
         { Print }
 | RAISE
         { Raise }
+| DECIDE
+        { Decide }
 
-op2:
+op2_prefix:
 | JOIN
         { Join }
+
+op2_infix:
+| PLUS
+        { Plus }
+| MINUS
+        { Minus }
+
+op1:
+| MAX
+        { Max }
