@@ -1,0 +1,5 @@
+Step 0:  if false then true else (fun x -> x) true
+Step 1:  (fun x -> x) true
+Step 1:  (fun x -> x) true
+Step 2:  true
+Result:  true
