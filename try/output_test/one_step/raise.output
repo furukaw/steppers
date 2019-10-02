@@ -1,0 +1,3 @@
+Step 0:  if raise true then true else true
+Step 1:  raise true
+Result:  raise true

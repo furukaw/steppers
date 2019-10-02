@@ -1,0 +1,1 @@
+try (raise true) with x -> x

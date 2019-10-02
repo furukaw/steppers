@@ -1,0 +1,5 @@
+Step 0:  try (if raise false then true else true) true with x -> x
+Step 1:  try raise false with x -> x
+Step 1:  try raise false with x -> x
+Step 2:  false
+Result:  false
