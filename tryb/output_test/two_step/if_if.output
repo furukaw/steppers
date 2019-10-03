@@ -1,0 +1,5 @@
+Step 0:  if true then (if false then (fun x -> x) else (fun y -> y)) else (fun z -> z)
+Step 1:  if false then (fun x -> x) else (fun y -> y)
+Step 1:  if false then (fun x -> x) else (fun y -> y)
+Step 2:  fun y -> y
+Result:  fun y -> y
