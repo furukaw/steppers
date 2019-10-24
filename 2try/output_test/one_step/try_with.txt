@@ -1,0 +1,2 @@
+try raise (fun a -> a) with b -> (fun c -> b)
+
