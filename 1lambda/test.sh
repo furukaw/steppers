@@ -8,13 +8,9 @@ failure=0
 
 for classification in $TEST_DIR/*; do
     class_name=`basename $classification`
-    echo わ
-    echo $class_name
     for file in $classification/*.txt; do
 	name=`basename ${file} .txt`
 	path=$classification/$name
-	echo $name
-	echo $path
 	if [ -e "$path.input" ]
 	then input_file=$path.input
 	else input_file=""
