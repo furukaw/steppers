@@ -1,0 +1,7 @@
+Step 0:  (reset (fun () -> ((fun a -> a) (shift (fun k -> k)))))
+Step 1:  (reset (fun () -> (fun x => (reset (fun () -> ((fun a -> a) x))))))
+Step 1:  (reset (fun () -> (fun x => (reset (fun () -> ((fun a -> a) x))))))
+Step 2:  (fun x => (reset (fun () -> ((fun a -> a) x))))
+Step 2:  (reset (fun () -> (fun x => (reset (fun () -> ((fun a -> a) x))))))
+Step 3:  (fun x => (reset (fun () -> ((fun a -> a) x))))
+Result:  (fun x => (reset (fun () -> ((fun a -> a) x))))

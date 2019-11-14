@@ -1,0 +1,244 @@
+   0  $accept : %entry% $end
+
+   1  simple_value : VAR
+   2               | TRUE
+   3               | FALSE
+
+   4  value : simple_value
+   5        | FUN VAR RIGHT com
+   6        | HANDLER LBRACK handler RBRACK
+
+   7  handler :
+   8          | return_handler
+   9          | op_handlers
+  10          | return_handler op_handlers
+
+  11  return_handler : RETURN VAR RIGHT com
+
+  12  op_handlers : op_handler
+  13              | op_handler op_handlers
+
+  14  op_handler : OP LPAREN VAR SEMI VAR RPAREN RIGHT com
+
+  15  com : simple_com
+  16      | simple_com simple_com
+  17      | IF com THEN com ELSE com
+  18      | OP simple_com
+  19      | WITH com HANDLE com
+
+  20  simple_com : LPAREN com RPAREN
+
+  21  %entry% : '\001' com
+
+state 0
+	$accept : . %entry% $end  (0)
+
+	'\001'  shift 1
+	.  error
+
+	%entry%  goto 2
+
+
+state 1
+	%entry% : '\001' . com  (21)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 7
+	simple_com  goto 8
+
+
+state 2
+	$accept : %entry% . $end  (0)
+
+	$end  accept
+
+
+state 3
+	simple_com : LPAREN . com RPAREN  (20)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 9
+	simple_com  goto 8
+
+
+state 4
+	com : IF . com THEN com ELSE com  (17)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 10
+	simple_com  goto 8
+
+
+state 5
+	com : WITH . com HANDLE com  (19)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 11
+	simple_com  goto 8
+
+
+state 6
+	com : OP . simple_com  (18)
+
+	LPAREN  shift 3
+	.  error
+
+	simple_com  goto 12
+
+
+state 7
+	%entry% : '\001' com .  (21)
+
+	.  reduce 21
+
+
+state 8
+	com : simple_com .  (15)
+	com : simple_com . simple_com  (16)
+
+	LPAREN  shift 3
+	$end  reduce 15
+	RPAREN  reduce 15
+	THEN  reduce 15
+	ELSE  reduce 15
+	HANDLE  reduce 15
+
+	simple_com  goto 13
+
+
+state 9
+	simple_com : LPAREN com . RPAREN  (20)
+
+	RPAREN  shift 14
+	.  error
+
+
+state 10
+	com : IF com . THEN com ELSE com  (17)
+
+	THEN  shift 15
+	.  error
+
+
+state 11
+	com : WITH com . HANDLE com  (19)
+
+	HANDLE  shift 16
+	.  error
+
+
+state 12
+	com : OP simple_com .  (18)
+
+	.  reduce 18
+
+
+state 13
+	com : simple_com simple_com .  (16)
+
+	.  reduce 16
+
+
+state 14
+	simple_com : LPAREN com RPAREN .  (20)
+
+	.  reduce 20
+
+
+state 15
+	com : IF com THEN . com ELSE com  (17)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 17
+	simple_com  goto 8
+
+
+state 16
+	com : WITH com HANDLE . com  (19)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 18
+	simple_com  goto 8
+
+
+state 17
+	com : IF com THEN com . ELSE com  (17)
+
+	ELSE  shift 19
+	.  error
+
+
+state 18
+	com : WITH com HANDLE com .  (19)
+
+	.  reduce 19
+
+
+state 19
+	com : IF com THEN com ELSE . com  (17)
+
+	LPAREN  shift 3
+	IF  shift 4
+	WITH  shift 5
+	OP  shift 6
+	.  error
+
+	com  goto 20
+	simple_com  goto 8
+
+
+state 20
+	com : IF com THEN com ELSE com .  (17)
+
+	.  reduce 17
+
+
+Rules never reduced:
+	simple_value : VAR  (1)
+	simple_value : TRUE  (2)
+	simple_value : FALSE  (3)
+	value : simple_value  (4)
+	value : FUN VAR RIGHT com  (5)
+	value : HANDLER LBRACK handler RBRACK  (6)
+	handler :  (7)
+	handler : return_handler  (8)
+	handler : op_handlers  (9)
+	handler : return_handler op_handlers  (10)
+	return_handler : RETURN VAR RIGHT com  (11)
+	op_handlers : op_handler  (12)
+	op_handlers : op_handler op_handlers  (13)
+	op_handler : OP LPAREN VAR SEMI VAR RPAREN RIGHT com  (14)
+
+
+24 terminals, 10 nonterminals
+22 grammar rules, 21 states

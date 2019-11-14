@@ -14,7 +14,7 @@ let find target pairs =
 type cont = FId
           | FApp2 of e_t * c_t * cont  (* e1, ctxt, k *)
           | FApp1 of v_t * c_t * cont  (* v2, ctxt, k *)
-          | FOp of string * c_t   (* name, ctxt *)
+          | FOp of string * c_t        (* name, ctxt *)
           | FWith of e_t * c_t * cont  (* e2, ctxt, k *)
 
 let rec f (exp : e_t) (ctxt : c_t) (k : cont) : a_t = match exp with

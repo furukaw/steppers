@@ -1,0 +1,3 @@
+Step 0:  if false then (fun x -> x) else (fun y -> y)
+Step 1:  fun y -> y
+Result:  fun y -> y

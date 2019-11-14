@@ -1,0 +1,1 @@
+Result:  (fun x => (reset (fun () -> ((fun a -> a) x))))
