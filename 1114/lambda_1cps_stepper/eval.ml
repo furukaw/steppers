@@ -9,9 +9,9 @@ let rec eval (e : e) (ctxt : ctxt) (cont : cont) : v = match e with
   | Val (v) -> cont v
   | Fun (x, e1) ->
     cont (VFun ((fun v ctxt' cont' ->
-        (* let redex = App (e, Val v) in *)
+        let redex = App (e, Val v) in
         let reduct = subst e1 [(x, v)] in
-        (* memo redex reduct ctxt'; *)
+        memo redex reduct ctxt';
         eval reduct ctxt' cont'),
                 (x, e1)))
   | App (e1, e2) ->
