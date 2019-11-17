@@ -1,8 +1,8 @@
 open Syntax
 
 (* コンテキストフレームの型 *)
-type frame = CAppL of e  (* F[e [.]] *)
-           | CAppR of v  (* F[v [.]] *)
+type frame = CApp2 of e  (* F[e [.]] *)
+           | CApp1 of v  (* F[[.] v] *)
 
 (* コンテキストの型 *)
 type ctxt = frame list
@@ -15,6 +15,6 @@ let rec plug_all (e : e) (ctxt : ctxt) = match ctxt with
   | [] -> e
   | first :: rest ->
     let plugged = match first with
-      | CAppL (e2) -> App (e, e2)
-      | CAppR (v1) -> App (Val (v1), e) in
+      | CApp2 (e1) -> App (e1, e)
+      | CApp1 (v2) -> App (e, Val v2) in
     plug_all plugged rest

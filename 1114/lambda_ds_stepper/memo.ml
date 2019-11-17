@@ -1,5 +1,4 @@
 open Syntax
-open Context
 
 (* 簡約回数を格納する変数 *)
 let step_counter = ref 0
