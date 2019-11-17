@@ -1,7 +1,6 @@
 open Syntax
 open Util
 open Context
-open Memo
 
 (* 簡約ステップを出力しながら式を実行する *)
 let rec eval (e : e) (ctxt : ctxt) : v = match e with
@@ -11,14 +10,14 @@ let rec eval (e : e) (ctxt : ctxt) : v = match e with
     begin
       let v1 = eval e1 (add_frame (CAppL (e2)) ctxt) in
       let v2 = eval e2 (add_frame (CAppR (v1)) ctxt) in
-      let redex = App (Val (v1), Val (v2)) in
+      (* let redex = App (Val (v1), Val (v2)) in *)
       let reduct = match v1 with
         | VFun (x, e_fun) -> subst e_fun [(x, v2)]
         | _ -> failwith "type error" in
-      memo redex reduct ctxt;
+      (* memo redex reduct ctxt; *)
       let result = eval reduct ctxt in
       result
     end
 
-let stepper (e : e) : v = eval e []
+let interpreter (e : e) : v = eval e []
     

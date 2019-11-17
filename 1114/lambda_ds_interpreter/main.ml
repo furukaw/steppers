@@ -8,7 +8,7 @@ let go () =
     Syntax.print_e program;		(* 入力を表示する *)
     print_newline ();
   end;
-  let result = Eval.stepper program in
+  let result = Eval.interpreter program in
   print_string "Result:  ";
   Syntax.print_v result
 
