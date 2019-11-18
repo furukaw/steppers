@@ -15,15 +15,11 @@ and apply (cont : cont) (v : v) : v = match cont with
     eval e1 (add_frame (CApp1 (v2)) ctxt) (FApp1 (v2, ctxt, cont))
   | FApp1 (v2, ctxt, cont) -> let v1 = v in
     match v1 with
-    | VFun (x, e_fun) -> apply_fun (x, e_fun) v2 ctxt cont
+    | VFun (x, e_fun) ->
+      (* let redex = App (Val v1, Val v2) in *)
+      let reduct = subst e_fun [(x, v2)] in
+      (* memo redex reduct ctxt; *)
+      eval reduct ctxt cont
     | _ -> failwith "type error"
-
-and apply_fun (f : string * e) (v : v) (ctxt' : ctxt) (cont' : cont) : v =
-  match f with
-  | (x, e1) ->
-    (* let redex = App (Fun (x, e1), Val v) in *)
-    let reduct = subst e1 [(x, v)] in
-    (* memo redex reduct ctxt'; *)
-    eval reduct ctxt' cont'
 
 let interpreter (e : e) : v = eval e [] FId
