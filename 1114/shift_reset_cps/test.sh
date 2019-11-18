@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR=/Users/tkn/lab/steppers/1114/lambda_1cps_stepper
+DIR=$1
 TEST_DIR=$DIR/output_test
 PROGRAM=$DIR/interpreter
 
