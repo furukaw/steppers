@@ -1,0 +1,7 @@
+Step 0:  (try (try (raise (fun a -> a)) with x -> (x (raise (fun b -> b)))) with y -> (fun c -> y))
+Step 1:  (try ((fun a -> a) (raise (fun b -> b))) with y -> (fun c -> y))
+Step 1:  (try ((fun a -> a) (raise (fun b -> b))) with y -> (fun c -> y))
+Step 2:  (try (raise (fun b -> b)) with y -> (fun c -> y))
+Step 2:  (try (raise (fun b -> b)) with y -> (fun c -> y))
+Step 3:  (fun c -> (fun b -> b))
+Result:  (fun c -> (fun b -> b))
