@@ -1,0 +1,1 @@
+try ((fun a -> a) (raise (fun b -> b))) (fun c -> c) with x -> (fun d -> x)

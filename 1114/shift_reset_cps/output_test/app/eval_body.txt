@@ -1,1 +1,0 @@
-(fun a -> (fun b -> b) a) (fun c -> c)

@@ -1,3 +1,0 @@
-Step 0:  ((fun a -> (fun b -> (a b))) (fun c -> c))
-Step 1:  (fun b -> ((fun c -> c) b))
-Result:  (fun b -> ((fun c -> c) b))
