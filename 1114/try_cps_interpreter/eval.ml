@@ -9,18 +9,16 @@ let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) (cont : cont) : a =
   match e with
   | Val (v) -> cont v
   | Fun (x, e1) ->
-    cont (VFun ((fun v ctxt' cont' ->
-        (* let redex = App (Fun (x, e1), Val v) in *)
-        let reduct = subst e1 [(x, v)] in
-        (* memo redex reduct ctxt'; *)
-        eval reduct ctxt' cont'),
-                (x, e1)))
+    cont (VFun (x, e1))
   | App (e1, e2) ->
     eval e2 (add_frame (CApp2 (e1)) ctxt_in, ctxt_out) (fun v2 ->
         eval e1 (add_frame (CApp1 (v2)) ctxt_in, ctxt_out) (fun v1 ->
-            match v1 with
-            | VFun (f, (x, e_fun)) -> f v2 (ctxt_in, ctxt_out) cont
-            | _ -> failwith "type error"
+            (* let redex = App (Val v1, Val v2) in *)
+            let reduct = match v1 with
+              | VFun (x, e_fun) -> subst e_fun [(x, v2)]
+              | _ -> failwith "type error" in
+            (* memo redex reduct (ctxt_in, ctxt_out); *)
+            eval reduct (ctxt_in, ctxt_out) cont
           )
       )
   | Raise (e1) ->

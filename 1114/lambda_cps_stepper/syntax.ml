@@ -1,6 +1,6 @@
 (* 値の型 *)
-type v = Var of string        (* x *)
-       | VFun of (v -> ctxt -> cont -> v) * (string * e)  (* fun x -> e *)
+type v = Var of string       (* x *)
+       | VFun of string * e  (* fun x -> e *)
 
 (* 式の型 *)
 and e = Val of v           (* v *)
@@ -11,7 +11,7 @@ and cont = v -> v
 
 (* コンテキストフレームの型 *)
 and frame = CApp2 of e  (* F[e [.]] *)
-           | CApp1 of v  (* F[[.] v] *)
+          | CApp1 of v  (* F[[.] v] *)
 
 (* コンテキストの型 *)
 and ctxt = frame list
@@ -31,7 +31,7 @@ let rec plug_all (e : e) (ctxt : ctxt) = match ctxt with
 (* 値を文字列にする関数 *)
 let rec v_to_string (v : v) : string = match v with
   | Var (x) -> x
-  | VFun (_, (x, e)) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
+  | VFun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
 
 (* 式を文字列にする関数 *)
 and e_to_string (e : e) : string = match e with

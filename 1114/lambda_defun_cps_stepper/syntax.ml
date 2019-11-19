@@ -1,6 +1,6 @@
 (* 値の型 *)
 type v = Var of string        (* x *)
-       | VFun of (string * e)  (* fun x -> e *)
+       | VFun of string * e  (* fun x -> e *)
 
 (* 式の型 *)
 and e = Val of v           (* v *)
