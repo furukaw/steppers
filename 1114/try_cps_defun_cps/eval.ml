@@ -9,8 +9,8 @@ let rec eval
     ((ctxt_in, ctxt_out) : ctxt)
     (cont_in : cont) (cont_out : a -> a) : a =
   match e with
-  | Val (v) -> cont_out (apply cont_in v)
-  | Fun (x, e1) -> cont_out (apply cont_in (VFun (x, e1)))
+  | Val (v) -> apply cont_in v cont_out
+  | Fun (x, e1) -> apply cont_in (VFun (x, e1)) cont_out
   | App (e1, e2) ->
     eval e2 (add_frame (CApp2 (e1)) ctxt_in, ctxt_out)
       (FApp2 (e1, ctxt_in, ctxt_out, cont_in)) cont_out
@@ -23,7 +23,7 @@ let rec eval
           let redex = Try (Val v1, x, e2) in
           let reduct = Val v1 in
           memo redex reduct (ctxt_in, ctxt_out);
-          cont_out (apply cont_in v1)
+          apply cont_in v1 cont_out
         | Raised (v, ctxt_around_raise) ->
           if ctxt_around_raise <> []
           then begin
@@ -37,20 +37,20 @@ let rec eval
           eval reduct2 (ctxt_in, ctxt_out) cont_in cont_out
       )
       
-and apply (cont : cont) (v : v) : a = match cont with
-  | FId -> Value v
+and apply (cont : cont) (v : v) (cont_out : a -> a) : a = match cont with
+  | FId -> cont_out (Value v)
   | FApp2 (e1, ctxt_in, ctxt_out, cont) ->
     eval e1 (add_frame (CApp1 (v)) ctxt_in, ctxt_out)
-      (FApp1 (v, ctxt_in, ctxt_out, cont)) id_out
+      (FApp1 (v, ctxt_in, ctxt_out, cont)) cont_out
   | FApp1 (v2, ctxt_in, ctxt_out, cont) ->
     let redex = App (Val v, Val v2) in
     let reduct = match v with
       | VFun (x, e_fun) -> subst e_fun [(x, v2)]
       | _ -> failwith "type error" in
     memo redex reduct (ctxt_in, ctxt_out);
-    eval reduct (ctxt_in, ctxt_out) cont id_out
+    eval reduct (ctxt_in, ctxt_out) cont cont_out
   | FRaise (ctxt_in) ->
-    Raised (v, ctxt_in)
+    cont_out (Raised (v, ctxt_in))
 
 let interpreter (e : e) : a =
   let result = eval e ([], []) FId id_out in
