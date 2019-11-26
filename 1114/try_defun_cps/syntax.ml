@@ -17,7 +17,7 @@ and cont = FId
          (* e1, ctxt_in, ctxt_out, cont *)
          | FApp1 of v * frame list * try_frame list * cont
          (* v2, ctxt_in, ctxt_out, cont *)
-         | FRaise of frame list (* ctxt_in *)
+         | FRaise of frame list * try_frame list (* ctxt_in, ctxt_out *)
 
 (* コンテキストフレームの型 *)
 and frame = CApp2 of e  (* F[e [.]] *)

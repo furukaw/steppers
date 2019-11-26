@@ -10,7 +10,7 @@ and e = Val of v               (* v *)
       | Try of e * string * e  (* try e with x -> e *)
 
 and a = Value of v
-      | Raised of v * frame list
+      | Raised of v
 
 and cont = v -> a
 

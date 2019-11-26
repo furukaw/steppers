@@ -2,7 +2,7 @@ open Syntax
 open Util
 open Memo
 
-exception Raised of v * frame list
+exception Raised of v
 
 (* 簡約ステップを出力しながら式を実行する *)
 let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) : v = match e with
@@ -22,7 +22,13 @@ let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) : v = match e with
     end
   | Raise (e1) ->
     let v = eval e1 (add_frame CRaise ctxt_in, ctxt_out) in
-    raise (Raised (v, ctxt_in))
+    if ctxt_in <> []
+    then begin
+      let redex = plug_in_try (Raise (Val v)) ctxt_in in
+      let reduct = Raise (Val v) in
+      memo redex reduct ([], ctxt_out)
+    end;
+    raise (Raised (v))
   | Try (e1, x, e2) ->
     begin try
         let v1 = eval e1 ([], add_try x e2 ctxt_in ctxt_out) in
@@ -30,23 +36,14 @@ let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) : v = match e with
         let reduct = Val v1 in
         memo redex reduct (ctxt_in, ctxt_out);
         v1
-      with Raised (v, ctxt_around_raise) ->
-        if ctxt_around_raise <> []
-        then begin
-          let redex1 = plug_in_try (Raise (Val v)) ctxt_around_raise in
-          let reduct1 = Raise (Val v) in
-          memo redex1 reduct1 ([], add_try x e2 ctxt_in ctxt_out)
-        end;
-        let redex2 = Try (Raise (Val v), x, e2) in
-        let reduct2 = subst e2 [(x, v)] in
-        memo redex2 reduct2 (ctxt_in, ctxt_out);
-        eval reduct2 (ctxt_in, ctxt_out)
+      with Raised (v) ->
+        let redex = Try (Raise (Val v), x, e2) in
+        let reduct = subst e2 [(x, v)] in
+        memo redex reduct (ctxt_in, ctxt_out);
+        eval reduct (ctxt_in, ctxt_out)
     end
 
 let stepper (e : e) : (v, v) result =
   try Ok (eval e ([], []))
-  with Raised (v, ctxt_around_raise) ->
-    let redex = plug_in_try (Raise (Val v)) ctxt_around_raise in
-    let reduct = Raise (Val v) in
-    memo redex reduct ([], []);
+  with Raised (v) ->
     Error (v)

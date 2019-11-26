@@ -15,7 +15,8 @@ let rec eval
     eval e2 (add_frame (CApp2 (e1)) ctxt_in, ctxt_out)
       (FApp2 (e1, ctxt_in, ctxt_out, cont_in)) cont_out
   | Raise (e1) ->
-    eval e1 (add_frame CRaise ctxt_in, ctxt_out) (FRaise (ctxt_in)) cont_out
+    eval e1 (add_frame CRaise ctxt_in, ctxt_out) (FRaise (ctxt_in, ctxt_out))
+      cont_out
   | Try (e1, x, e2) ->
     eval e1 ([], add_try x e2 ctxt_in ctxt_out) FId (fun a1 ->
         match a1 with
@@ -24,17 +25,11 @@ let rec eval
           let reduct = Val v1 in
           memo redex reduct (ctxt_in, ctxt_out);
           apply cont_in v1 cont_out
-        | Raised (v, ctxt_around_raise) ->
-          if ctxt_around_raise <> []
-          then begin
-            let redex1 = plug_in_try (Raise (Val v)) ctxt_around_raise in
-            let reduct1 = Raise (Val v) in
-            memo redex1 reduct1 ([], add_try x e2 ctxt_in ctxt_out)
-          end;
-          let redex2 = Try (Raise (Val v), x, e2) in
-          let reduct2 = subst e2 [(x, v)] in
-          memo redex2 reduct2 (ctxt_in, ctxt_out);
-          eval reduct2 (ctxt_in, ctxt_out) cont_in cont_out
+        | Raised (v) ->
+          let redex = Try (Raise (Val v), x, e2) in
+          let reduct = subst e2 [(x, v)] in
+          memo redex reduct (ctxt_in, ctxt_out);
+          eval reduct (ctxt_in, ctxt_out) cont_in cont_out
       )
       
 and apply (cont : cont) (v : v) (cont_out : a -> a) : a = match cont with
@@ -49,15 +44,13 @@ and apply (cont : cont) (v : v) (cont_out : a -> a) : a = match cont with
       | _ -> failwith "type error" in
     memo redex reduct (ctxt_in, ctxt_out);
     eval reduct (ctxt_in, ctxt_out) cont cont_out
-  | FRaise (ctxt_in) ->
-    cont_out (Raised (v, ctxt_in))
+  | FRaise (ctxt_in, ctxt_out) ->
+    if ctxt_in <> [] then begin
+      let redex = plug_in_try (Raise (Val v)) ctxt_in in
+      let reduct = Raise (Val v) in
+      memo redex reduct ([], ctxt_out)
+    end;
+    cont_out (Raised (v))
 
 let interpreter (e : e) : a =
-  let result = eval e ([], []) FId id_out in
-  match result with
-  | Value v -> result
-  | Raised (v, ctxt) ->
-    let redex = plug_in_try (Raise (Val v)) ctxt in
-    let reduct = (Raise (Val v)) in
-    memo redex reduct ([], []);
-    result
+  eval e ([], []) FId id_out

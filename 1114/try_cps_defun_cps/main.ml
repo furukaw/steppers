@@ -13,7 +13,7 @@ let go () =
   match result with
   | Syntax.Value v ->
     Syntax.print_v v
-  | Syntax.Raised (v, _) ->
+  | Syntax.Raised (v) ->
     print_string "Exception: ";
     Syntax.print_v v
 

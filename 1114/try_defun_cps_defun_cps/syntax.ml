@@ -12,13 +12,18 @@ and e = Val of v               (* v *)
 and a = Value of v
       | Raised of v
 
-and cont = FId
-         | FApp2 of e * frame list * try_frame list * cont
-         (* e1, ctxt_in, ctxt_out, cont *)
-         | FApp1 of v * frame list * try_frame list * cont
-         (* v2, ctxt_in, ctxt_out, cont *)
-         | FRaise of frame list * try_frame list (* ctxt_in, ctxt_out *)
+and cont_in = FId
+            | FApp2 of e * frame list * try_frame list * cont_in
+            (* e1, ctxt_in, ctxt_out, cont *)
+            | FApp1 of v * frame list * try_frame list * cont_in
+            (* v2, ctxt_in, ctxt_out, cont *)
+            | FRaise of frame list * try_frame list (* ctxt_in, ctxt_out *)
 
+and cont_out = GId
+             | GTry of
+                 string * e * frame list * try_frame list * cont_in * cont_out
+                 (* x, e2, ctxt_in, ctxt_out, cont_in, cont_out *)
+                 
 (* コンテキストフレームの型 *)
 and frame = CApp2 of e  (* F[e [.]] *)
           | CApp1 of v  (* F[[.] v] *)
