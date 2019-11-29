@@ -1,0 +1,1 @@
+with handler {A (x; k) -> x} handle (fun a -> a)
