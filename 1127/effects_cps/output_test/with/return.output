@@ -1,0 +1,3 @@
+Step 0:  (with (handler {return x -> (fun a -> x), A(x; k) -> x}) handle (fun b -> b))
+Step 1:  (fun a -> (fun b -> b))
+Result:  (fun a -> (fun b -> b))

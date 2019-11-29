@@ -1,0 +1,3 @@
+Step 0:  ((fun a -> (handler {A(x; k) -> (k a)})) (fun b -> b))
+Step 1:  (handler {A(x; k) -> (k (fun b -> b))})
+Result:  (handler {A(x; k) -> (k (fun b -> b))})

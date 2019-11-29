@@ -1,0 +1,3 @@
+Step 0:  (with (handler {A(x; k) -> (fun a -> (k x))}) handle (with (handler {B(x; k) -> (fun b -> (k x))}) handle ((fun d -> d) (A (fun c -> c)))))
+Step 1:  (fun a -> ((fun y => (with (handler {A(x; k) -> (fun a -> (k x))}) handle (with (handler {B(x; k) -> (fun b -> (k x))}) handle ((fun d -> d) y)))) (fun c -> c)))
+Result:  (fun a -> ((fun y => (with (handler {A(x; k) -> (fun a -> (k x))}) handle (with (handler {B(x; k) -> (fun b -> (k x))}) handle ((fun d -> d) y)))) (fun c -> c)))
