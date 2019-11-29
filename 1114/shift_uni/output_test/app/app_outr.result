@@ -1,0 +1,7 @@
+Step 0:  (((fun a -> a) (fun b -> b)) (fun c -> c))
+Step 1:  ((fun b -> b) (fun c -> c))
+Step 1:  ((fun b -> b) (fun c -> c))
+Step 2:  (fun c -> c)
+Step 2:  (reset (fun () -> (fun c -> c)))
+Step 3:  (fun c -> c)
+Result:  (fun c -> c)

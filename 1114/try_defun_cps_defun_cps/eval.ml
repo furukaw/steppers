@@ -2,6 +2,7 @@ open Syntax
 open Util
 open Memo
 
+(* try4 CPSステッパを非関数化してCPS変換して非関数化 *)
 let rec eval
     (e : e)
     ((ctxt_in, ctxt_out) : ctxt)

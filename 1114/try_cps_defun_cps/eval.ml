@@ -4,6 +4,7 @@ open Memo
 
 let id_out : a -> a = fun a -> a
 
+(* try3 CPSステッパを非関数化してCPS変換 *)
 let rec eval
     (e : e)
     ((ctxt_in, ctxt_out) : ctxt)

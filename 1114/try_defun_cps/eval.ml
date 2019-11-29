@@ -2,7 +2,7 @@ open Syntax
 open Util
 open Memo
 
-(* 簡約ステップを出力しながら式を実行する *)
+(* try2 CPSステッパを非関数化 *)
 let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) (cont : cont) : a =
   match e with
   | Val (v) -> apply cont v

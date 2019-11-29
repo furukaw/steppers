@@ -2,6 +2,7 @@ open Syntax
 open Util
 open Memo
 
+(* try5 CPSステッパを非関数化してCPS変換して非関数化してコンテキスト情報を削除 *)
 let rec eval (e : e) (cont_in : cont_in) (cont_out : cont_out) : a =
   match e with
   | Val (v) -> apply_in cont_in v cont_out

@@ -1,0 +1,5 @@
+Step 0:  (reset (fun () -> (reset (fun () -> (fun a -> a)))))
+Step 1:  (reset (fun () -> (fun a -> a)))
+Step 1:  (reset (fun () -> (fun a -> a)))
+Step 2:  (fun a -> a)
+Result:  (fun a -> a)

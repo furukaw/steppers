@@ -4,7 +4,7 @@ open Memo
 
 let id : cont = fun v -> Value v
 
-(* 簡約ステップを出力しながら式を実行する *)
+(* try1 CPSステッパ *)
 let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) (cont : cont) : a =
   match e with
   | Val (v) -> cont v

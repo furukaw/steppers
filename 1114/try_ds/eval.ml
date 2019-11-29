@@ -4,7 +4,7 @@ open Memo
 
 exception Raised of v
 
-(* 簡約ステップを出力しながら式を実行する *)
+(* try0 CPSステッパをDSに直した *)
 let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt) : v = match e with
   | Val (v) -> v
   | Fun (x, e1) -> VFun (x, e1)
