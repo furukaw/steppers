@@ -1,0 +1,5 @@
+Step 0:  (reset0 (fun () -> ((reset0 (fun () -> (shift0 (fun a -> ((shift0 (fun b -> (fun c -> (a b)))) (shift0 (fun d -> (fun e -> (a d))))))))) (fun f -> f))))
+Step 1:  (reset0 (fun () -> (((shift0 (fun b -> (fun c -> ((fun x => (reset0 (fun () -> x))) b)))) (shift0 (fun d -> (fun e -> ((fun x => (reset0 (fun () -> x))) d))))) (fun f -> f))))
+Step 1:  (reset0 (fun () -> (((shift0 (fun b -> (fun c -> ((fun x => (reset0 (fun () -> x))) b)))) (shift0 (fun d -> (fun e -> ((fun x => (reset0 (fun () -> x))) d))))) (fun f -> f))))
+Step 2:  (fun e -> ((fun x => (reset0 (fun () -> x))) (fun y => (reset0 (fun () -> (((shift0 (fun b -> (fun c -> ((fun x => (reset0 (fun () -> x))) b)))) y) (fun f -> f)))))))
+Result:  (fun e -> ((fun x => (reset0 (fun () -> x))) (fun y => (reset0 (fun () -> (((shift0 (fun b -> (fun c -> ((fun x => (reset0 (fun () -> x))) b)))) y) (fun f -> f)))))))

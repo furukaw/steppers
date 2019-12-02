@@ -1,0 +1,1 @@
+((fun a -> a) ((reset0 (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b)))

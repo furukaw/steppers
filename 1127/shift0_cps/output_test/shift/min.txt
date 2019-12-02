@@ -1,0 +1,1 @@
+(reset0 (fun () -> shift0 (fun k -> k)))
