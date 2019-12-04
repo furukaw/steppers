@@ -1,0 +1,153 @@
+
+eval
+式 : ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b)))
+in : (no frames)
+out: (no resets)
+
+eval
+式 : ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b))
+in : CApp2 (fun a -> a)
+out: (no resets)
+
+eval
+式 : (fun b -> b)
+in : CApp2 (reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))), CApp2 (fun a -> a)
+out: (no resets)
+
+App2
+値 : (fun b -> b)
+in : CApp2 (fun a -> a)
+out: (no resets)
+
+eval
+式 : (reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d))))
+in : CApp1 (fun b -> b), CApp2 (fun a -> a)
+out: (no resets)
+
+eval
+式 : (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d))
+in : (no frames)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+eval
+式 : (fun d -> d)
+in : CApp2 ((fun c -> c) ((fun e -> e) (fun f -> f)))
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+App2
+値 : (fun d -> d)
+in : (no frames)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+eval
+式 : ((fun c -> c) ((fun e -> e) (fun f -> f)))
+in : CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+eval
+式 : ((fun e -> e) (fun f -> f))
+in : CApp2 (fun c -> c), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+eval
+式 : (fun f -> f)
+in : CApp2 (fun e -> e), CApp2 (fun c -> c), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+App2
+値 : (fun f -> f)
+in : CApp2 (fun c -> c), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+eval
+式 : (fun e -> e)
+in : CApp1 (fun f -> f), CApp2 (fun c -> c), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+App1
+値 : (fun e -> e)
+in : CApp2 (fun c -> c), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+Step 0:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b)))
+Step 1:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) (fun f -> f)) (fun d -> d)))) (fun b -> b)))
+
+eval
+式 : (fun f -> f)
+in : CApp2 (fun c -> c), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+App2
+値 : (fun f -> f)
+in : CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+eval
+式 : (fun c -> c)
+in : CApp1 (fun f -> f), CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+App1
+値 : (fun c -> c)
+in : CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+Step 1:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) (fun f -> f)) (fun d -> d)))) (fun b -> b)))
+Step 2:  ((fun a -> a) ((reset (fun () -> ((fun f -> f) (fun d -> d)))) (fun b -> b)))
+
+eval
+式 : (fun f -> f)
+in : CApp1 (fun d -> d)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+App1
+値 : (fun f -> f)
+in : (no frames)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+Step 2:  ((fun a -> a) ((reset (fun () -> ((fun f -> f) (fun d -> d)))) (fun b -> b)))
+Step 3:  ((fun a -> a) ((reset (fun () -> (fun d -> d))) (fun b -> b)))
+
+eval
+式 : (fun d -> d)
+in : (no frames)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+
+Reset
+値 : (fun d -> d)
+in : CApp1 (fun b -> b), CApp2 (fun a -> a)
+out: (Reset CApp1 (fun b -> b), CApp2 (fun a -> a))
+Step 3:  ((fun a -> a) ((reset (fun () -> ((fun a -> a) ((reset (fun () -> (fun d -> d))) (fun b -> b))))) (fun b -> b)))
+Step 4:  ((fun a -> a) ((reset (fun () -> ((fun a -> a) ((fun d -> d) (fun b -> b))))) (fun b -> b)))
+
+App1
+値 : (fun d -> d)
+in : CApp2 (fun a -> a)
+out: (no resets)
+Step 4:  ((fun a -> a) ((fun d -> d) (fun b -> b)))
+Step 5:  ((fun a -> a) (fun b -> b))
+
+eval
+式 : (fun b -> b)
+in : CApp2 (fun a -> a)
+out: (no resets)
+
+App2
+値 : (fun b -> b)
+in : (no frames)
+out: (no resets)
+
+eval
+式 : (fun a -> a)
+in : CApp1 (fun b -> b)
+out: (no resets)
+
+App1
+値 : (fun a -> a)
+in : (no frames)
+out: (no resets)
+Step 5:  ((fun a -> a) (fun b -> b))
+Step 6:  (fun b -> b)
+
+eval
+式 : (fun b -> b)
+in : (no frames)
+out: (no resets)
+Result:  (fun b -> b)

@@ -1,0 +1,32 @@
+
+eval
+式 : (reset (fun () -> (reset (fun () -> (fun a -> (reset (fun () -> a)))))))
+in : (no frames)
+out: (no resets)
+
+eval
+式 : (reset (fun () -> (fun a -> (reset (fun () -> a)))))
+in : (no frames)
+out: (Reset (no frames))
+
+eval
+式 : (fun a -> (reset (fun () -> a)))
+in : (no frames)
+out: (Reset (no frames))
+    (Reset (no frames))
+
+Reset
+値 : (fun a -> (reset (fun () -> a)))
+in : (no frames)
+out: (Reset (no frames))
+    (Reset (no frames))
+Step 0:  (reset (fun () -> (reset (fun () -> (reset (fun () -> (fun a -> (reset (fun () -> a)))))))))
+Step 1:  (reset (fun () -> (reset (fun () -> (fun a -> (reset (fun () -> a)))))))
+
+Reset
+値 : (fun a -> (reset (fun () -> a)))
+in : (no frames)
+out: (Reset (no frames))
+Step 1:  (reset (fun () -> (reset (fun () -> (fun a -> (reset (fun () -> a)))))))
+Step 2:  (reset (fun () -> (fun a -> (reset (fun () -> a)))))
+Result:  (fun a -> (reset (fun () -> a)))

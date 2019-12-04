@@ -1,0 +1,60 @@
+
+eval
+式 : (((fun a -> a) (fun b -> b)) (fun c -> c))
+in : (no frames)
+out: (no resets)
+
+eval
+式 : (fun c -> c)
+in : CApp2 ((fun a -> a) (fun b -> b))
+out: (no resets)
+
+App2
+値 : (fun c -> c)
+in : (no frames)
+out: (no resets)
+
+eval
+式 : ((fun a -> a) (fun b -> b))
+in : CApp1 (fun c -> c)
+out: (no resets)
+
+eval
+式 : (fun b -> b)
+in : CApp2 (fun a -> a), CApp1 (fun c -> c)
+out: (no resets)
+
+App2
+値 : (fun b -> b)
+in : CApp1 (fun c -> c)
+out: (no resets)
+
+eval
+式 : (fun a -> a)
+in : CApp1 (fun b -> b), CApp1 (fun c -> c)
+out: (no resets)
+
+App1
+値 : (fun a -> a)
+in : CApp1 (fun c -> c)
+out: (no resets)
+Step 0:  (((fun a -> a) (fun b -> b)) (fun c -> c))
+Step 1:  ((fun b -> b) (fun c -> c))
+
+eval
+式 : (fun b -> b)
+in : CApp1 (fun c -> c)
+out: (no resets)
+
+App1
+値 : (fun b -> b)
+in : (no frames)
+out: (no resets)
+Step 1:  ((fun b -> b) (fun c -> c))
+Step 2:  (fun c -> c)
+
+eval
+式 : (fun c -> c)
+in : (no frames)
+out: (no resets)
+Result:  (fun c -> c)

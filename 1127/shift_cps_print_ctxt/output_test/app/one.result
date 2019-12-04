@@ -1,0 +1,33 @@
+
+eval
+式 : ((fun a -> a) (fun b -> b))
+in : (no frames)
+out: (no resets)
+
+eval
+式 : (fun b -> b)
+in : CApp2 (fun a -> a)
+out: (no resets)
+
+App2
+値 : (fun b -> b)
+in : (no frames)
+out: (no resets)
+
+eval
+式 : (fun a -> a)
+in : CApp1 (fun b -> b)
+out: (no resets)
+
+App1
+値 : (fun a -> a)
+in : (no frames)
+out: (no resets)
+Step 0:  ((fun a -> a) (fun b -> b))
+Step 1:  (fun b -> b)
+
+eval
+式 : (fun b -> b)
+in : (no frames)
+out: (no resets)
+Result:  (fun b -> b)

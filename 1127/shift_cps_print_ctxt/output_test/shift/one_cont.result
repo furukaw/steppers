@@ -1,0 +1,86 @@
+
+eval
+式 : (reset (fun () -> ((fun a -> a) (shift (fun b -> (b (fun c -> c)))))))
+in : (no frames)
+out: (no resets)
+
+eval
+式 : ((fun a -> a) (shift (fun b -> (b (fun c -> c)))))
+in : (no frames)
+out: (Reset (no frames))
+
+eval
+式 : (shift (fun b -> (b (fun c -> c))))
+in : CApp2 (fun a -> a)
+out: (Reset (no frames))
+Step 0:  (reset (fun () -> ((fun a -> a) (shift (fun b -> (b (fun c -> c)))))))
+Step 1:  (reset (fun () -> ((fun x => (reset (fun () -> ((fun a -> a) x)))) (fun c -> c))))
+
+eval
+式 : (reset (fun () -> ((fun x => (reset (fun () -> ((fun a -> a) x)))) (fun c -> c))))
+in : (no frames)
+out: (no resets)
+
+eval
+式 : ((fun x => (reset (fun () -> ((fun a -> a) x)))) (fun c -> c))
+in : (no frames)
+out: (Reset (no frames))
+
+eval
+式 : (fun c -> c)
+in : CApp2 (fun x => (reset (fun () -> ((fun a -> a) x))))
+out: (Reset (no frames))
+
+App2
+値 : (fun c -> c)
+in : (no frames)
+out: (Reset (no frames))
+
+eval
+式 : (fun x => (reset (fun () -> ((fun a -> a) x))))
+in : CApp1 (fun c -> c)
+out: (Reset (no frames))
+
+App1
+値 : (fun x => (reset (fun () -> ((fun a -> a) x))))
+in : (no frames)
+out: (Reset (no frames))
+Step 1:  (reset (fun () -> ((fun x => (reset (fun () -> ((fun a -> a) x)))) (fun c -> c))))
+Step 2:  (reset (fun () -> (reset (fun () -> ((fun a -> a) (fun c -> c))))))
+
+App2
+値 : (fun c -> c)
+in : (no frames)
+out: (Reset (no frames))
+
+eval
+式 : (fun a -> a)
+in : CApp1 (fun c -> c)
+out: (Reset (no frames))
+
+App1
+値 : (fun a -> a)
+in : (no frames)
+out: (Reset (no frames))
+Step 2:  (reset (fun () -> ((fun a -> a) (fun c -> c))))
+Step 3:  (reset (fun () -> (fun c -> c)))
+
+eval
+式 : (fun c -> c)
+in : (no frames)
+out: (Reset (no frames))
+
+Reset
+値 : (fun c -> c)
+in : (no frames)
+out: (Reset (no frames))
+Step 3:  (reset (fun () -> (reset (fun () -> (fun c -> c)))))
+Step 4:  (reset (fun () -> (fun c -> c)))
+
+Reset
+値 : (fun c -> c)
+in : (no frames)
+out: (Reset (no frames))
+Step 4:  (reset (fun () -> (reset (fun () -> (fun c -> c)))))
+Step 5:  (reset (fun () -> (fun c -> c)))
+Result:  (fun c -> c)
