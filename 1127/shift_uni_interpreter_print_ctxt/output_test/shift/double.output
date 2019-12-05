@@ -1,0 +1,126 @@
+
+  eval
+    exp: (reset (fun () -> ((reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d))))))))) (fun f -> f))))
+    in : 8
+    out: 8
+
+  eval
+    exp: ((reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d))))))))) (fun f -> f))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun f -> f)
+    in : ((reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d))))))))) 8)
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun f -> f)
+    in : ((reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d))))))))) 8)
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d)))))))))
+    in : (8 (fun f -> f))
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d)))))))
+    in : 8
+    out: (reset (fun () -> ((reset (fun () -> 8)) (fun f -> f))))
+
+  eval
+    exp: (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) (shift (fun d -> (fun e -> ((fun x => (reset (fun () -> x))) d)))))))
+    in : (8 (fun f -> f))
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) (shift (fun d -> (fun e -> ((fun x => (reset (fun () -> x))) d)))))
+    in : 8
+    out: (reset (fun () -> ((reset (fun () -> 8)) (fun f -> f))))
+
+  eval
+    exp: (shift (fun d -> (fun e -> ((fun x => (reset (fun () -> x))) d))))
+    in : ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) 8)
+    out: (reset (fun () -> ((reset (fun () -> 8)) (fun f -> f))))
+
+  eval
+    exp: (reset (fun () -> (fun e -> ((fun x => (reset (fun () -> x))) (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))))))
+    in : (8 (fun f -> f))
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun e -> ((fun x => (reset (fun () -> x))) (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))))
+    in : 8
+    out: (reset (fun () -> ((reset (fun () -> 8)) (fun f -> f))))
+
+  apply_in
+    exp: (fun e -> ((fun x => (reset (fun () -> x))) (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))))
+    in : 8
+    out: (reset (fun () -> ((reset (fun () -> 8)) (fun f -> f))))
+
+  apply_out
+    exp: (fun e -> ((fun x => (reset (fun () -> x))) (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))))
+    in : 8
+    out: (reset (fun () -> ((reset (fun () -> 8)) (fun f -> f))))
+
+  apply_in
+    exp: (fun e -> ((fun x => (reset (fun () -> x))) (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))))
+    in : (8 (fun f -> f))
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: ((fun x => (reset (fun () -> x))) (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y)))))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : ((fun x => (reset (fun () -> x))) 8)
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : ((fun x => (reset (fun () -> x))) 8)
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun x => (reset (fun () -> x)))
+    in : (8 (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y)))))
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun x => (reset (fun () -> x)))
+    in : (8 (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y)))))
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_out
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_in
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  apply_out
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))
+    in : 8
+    out: 8
+Result:  (fun y => (reset (fun () -> ((shift (fun b -> (fun c -> ((fun x => (reset (fun () -> x))) b)))) y))))

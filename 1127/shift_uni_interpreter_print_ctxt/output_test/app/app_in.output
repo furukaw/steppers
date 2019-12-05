@@ -1,0 +1,66 @@
+
+  eval
+    exp: ((fun x -> (x x)) (fun y -> y))
+    in : 8
+    out: 8
+
+  eval
+    exp: (fun y -> y)
+    in : ((fun x -> (x x)) 8)
+    out: 8
+
+  apply_in
+    exp: (fun y -> y)
+    in : ((fun x -> (x x)) 8)
+    out: 8
+
+  eval
+    exp: (fun x -> (x x))
+    in : (8 (fun y -> y))
+    out: 8
+
+  apply_in
+    exp: (fun x -> (x x))
+    in : (8 (fun y -> y))
+    out: 8
+
+  eval
+    exp: ((fun y -> y) (fun y -> y))
+    in : 8
+    out: 8
+
+  eval
+    exp: (fun y -> y)
+    in : ((fun y -> y) 8)
+    out: 8
+
+  apply_in
+    exp: (fun y -> y)
+    in : ((fun y -> y) 8)
+    out: 8
+
+  eval
+    exp: (fun y -> y)
+    in : (8 (fun y -> y))
+    out: 8
+
+  apply_in
+    exp: (fun y -> y)
+    in : (8 (fun y -> y))
+    out: 8
+
+  eval
+    exp: (fun y -> y)
+    in : 8
+    out: 8
+
+  apply_in
+    exp: (fun y -> y)
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun y -> y)
+    in : 8
+    out: 8
+Result:  (fun y -> y)

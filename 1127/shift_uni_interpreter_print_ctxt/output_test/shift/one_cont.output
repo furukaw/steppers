@@ -1,0 +1,96 @@
+
+  eval
+    exp: (reset (fun () -> ((fun a -> a) (shift (fun b -> (b (fun c -> c)))))))
+    in : 8
+    out: 8
+
+  eval
+    exp: ((fun a -> a) (shift (fun b -> (b (fun c -> c)))))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (shift (fun b -> (b (fun c -> c))))
+    in : ((fun a -> a) 8)
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (reset (fun () -> ((fun x => (reset (fun () -> ((fun a -> a) x)))) (fun c -> c))))
+    in : 8
+    out: 8
+
+  eval
+    exp: ((fun x => (reset (fun () -> ((fun a -> a) x)))) (fun c -> c))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun c -> c)
+    in : ((fun x => (reset (fun () -> ((fun a -> a) x)))) 8)
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun c -> c)
+    in : ((fun x => (reset (fun () -> ((fun a -> a) x)))) 8)
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun x => (reset (fun () -> ((fun a -> a) x))))
+    in : (8 (fun c -> c))
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun x => (reset (fun () -> ((fun a -> a) x))))
+    in : (8 (fun c -> c))
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun c -> c)
+    in : ((fun a -> a) 8)
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  eval
+    exp: (fun a -> a)
+    in : (8 (fun c -> c))
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_in
+    exp: (fun a -> a)
+    in : (8 (fun c -> c))
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  eval
+    exp: (fun c -> c)
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_in
+    exp: (fun c -> c)
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_out
+    exp: (fun c -> c)
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_in
+    exp: (fun c -> c)
+    in : 8
+    out: (reset (fun () -> 8))
+
+  apply_out
+    exp: (fun c -> c)
+    in : 8
+    out: (reset (fun () -> 8))
+
+  apply_in
+    exp: (fun c -> c)
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun c -> c)
+    in : 8
+    out: 8
+Result:  (fun c -> c)
