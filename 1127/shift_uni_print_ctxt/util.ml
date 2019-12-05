@@ -3,9 +3,9 @@ open Syntax
 let rec subst_v (v : v) (pairs : (string * v) list) : v = match v with
   | Var (x) -> (try List.assoc x pairs with Not_found -> v)
   | Fun (x, e) -> if List.mem_assoc x pairs then v else Fun (x, subst e pairs)
-  | Cont (cont_in, cont_out, x) ->
+  | Cont (cont_in, x) ->
     if List.mem_assoc x pairs then v
-    else Cont (subst_cont_in cont_in pairs, cont_out, x)
+    else Cont (subst_cont_in cont_in pairs, x)
 
 and subst (e : e) (pairs : (string * v) list) : e = match e with
   | Val (v) -> Val (subst_v v pairs)
@@ -17,10 +17,10 @@ and subst (e : e) (pairs : (string * v) list) : e = match e with
 and subst_cont_in (cont_in : cont_in) (pairs : (string * v) list) : cont_in
   = match cont_in with
   | FId -> FId
-  | FApp2 (e1, cont_in, cont_out) ->
-    FApp2 (subst e1 pairs, subst_cont_in cont_in pairs, cont_out)
-  | FApp1 (v2, cont_in, cont_out) ->
-    FApp1 (subst_v v2 pairs, subst_cont_in cont_in pairs, cont_out)
+  | FApp2 (e1, cont_in) ->
+    FApp2 (subst e1 pairs, subst_cont_in cont_in pairs)
+  | FApp1 (v2, cont_in) ->
+    FApp1 (subst_v v2 pairs, subst_cont_in cont_in pairs)
 
 (* プログラム内で使われている変数のリストを格納する変数 *)
 let var_names = ref []
@@ -50,7 +50,7 @@ let rec record_var_name : e -> unit = function
 and record_var_name_value : v -> unit = function
   | Var (x) -> ()
   | Fun (x, e) -> add_var_name x; record_var_name e
-  | Cont (_, _, x) -> add_var_name x
+  | Cont (_, x) -> add_var_name x
 
 (* プログラム内でまだ使われていない変数名を生成して返す *)
 let gen_var_name () =

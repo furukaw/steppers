@@ -1,7 +1,7 @@
 (* 値の型 *)
 type v = Var of string       (* x *)
        | Fun of string * e  (* fun x -> e *)
-       | Cont of cont_in * cont_out * string  (* fun x => e *)
+       | Cont of cont_in * string  (* fun x => e *)
 
 (* 式の型 *)
 and e = Val of v               (* v *)
@@ -10,8 +10,8 @@ and e = Val of v               (* v *)
       | Reset of e             (* reset (fun () -> e) *)
 
 and cont_in = FId
-            | FApp2 of e * cont_in * cont_out  (* e1, cont_in, cont_out *)
-            | FApp1 of v * cont_in * cont_out  (* v2, cont_in, cont_out *)
+            | FApp2 of e * cont_in  (* e1, cont_in *)
+            | FApp1 of v * cont_in  (* v2, cont_in *)
 
 and cont_out = GId
              | GReset of cont_in * cont_out (* cont_in, cont_out *)
@@ -20,8 +20,8 @@ and cont = cont_in * cont_out
 
 let rec plug_in_reset (e : e) (cont_in : cont_in) : e = match cont_in with
   | FId -> e
-  | FApp2 (e1, cont_in', cont_out) -> plug_in_reset (App (e1, e)) cont_in'
-  | FApp1 (v2, cont_in', cont_out) -> plug_in_reset (App (e, Val v2)) cont_in'
+  | FApp2 (e1, cont_in') -> plug_in_reset (App (e1, e)) cont_in'
+  | FApp1 (v2, cont_in') -> plug_in_reset (App (e, Val v2)) cont_in'
 
 let rec plug_all (e : e) ((cont_in, cont_out) : cont_in * cont_out) : e =
   let e_in_reset = plug_in_reset e cont_in in
@@ -35,7 +35,7 @@ let rec plug_all (e : e) ((cont_in, cont_out) : cont_in * cont_out) : e =
 let rec v_to_string (v : v) : string = match v with
   | Var (x) -> x
   | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
-  | Cont (cont_in, cont_out, x) ->
+  | Cont (cont_in, x) ->
     "(fun " ^ x ^ " => " ^
     e_to_string (Reset (plug_in_reset (Val (Var x)) cont_in)) ^ ")"
 
