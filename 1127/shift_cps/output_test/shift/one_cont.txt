@@ -1,1 +1,0 @@
-reset (fun () -> (fun a -> a) (shift (fun b -> b (fun c -> c))))
