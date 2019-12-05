@@ -1,0 +1,50 @@
+
+  eval
+    exp: (reset (fun () -> (reset (fun () -> (fun a -> (reset (fun () -> a)))))))
+    in : 8
+    out: 8
+
+  eval
+    exp: (reset (fun () -> (fun a -> (reset (fun () -> a)))))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  eval
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_in
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+
+  apply_out
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: (reset (fun () -> (reset (fun () -> 8))))
+Step 0:  (reset (fun () -> (reset (fun () -> (fun a -> (reset (fun () -> a)))))))
+Step 1:  (reset (fun () -> (fun a -> (reset (fun () -> a)))))
+
+  apply_in
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: (reset (fun () -> 8))
+
+  apply_out
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: (reset (fun () -> 8))
+Step 1:  (reset (fun () -> (fun a -> (reset (fun () -> a)))))
+Step 2:  (fun a -> (reset (fun () -> a)))
+
+  apply_in
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun a -> (reset (fun () -> a)))
+    in : 8
+    out: 8
+Result:  (fun a -> (reset (fun () -> a)))

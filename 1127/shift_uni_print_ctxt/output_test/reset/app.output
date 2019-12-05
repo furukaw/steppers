@@ -1,0 +1,168 @@
+
+  eval
+    exp: ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b)))
+    in : 8
+    out: 8
+
+  eval
+    exp: ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b))
+    in : ((fun a -> a) 8)
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) 8))
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) 8))
+    out: 8
+
+  eval
+    exp: (reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d))))
+    in : ((fun a -> a) (8 (fun b -> b)))
+    out: 8
+
+  eval
+    exp: (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d))
+    in : 8
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  eval
+    exp: (fun d -> d)
+    in : (((fun c -> c) ((fun e -> e) (fun f -> f))) 8)
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun d -> d)
+    in : (((fun c -> c) ((fun e -> e) (fun f -> f))) 8)
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  eval
+    exp: ((fun c -> c) ((fun e -> e) (fun f -> f)))
+    in : (8 (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  eval
+    exp: ((fun e -> e) (fun f -> f))
+    in : (((fun c -> c) 8) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  eval
+    exp: (fun f -> f)
+    in : (((fun c -> c) ((fun e -> e) 8)) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun f -> f)
+    in : (((fun c -> c) ((fun e -> e) 8)) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  eval
+    exp: (fun e -> e)
+    in : (((fun c -> c) (8 (fun f -> f))) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun e -> e)
+    in : (((fun c -> c) (8 (fun f -> f))) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+Step 0:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b)))
+Step 1:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) (fun f -> f)) (fun d -> d)))) (fun b -> b)))
+
+  eval
+    exp: (fun f -> f)
+    in : (((fun c -> c) 8) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun f -> f)
+    in : (((fun c -> c) 8) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  eval
+    exp: (fun c -> c)
+    in : ((8 (fun f -> f)) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun c -> c)
+    in : ((8 (fun f -> f)) (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+Step 1:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) (fun f -> f)) (fun d -> d)))) (fun b -> b)))
+Step 2:  ((fun a -> a) ((reset (fun () -> ((fun f -> f) (fun d -> d)))) (fun b -> b)))
+
+  eval
+    exp: (fun f -> f)
+    in : (8 (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun f -> f)
+    in : (8 (fun d -> d))
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+Step 2:  ((fun a -> a) ((reset (fun () -> ((fun f -> f) (fun d -> d)))) (fun b -> b)))
+Step 3:  ((fun a -> a) ((reset (fun () -> (fun d -> d))) (fun b -> b)))
+
+  eval
+    exp: (fun d -> d)
+    in : 8
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_in
+    exp: (fun d -> d)
+    in : 8
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+
+  apply_out
+    exp: (fun d -> d)
+    in : 8
+    out: ((fun a -> a) ((reset (fun () -> 8)) (fun b -> b)))
+Step 3:  ((fun a -> a) ((reset (fun () -> (fun d -> d))) (fun b -> b)))
+Step 4:  ((fun a -> a) ((fun d -> d) (fun b -> b)))
+
+  apply_in
+    exp: (fun d -> d)
+    in : ((fun a -> a) (8 (fun b -> b)))
+    out: 8
+Step 4:  ((fun a -> a) ((fun d -> d) (fun b -> b)))
+Step 5:  ((fun a -> a) (fun b -> b))
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> a) 8)
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) 8)
+    out: 8
+
+  eval
+    exp: (fun a -> a)
+    in : (8 (fun b -> b))
+    out: 8
+
+  apply_in
+    exp: (fun a -> a)
+    in : (8 (fun b -> b))
+    out: 8
+Step 5:  ((fun a -> a) (fun b -> b))
+Step 6:  (fun b -> b)
+
+  eval
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+Result:  (fun b -> b)

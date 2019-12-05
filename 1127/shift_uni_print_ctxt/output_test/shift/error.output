@@ -1,0 +1,26 @@
+
+  eval
+    exp: (((fun a -> a) (shift (fun k -> k))) (fun b -> b))
+    in : 8
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : (((fun a -> a) (shift (fun k -> k))) 8)
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : (((fun a -> a) (shift (fun k -> k))) 8)
+    out: 8
+
+  eval
+    exp: ((fun a -> a) (shift (fun k -> k)))
+    in : (8 (fun b -> b))
+    out: 8
+
+  eval
+    exp: (shift (fun k -> k))
+    in : (((fun a -> a) 8) (fun b -> b))
+    out: 8
+Fatal error: exception Failure("no reset around shift")
