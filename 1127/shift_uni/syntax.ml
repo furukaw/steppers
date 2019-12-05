@@ -1,11 +1,10 @@
 (* 値の型 *)
 type v = Var of string       (* x *)
-       | VFun of string * e  (* fun x -> e *)
-       | VCont of cont_in * cont_out * string  (* fun x => e *)
+       | Fun of string * e  (* fun x -> e *)
+       | Cont of cont_in * cont_out * string  (* fun x => e *)
 
 (* 式の型 *)
 and e = Val of v               (* v *)
-      | Fun of string * e      (* fun x -> e *)
       | App of e * e           (* e e *)
       | Shift of string * e    (* shift (fun x -> e) *)
       | Reset of e             (* reset (fun () -> e) *)
@@ -35,15 +34,14 @@ let rec plug_all (e : e) ((cont_in, cont_out) : cont_in * cont_out) : e =
 (* 値を文字列にする関数 *)
 let rec v_to_string (v : v) : string = match v with
   | Var (x) -> x
-  | VFun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
-  | VCont (cont_in, cont_out, x) ->
+  | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
+  | Cont (cont_in, cont_out, x) ->
     "(fun " ^ x ^ " => " ^
     e_to_string (Reset (plug_in_reset (Val (Var x)) cont_in)) ^ ")"
 
 (* 式を文字列にする関数 *)
 and e_to_string (e : e) : string = match e with
   | Val (v) -> v_to_string v
-  | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
   | App (e1, e2) -> "(" ^ e_to_string e1 ^ " " ^ e_to_string e2 ^ ")"
   | Shift (x, e) -> "(shift (fun " ^ x ^ " -> " ^ e_to_string e ^ "))"
   | Reset (e) -> "(reset (fun () -> " ^ e_to_string e ^ "))"

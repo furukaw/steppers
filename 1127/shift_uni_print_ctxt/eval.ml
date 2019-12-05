@@ -19,7 +19,6 @@ let rec eval (e : e) (cont_in : cont_in) (cont_out : cont_out) : v =
   debug "eval" e (cont_in, cont_out);
   match e with
   | Val (v) -> apply_in cont_in v cont_out
-  | Fun (x, e1) -> apply_in cont_in (VFun (x, e1)) cont_out
   | App (e1, e2) ->
     eval e2 (FApp2 (e1, cont_in, cont_out)) cont_out
   | Shift (x, e1) ->
@@ -28,8 +27,7 @@ let rec eval (e : e) (cont_in : cont_in) (cont_out : cont_out) : v =
       | (GReset (cont_in', cont_out')) ->
         let redex = Reset (plug_in_reset e cont_in) in
         let new_var = gen_var_name () in
-        let x_cont_in =
-          VCont (cont_in, cont_out, new_var) in
+        let x_cont_in = Cont (cont_in, cont_out, new_var) in
         let reduct = Reset (subst e1 [(x, x_cont_in)]) in
         memo redex reduct (cont_in', cont_out');
         eval reduct cont_in' cont_out'
@@ -47,12 +45,12 @@ and apply_in (cont_in : cont_in) (v : v) (cont_out : cont_out): v =
   | FApp1 (v2, cont_in1, cont_out1) -> let v1 = v in
     begin
       match v1 with
-      | VFun (x, e_fun) ->
+      | Fun (x, e_fun) ->
         let redex = App (Val v1, Val v2) in
         let reduct = subst e_fun [(x, v2)] in
         memo redex reduct (cont_in1, cont_out);
         eval reduct cont_in1 cont_out
-      | VCont (cont_in', cont_out', x) ->
+      | Cont (cont_in', cont_out', x) ->
         let redex = App (Val v1, Val v2) in
         let reduct = Reset (plug_in_reset (Val v2) cont_in') in
         memo redex reduct (cont_in1, cont_out);

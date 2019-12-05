@@ -34,7 +34,7 @@ expr:
 | value
         { Val ($1) }
 | FUN VAR RIGHT expr
-        { Fun ($2, $4) }
+        { Val (Fun ($2, $4)) }
 | simple_expr simple_expr
         { App ($1, $2) }
 | SHIFT LPAREN FUN VAR RIGHT expr RPAREN

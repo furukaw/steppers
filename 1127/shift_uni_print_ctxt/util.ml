@@ -2,14 +2,13 @@ open Syntax
 
 let rec subst_v (v : v) (pairs : (string * v) list) : v = match v with
   | Var (x) -> (try List.assoc x pairs with Not_found -> v)
-  | VFun (x, e) -> if List.mem_assoc x pairs then v else VFun (x, subst e pairs)
-  | VCont (cont_in, cont_out, x) ->
+  | Fun (x, e) -> if List.mem_assoc x pairs then v else Fun (x, subst e pairs)
+  | Cont (cont_in, cont_out, x) ->
     if List.mem_assoc x pairs then v
-    else VCont (subst_cont_in cont_in pairs, cont_out, x)
+    else Cont (subst_cont_in cont_in pairs, cont_out, x)
 
 and subst (e : e) (pairs : (string * v) list) : e = match e with
   | Val (v) -> Val (subst_v v pairs)
-  | Fun (x, e) -> if List.mem_assoc x pairs then e else Fun (x, subst e pairs)
   | App (e1, e2) -> App (subst e1 pairs, subst e2 pairs)
   | Shift (x, e) ->
     if List.mem_assoc x pairs then e else Shift (x, subst e pairs)
@@ -44,15 +43,14 @@ let add_var_name (var : string) : unit =
 
 let rec record_var_name : e -> unit = function
   | Val (v) -> record_var_name_value v
-  | Fun (x, e) -> add_var_name x; record_var_name e
   | App (e1, e2) -> record_var_name e1; record_var_name e2
   | Shift (x, e) -> add_var_name x; record_var_name e
   | Reset (e) -> record_var_name e
 
 and record_var_name_value : v -> unit = function
   | Var (x) -> ()
-  | VFun (x, e) -> add_var_name x; record_var_name e
-  | VCont (_, _, x) -> add_var_name x
+  | Fun (x, e) -> add_var_name x; record_var_name e
+  | Cont (_, _, x) -> add_var_name x
 
 (* プログラム内でまだ使われていない変数名を生成して返す *)
 let gen_var_name () =
