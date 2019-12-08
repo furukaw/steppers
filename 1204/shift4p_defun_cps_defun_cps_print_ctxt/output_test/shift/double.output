@@ -19,7 +19,7 @@
     xin : ((reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d))))))))) 8)
     oout: (reset (fun () -> 8))
     xout: (reset (fun () -> 8))
-    
+
   apply_in
     exp : (fun f -> f)
     oin : ((reset (fun () -> (shift (fun a -> ((shift (fun b -> (fun c -> (a b)))) (shift (fun d -> (fun e -> (a d))))))))) 8)
