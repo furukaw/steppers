@@ -1,0 +1,88 @@
+
+  eval
+    exp : ((fun x -> (x x)) (fun y -> y))
+    oin : 8
+    xin : 8
+    oout: 8
+    xout: 8
+
+  eval
+    exp : (fun y -> y)
+    oin : ((fun x -> (x x)) 8)
+    xin : ((fun x -> (x x)) 8)
+    oout: 8
+    xout: 8
+
+  apply_in
+    exp : (fun y -> y)
+    oin : ((fun x -> (x x)) 8)
+    oout: 8
+    xout: 8
+
+  eval
+    exp : (fun x -> (x x))
+    oin : (8 (fun y -> y))
+    xin : (8 (fun y -> y))
+    oout: 8
+    xout: 8
+
+  apply_in
+    exp : (fun x -> (x x))
+    oin : (8 (fun y -> y))
+    oout: 8
+    xout: 8
+Step 0:  ((fun x -> (x x)) (fun y -> y))
+Step 1:  ((fun y -> y) (fun y -> y))
+
+  eval
+    exp : ((fun y -> y) (fun y -> y))
+    oin : 8
+    xin : 8
+    oout: 8
+    xout: 8
+
+  eval
+    exp : (fun y -> y)
+    oin : ((fun y -> y) 8)
+    xin : ((fun y -> y) 8)
+    oout: 8
+    xout: 8
+
+  apply_in
+    exp : (fun y -> y)
+    oin : ((fun y -> y) 8)
+    oout: 8
+    xout: 8
+
+  eval
+    exp : (fun y -> y)
+    oin : (8 (fun y -> y))
+    xin : (8 (fun y -> y))
+    oout: 8
+    xout: 8
+
+  apply_in
+    exp : (fun y -> y)
+    oin : (8 (fun y -> y))
+    oout: 8
+    xout: 8
+Step 1:  ((fun y -> y) (fun y -> y))
+Step 2:  (fun y -> y)
+
+  eval
+    exp : (fun y -> y)
+    oin : 8
+    xin : 8
+    oout: 8
+    xout: 8
+
+  apply_in
+    exp : (fun y -> y)
+    oin : 8
+    oout: 8
+    xout: 8
+
+  apply_out
+    exp : (fun y -> y)
+    oout: 8
+Result:  (fun y -> y)

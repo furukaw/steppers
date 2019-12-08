@@ -1,0 +1,37 @@
+
+  eval
+    exp : (reset (fun () -> (fun a -> a)))
+    oin : 8
+    xin : 8
+    oout: 8
+    xout: 8
+
+  eval
+    exp : (fun a -> a)
+    oin : 8
+    xin : 8
+    oout: (reset (fun () -> 8))
+    xout: (reset (fun () -> 8))
+
+  apply_in
+    exp : (fun a -> a)
+    oin : 8
+    oout: (reset (fun () -> 8))
+    xout: (reset (fun () -> 8))
+
+  apply_out
+    exp : (fun a -> a)
+    oout: (reset (fun () -> 8))
+Step 0:  (reset (fun () -> (fun a -> a)))
+Step 1:  (fun a -> a)
+
+  apply_in
+    exp : (fun a -> a)
+    oin : 8
+    oout: 8
+    xout: 8
+
+  apply_out
+    exp : (fun a -> a)
+    oout: 8
+Result:  (fun a -> a)
