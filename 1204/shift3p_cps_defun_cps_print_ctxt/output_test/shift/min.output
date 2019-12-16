@@ -1,0 +1,45 @@
+
+  eval
+    exp : (reset (fun () -> (shift (fun k -> k))))
+    oin : 8
+    xin : 8
+    xout: 8
+
+  eval
+    exp : (shift (fun k -> k))
+    oin : 8
+    xin : 8
+    xout: (reset (fun () -> 8))
+Step 0:  (reset (fun () -> (shift (fun k -> k))))
+Step 1:  (reset (fun () -> (fun x => (reset (fun () -> x)))))
+
+  eval
+    exp : (reset (fun () -> (fun x => (reset (fun () -> x)))))
+    oin : 8
+    xin : 8
+    xout: 8
+
+  eval
+    exp : (fun x => (reset (fun () -> x)))
+    oin : 8
+    xin : 8
+    xout: (reset (fun () -> 8))
+
+  apply_in
+    exp : (fun x => (reset (fun () -> x)))
+    oin : 8
+    xout: (reset (fun () -> 8))
+
+  apply_out
+    exp : (fun x => (reset (fun () -> x)))
+Step 1:  (reset (fun () -> (fun x => (reset (fun () -> x)))))
+Step 2:  (fun x => (reset (fun () -> x)))
+
+  apply_in
+    exp : (fun x => (reset (fun () -> x)))
+    oin : 8
+    xout: 8
+
+  apply_out
+    exp : (fun x => (reset (fun () -> x)))
+Result:  (fun x => (reset (fun () -> x)))

@@ -1,0 +1,45 @@
+
+  eval
+    exp : ((fun a -> a) (fun b -> b))
+    oin : 8
+    xin : 8
+    xout: 8
+
+  eval
+    exp : (fun b -> b)
+    oin : ((fun a -> a) 8)
+    xin : ((fun a -> a) 8)
+    xout: 8
+
+  apply_in
+    exp : (fun b -> b)
+    oin : ((fun a -> a) 8)
+    xout: 8
+
+  eval
+    exp : (fun a -> a)
+    oin : (8 (fun b -> b))
+    xin : (8 (fun b -> b))
+    xout: 8
+
+  apply_in
+    exp : (fun a -> a)
+    oin : (8 (fun b -> b))
+    xout: 8
+Step 0:  ((fun a -> a) (fun b -> b))
+Step 1:  (fun b -> b)
+
+  eval
+    exp : (fun b -> b)
+    oin : 8
+    xin : 8
+    xout: 8
+
+  apply_in
+    exp : (fun b -> b)
+    oin : 8
+    xout: 8
+
+  apply_out
+    exp : (fun b -> b)
+Result:  (fun b -> b)

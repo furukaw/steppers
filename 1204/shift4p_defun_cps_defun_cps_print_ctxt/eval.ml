@@ -17,7 +17,6 @@ let rec plug_cont (e : e) ((cont_in, cont_out) : cont) : e =
     let e_reset = Reset (e_in_reset) in
     plug_cont e_reset (cont_in, cont_out)
 
-
 (* 簡約ステップを出力しながら式を実行する *)
 let rec eval (e : e) ((ctxt_in, ctxt_out) : ctxt)
     (cont_in : cont_in) (cont_out : cont_out) : v =

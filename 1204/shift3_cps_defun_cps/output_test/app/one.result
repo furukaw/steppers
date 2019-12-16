@@ -1,0 +1,6 @@
+Step 0:  ((fun a -> a) (fun b -> b))
+Step 1:  (fun b -> b)
+
+  gid
+    exp : (fun b -> b)
+Result:  (fun b -> b)

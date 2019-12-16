@@ -1,0 +1,16 @@
+Step 0:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) ((fun e -> e) (fun f -> f))) (fun d -> d)))) (fun b -> b)))
+Step 1:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) (fun f -> f)) (fun d -> d)))) (fun b -> b)))
+Step 1:  ((fun a -> a) ((reset (fun () -> (((fun c -> c) (fun f -> f)) (fun d -> d)))) (fun b -> b)))
+Step 2:  ((fun a -> a) ((reset (fun () -> ((fun f -> f) (fun d -> d)))) (fun b -> b)))
+Step 2:  ((fun a -> a) ((reset (fun () -> ((fun f -> f) (fun d -> d)))) (fun b -> b)))
+Step 3:  ((fun a -> a) ((reset (fun () -> (fun d -> d))) (fun b -> b)))
+Step 3:  ((fun a -> a) ((reset (fun () -> (fun d -> d))) (fun b -> b)))
+Step 4:  ((fun a -> a) ((fun d -> d) (fun b -> b)))
+Step 4:  ((fun a -> a) ((fun d -> d) (fun b -> b)))
+Step 5:  ((fun a -> a) (fun b -> b))
+Step 5:  ((fun a -> a) (fun b -> b))
+Step 6:  (fun b -> b)
+
+  gid
+    exp : (fun b -> b)
+Result:  (fun b -> b)

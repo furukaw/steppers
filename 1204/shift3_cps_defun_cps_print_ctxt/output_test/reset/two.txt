@@ -1,1 +1,0 @@
-reset (fun () -> reset (fun () -> (fun a -> reset (fun () -> a))))
