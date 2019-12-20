@@ -1,0 +1,121 @@
+
+  eval
+    exp : ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
+
+  eval
+    exp : (fun h -> h)
+
+  apply app2
+    exp : (fun h -> h)
+
+  eval
+    exp : (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g)))
+
+  eval
+    exp : (handler {A(x; k) -> (fun a -> (a (k x)))})
+
+  apply_in with
+    exp : (handler {A(x; k) -> (fun a -> (a (k x)))})
+
+  eval
+    exp : ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))
+
+  eval
+    exp : (fun g -> g)
+
+  apply app2
+    exp : (fun g -> g)
+
+  eval
+    exp : (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f)))
+
+  eval
+    exp : (handler {A(x; k) -> (fun b -> (b (A (k x))))})
+
+  apply_in with
+    exp : (handler {A(x; k) -> (fun b -> (b (A (k x))))})
+
+  eval
+    exp : ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))
+
+  eval
+    exp : (fun f -> f)
+
+  apply app2
+    exp : (fun f -> f)
+
+  eval
+    exp : (A (((fun c -> c) (fun d -> d)) (fun e -> e)))
+
+  eval
+    exp : (((fun c -> c) (fun d -> d)) (fun e -> e))
+
+  eval
+    exp : (fun e -> e)
+
+  apply app2
+    exp : (fun e -> e)
+
+  eval
+    exp : ((fun c -> c) (fun d -> d))
+
+  eval
+    exp : (fun d -> d)
+
+  apply app2
+    exp : (fun d -> d)
+
+  eval
+    exp : (fun c -> c)
+
+  apply app1
+    exp : (fun c -> c)
+
+  eval
+    exp : (fun d -> d)
+
+  apply app1
+    exp : (fun d -> d)
+
+  eval
+    exp : (fun e -> e)
+
+  apply_in op
+    exp : (fun e -> e)
+
+  eval
+    exp : (fun b -> (b (A (<cont> (fun e -> e)))))
+
+  apply app1
+    exp : (fun b -> (b (A (<cont> (fun e -> e)))))
+
+  eval
+    exp : ((fun h -> h) (A (<cont> (fun e -> e))))
+
+  eval
+    exp : (A (<cont> (fun e -> e)))
+
+  eval
+    exp : (<cont> (fun e -> e))
+
+  eval
+    exp : (fun e -> e)
+
+  apply app2
+    exp : (fun e -> e)
+
+  eval
+    exp : <cont>
+
+  apply app1
+    exp : <cont>
+
+  apply app1
+    exp : (fun e -> e)
+
+  eval
+    exp : (fun g -> g)
+
+  apply_in op
+    exp : (fun g -> g)
+Fatal error: exception Failure("no handlers for A")

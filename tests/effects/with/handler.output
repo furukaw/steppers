@@ -1,0 +1,5 @@
+Step 0:  (with ((fun a -> a) (handler {})) handle 2)
+Step 1:  (with (handler {}) handle 2)
+Step 1:  (with (handler {}) handle 2)
+Step 2:  2
+Result:  2

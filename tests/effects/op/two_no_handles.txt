@@ -1,0 +1,1 @@
+with handler {A(x; k) -> 1} handle with handler {B(x; k) -> 2} handle C 3

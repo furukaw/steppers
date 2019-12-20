@@ -1,0 +1,1 @@
+((fun a -> a) (with handler {A(x; k) -> 1} handle (fun b -> b) ((fun c -> c) (fun d -> d)))) 2

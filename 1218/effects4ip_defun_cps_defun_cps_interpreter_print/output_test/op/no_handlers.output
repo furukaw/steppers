@@ -1,0 +1,23 @@
+
+  eval
+    exp: (A 1)
+    in : 8
+    out: 8
+
+  eval
+    exp: 1
+    in : (A 8)
+    out: 8
+
+  apply_in
+    exp: 1
+    in : (A 8)
+    out: 8
+
+  apply_out
+    exp: (A 1)
+      in : 8
+      out: 8
+    in : 8
+    out: 8
+Error: no handlers for A

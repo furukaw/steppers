@@ -1,0 +1,22 @@
+
+  eval
+    exp : (with (handler {A(x; k) -> (fun a -> (k x))}) handle (A 1))
+
+  eval
+    exp : (handler {A(x; k) -> (fun a -> (k x))})
+
+  apply_in with
+    exp : (handler {A(x; k) -> (fun a -> (k x))})
+
+  eval
+    exp : (A 1)
+
+  eval
+    exp : 1
+
+  apply_in op
+    exp : 1
+
+  eval
+    exp : (fun a -> (<cont> 1))
+Result:  (fun a -> (<cont> 1))

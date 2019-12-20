@@ -1,0 +1,28 @@
+
+  eval
+    exp : (with (handler {A(x; k) -> 1}) handle (with (handler {B(x; k) -> 2}) handle (C 3)))
+
+  eval
+    exp : (handler {A(x; k) -> 1})
+
+  apply_in with
+    exp : (handler {A(x; k) -> 1})
+
+  eval
+    exp : (with (handler {B(x; k) -> 2}) handle (C 3))
+
+  eval
+    exp : (handler {B(x; k) -> 2})
+
+  apply_in with
+    exp : (handler {B(x; k) -> 2})
+
+  eval
+    exp : (C 3)
+
+  eval
+    exp : 3
+
+  apply_in op
+    exp : 3
+Fatal error: exception Failure("no handlers for C")

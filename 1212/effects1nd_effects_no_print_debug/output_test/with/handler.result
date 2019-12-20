@@ -1,0 +1,28 @@
+
+  eval
+    exp : (with ((fun a -> a) (handler {})) handle 2)
+
+  eval
+    exp : ((fun a -> a) (handler {}))
+
+  eval
+    exp : (handler {})
+
+  apply app2
+    exp : (handler {})
+
+  eval
+    exp : (fun a -> a)
+
+  apply app1
+    exp : (fun a -> a)
+
+  eval
+    exp : (handler {})
+
+  apply_in with
+    exp : (handler {})
+
+  eval
+    exp : 2
+Result:  2

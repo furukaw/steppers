@@ -1,0 +1,79 @@
+
+  eval
+    exp : ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A ((fun d -> d) 2)))))))
+
+  eval
+    exp : (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A ((fun d -> d) 2))))))
+
+  eval
+    exp : (handler {A(x; k) -> (k x)})
+
+  apply_in with
+    exp : (handler {A(x; k) -> (k x)})
+
+  eval
+    exp : ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A ((fun d -> d) 2)))))
+
+  eval
+    exp : (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A ((fun d -> d) 2))))
+
+  eval
+    exp : (handler {B(x; k) -> 1})
+
+  apply_in with
+    exp : (handler {B(x; k) -> 1})
+
+  eval
+    exp : ((fun c -> c) (A ((fun d -> d) 2)))
+
+  eval
+    exp : (A ((fun d -> d) 2))
+
+  eval
+    exp : ((fun d -> d) 2)
+
+  eval
+    exp : 2
+
+  apply app2
+    exp : 2
+
+  eval
+    exp : (fun d -> d)
+
+  apply app1
+    exp : (fun d -> d)
+
+  eval
+    exp : 2
+
+  apply_in op
+    exp : 2
+
+  eval
+    exp : (<cont> 2)
+
+  eval
+    exp : 2
+
+  apply app2
+    exp : 2
+
+  eval
+    exp : <cont>
+
+  apply app1
+    exp : <cont>
+
+  apply app2
+    exp : 2
+
+  eval
+    exp : (fun a -> a)
+
+  apply app1
+    exp : (fun a -> a)
+
+  eval
+    exp : 2
+Result:  2

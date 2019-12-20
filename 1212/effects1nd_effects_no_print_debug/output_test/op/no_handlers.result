@@ -1,0 +1,10 @@
+
+  eval
+    exp : (A 1)
+
+  eval
+    exp : 1
+
+  apply_in op
+    exp : 1
+Fatal error: exception Failure("no handlers for A")

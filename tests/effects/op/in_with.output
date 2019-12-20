@@ -1,0 +1,5 @@
+Step 0:  (with (with (handler {A(x; k) -> x}) handle (A (handler {A(x; k) -> x}))) handle (A 1))
+Step 1:  (with (handler {A(x; k) -> x}) handle (A 1))
+Step 1:  (with (handler {A(x; k) -> x}) handle (A 1))
+Step 2:  1
+Result:  1

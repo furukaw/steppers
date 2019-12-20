@@ -1,0 +1,13 @@
+
+  eval
+    exp : (with (handler {A(x; k) -> 1}) handle 2)
+
+  eval
+    exp : (handler {A(x; k) -> 1})
+
+  apply_in with
+    exp : (handler {A(x; k) -> 1})
+
+  eval
+    exp : 2
+Result:  2

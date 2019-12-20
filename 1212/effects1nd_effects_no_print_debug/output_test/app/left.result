@@ -1,0 +1,34 @@
+
+  eval
+    exp : ((fun a -> a) ((fun b -> b) 1))
+
+  eval
+    exp : ((fun b -> b) 1)
+
+  eval
+    exp : 1
+
+  apply app2
+    exp : 1
+
+  eval
+    exp : (fun b -> b)
+
+  apply app1
+    exp : (fun b -> b)
+
+  eval
+    exp : 1
+
+  apply app2
+    exp : 1
+
+  eval
+    exp : (fun a -> a)
+
+  apply app1
+    exp : (fun a -> a)
+
+  eval
+    exp : 1
+Result:  1
