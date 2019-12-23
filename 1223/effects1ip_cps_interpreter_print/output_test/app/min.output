@@ -1,0 +1,25 @@
+
+  eval
+    exp: ((fun a -> a) 1)
+
+  eval
+    exp: 1
+
+  apply_in app2
+    exp: 1
+
+  eval
+    exp: (fun a -> a)
+
+  apply_in app1
+    exp: (fun a -> a)
+
+  eval
+    exp: 1
+
+  apply_in id
+    exp: 1
+
+  apply_out id
+    exp: 1
+Result:  1

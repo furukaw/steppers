@@ -17,7 +17,7 @@ and e = Val of v          (* v *)
       | With of e * e     (* with e handle e *)
 
 and a = Return of v
-      | OpCall of string * v * cont_in * (h * cont_in) list
+      | OpCall of string * v * cont_in
 
 and cont_in = v -> a
 
@@ -51,6 +51,10 @@ and e_to_string (e : e) : string = match e with
   | With (e1, e2) ->
     "(with " ^ e_to_string e1 ^ " handle " ^ e_to_string e2 ^ ")"
 
+let a_to_string : a -> string = function
+  | Return v -> v_to_string v
+  | OpCall (name, v, _) -> "(" ^ name ^ " " ^ v_to_string v ^ ")"
+
 (* 式を標準出力する *)
 let print_e (e : e) : unit =
   print_endline (e_to_string e)
@@ -59,3 +63,5 @@ let print_e (e : e) : unit =
 let print_v (v : v) : unit =
   print_endline (v_to_string v)
 
+let print_a (a : a) : unit =
+  print_endline (a_to_string a)

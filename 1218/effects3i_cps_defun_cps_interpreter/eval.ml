@@ -19,19 +19,23 @@ let rec compose_cont_in (inner : cont_in) (outer : cont_in) : cont_in =
   | FWith (e2, cont_in) -> FWith (e2, compose_cont_in cont_in outer)
 
 (* inner の外側（後）に (with h handle cont_in) をつけた継続 *)
-let rec wrap_cont_out (inner: cont_out) (h : h) (cont_in : cont_in) : cont_out =
-  match inner with
-  | GId -> GHandle (h, (cont_in, GId))
-  | GHandle (h', (cont_in', cont_out')) ->
-    GHandle (h', (cont_in', wrap_cont_out cont_out' h cont_in))
+(* let rec wrap_cont_out (inner: cont_out) (h : h) (cont_in : cont_in) : cont_out =
+ *   match inner with
+ *   | GId -> GHandle (h, (cont_in, GId))
+ *   | GHandle (h', (cont_in', cont_out')) ->
+ *     GHandle (h', (cont_in', wrap_cont_out cont_out' h cont_in)) *)
 
 (* 継続の合成 *)
-let rec compose_cont (inner_in, inner_out) (outer_in, outer_out) : cont =
+(* let rec compose_cont (inner_in, inner_out) (outer_in, outer_out) : cont =
+ *   match inner_out with
+ *   | GId -> (compose_cont_in inner_in outer_in, outer_out)
+ *   | GHandle (h, (cont_in', cont_out')) ->
+ *     (inner_in,
+ *      GHandle (h, compose_cont (cont_in', cont_out') (outer_in, outer_out))) *)
+
+let compose_cont (inner_in, inner_out) (outer_in, outer_out) : cont =
   match inner_out with
-  | GId -> (compose_cont_in inner_in outer_in, outer_out)
-  | GHandle (h, (cont_in', cont_out')) ->
-    (inner_in,
-     GHandle (h, compose_cont (cont_in', cont_out') (outer_in, outer_out)))
+  
 
 (* インタプリタ *)
 let rec eval (exp : e) (cont_in : cont_in) (cont_out : cont_out) : a =

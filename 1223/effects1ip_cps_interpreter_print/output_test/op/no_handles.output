@@ -1,0 +1,25 @@
+
+  eval
+    exp: (with (handler {A(x; k) -> 1}) handle (B 2))
+
+  eval
+    exp: (handler {A(x; k) -> 1})
+
+  apply_in with
+    exp: (handler {A(x; k) -> 1})
+
+  eval
+    exp: (B 2)
+
+  eval
+    exp: 2
+
+  apply_in op
+    exp: 2
+
+  apply_out handle
+    exp: (B 2)
+
+  apply_out id
+    exp: (B 2)
+Fatal error: exception Failure("no handlers for B")

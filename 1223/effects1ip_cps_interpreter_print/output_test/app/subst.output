@@ -1,0 +1,40 @@
+
+  eval
+    exp: (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1) 2)
+
+  eval
+    exp: 2
+
+  apply_in app2
+    exp: 2
+
+  eval
+    exp: ((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1)
+
+  eval
+    exp: 1
+
+  apply_in app2
+    exp: 1
+
+  eval
+    exp: (fun a -> (fun b -> (fun c -> ((a b) ((c b) a)))))
+
+  apply_in app1
+    exp: (fun a -> (fun b -> (fun c -> ((a b) ((c b) a)))))
+
+  eval
+    exp: (fun b -> (fun c -> ((1 b) ((c b) 1))))
+
+  apply_in app1
+    exp: (fun b -> (fun c -> ((1 b) ((c b) 1))))
+
+  eval
+    exp: (fun c -> ((1 2) ((c 2) 1)))
+
+  apply_in id
+    exp: (fun c -> ((1 2) ((c 2) 1)))
+
+  apply_out id
+    exp: (fun c -> ((1 2) ((c 2) 1)))
+Result:  (fun c -> ((1 2) ((c 2) 1)))

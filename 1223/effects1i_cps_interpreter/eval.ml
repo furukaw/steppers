@@ -32,26 +32,40 @@ let rec eval (exp : e) (cont_in : cont_in) : a =
           )
       )
   | Op (name, e) ->
-    eval e (fun v -> OpCall (name, v, [cont_in]))
+    eval e (fun v -> OpCall (name, v, cont_in))
   | With (e1, e2) ->
     eval e1 (fun v1 ->
         let h = match v1 with
           | Handler (h) -> h
           | _ -> failwith "type error" in
-        match eval e2 id_in with
-        | Return v2 ->
-          begin match h.return with
-            | None -> cont_in v2
-            | Some (x, e) -> eval (subst e [(x, v2)]) cont_in end
-        | OpCall (name, v2, cont_ins) ->
-          begin match search_op name h with
-            | None -> OpCall (name, v2, cont_in :: cont_ins)
-            | Some (x, k, e) ->
-              eval (subst e [(x, v2); (k, Cont (cont_in))]) id_in
-          end
+        let a = eval e2 id_in in
+        g cont_in h a
       )
 
+and f (cont_first : cont_in) (cont_last : cont_in) (h : h) : v -> a =
+  fun v ->
+    let a = cont_first v in
+    g cont_last h a
+
+and g (cont_last : cont_in) (h : h) (a : a) : a =
+  match a with
+  | Return v ->
+    begin match h.return with
+      | None -> cont_last v
+      | Some (x, e) -> eval (subst e [(x, v)]) cont_last end
+  | OpCall (name, v, cont_in') ->
+    begin match search_op name h with
+      | None ->
+        OpCall (name, v, (f cont_in' cont_last h))
+      | Some (x, k, e) ->
+        let reduct =
+          subst e [(x, v);
+                   (k, Cont (f cont_in' id_in h))] in
+        eval reduct cont_last
+    end
+
 let stepper (e : e) : v =
-  match eval e id_in with
+  let a = eval e id_in in
+  match a with
   | Return v -> v
   | OpCall (name, _, _) -> failwith ("no handlers for " ^ name)
