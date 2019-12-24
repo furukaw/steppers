@@ -3,7 +3,7 @@ type v = Var of string      (* x *)
        | Num of int         (* n *)
        | Fun of string * e  (* fun x -> e *)
        | Handler of h
-       | Cont of cont_in
+       | Cont of (cont_in -> cont_in)
 
 and h = {
   return : (string * e) option;              (* handler {return x -> e,      *)

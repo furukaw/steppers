@@ -22,17 +22,13 @@ let rec eval (exp : e) (cont_in : cont_in) : a =
               let reduct = subst e [(x, v2)] in
               eval reduct cont_in
             | Cont (cont_in') ->
-              begin
-                match cont_in' v2 with
-                | Return v -> cont_in v
-                | OpCall (name, v, cont_ins) ->
-                  OpCall (name, v, cont_ins)
-              end
+              cont_in' cont_in v2
             | _ -> failwith "type error"
           )
       )
   | Op (name, e) ->
-    eval e (fun v -> OpCall (name, v, cont_in))
+    eval e (fun v ->
+        OpCall (name, v, cont_in))
   | With (e1, e2) ->
     eval e1 (fun v1 ->
         let h = match v1 with
@@ -41,11 +37,6 @@ let rec eval (exp : e) (cont_in : cont_in) : a =
         let a = eval e2 id_in in
         g cont_in h a
       )
-
-and f (cont_first : cont_in) (cont_last : cont_in) (h : h) : v -> a =
-  fun v ->
-    let a = cont_first v in
-    g cont_last h a
 
 and g (cont_last : cont_in) (h : h) (a : a) : a =
   match a with
@@ -56,11 +47,11 @@ and g (cont_last : cont_in) (h : h) (a : a) : a =
   | OpCall (name, v, cont_in') ->
     begin match search_op name h with
       | None ->
-        OpCall (name, v, (f cont_in' cont_last h))
+        OpCall (name, v, (fun v -> g cont_last h (cont_in' v)))
       | Some (x, k, e) ->
         let reduct =
           subst e [(x, v);
-                   (k, Cont (f cont_in' id_in h))] in
+                   (k, Cont (fun id_in -> fun v -> g id_in h (cont_in' v)))] in
         eval reduct cont_last
     end
 
