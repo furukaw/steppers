@@ -1,0 +1,52 @@
+
+  eval
+    exp: ((fun a -> (a a)) (fun b -> b))
+    in : 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> (a a)) 8)
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> (a a)) 8)
+
+  eval
+    exp: (fun a -> (a a))
+    in : (8 (fun b -> b))
+
+  apply_in
+    exp: (fun a -> (a a))
+    in : (8 (fun b -> b))
+
+  eval
+    exp: ((fun b -> b) (fun b -> b))
+    in : 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun b -> b) 8)
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun b -> b) 8)
+
+  eval
+    exp: (fun b -> b)
+    in : (8 (fun b -> b))
+
+  apply_in
+    exp: (fun b -> b)
+    in : (8 (fun b -> b))
+
+  eval
+    exp: (fun b -> b)
+    in : 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : 8
+
+  apply_out id
+    exp: (fun b -> b)
+Result:  (fun b -> b)

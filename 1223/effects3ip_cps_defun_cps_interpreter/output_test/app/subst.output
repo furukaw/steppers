@@ -1,0 +1,52 @@
+
+  eval
+    exp: (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1) 2)
+    in : 8
+
+  eval
+    exp: 2
+    in : (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1) 8)
+
+  apply_in
+    exp: 2
+    in : (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1) 8)
+
+  eval
+    exp: ((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1)
+    in : (8 2)
+
+  eval
+    exp: 1
+    in : (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 8) 2)
+
+  apply_in
+    exp: 1
+    in : (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 8) 2)
+
+  eval
+    exp: (fun a -> (fun b -> (fun c -> ((a b) ((c b) a)))))
+    in : ((8 1) 2)
+
+  apply_in
+    exp: (fun a -> (fun b -> (fun c -> ((a b) ((c b) a)))))
+    in : ((8 1) 2)
+
+  eval
+    exp: (fun b -> (fun c -> ((1 b) ((c b) 1))))
+    in : (8 2)
+
+  apply_in
+    exp: (fun b -> (fun c -> ((1 b) ((c b) 1))))
+    in : (8 2)
+
+  eval
+    exp: (fun c -> ((1 2) ((c 2) 1)))
+    in : 8
+
+  apply_in
+    exp: (fun c -> ((1 2) ((c 2) 1)))
+    in : 8
+
+  apply_out id
+    exp: (fun c -> ((1 2) ((c 2) 1)))
+Result:  (fun c -> ((1 2) ((c 2) 1)))

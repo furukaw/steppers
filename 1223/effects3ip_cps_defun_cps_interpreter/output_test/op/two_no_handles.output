@@ -1,0 +1,50 @@
+
+  eval
+    exp: (with (handler {A(x; k) -> 1}) handle (with (handler {B(x; k) -> 2}) handle (C 3)))
+    in : 8
+
+  eval
+    exp: (handler {A(x; k) -> 1})
+    in : (with 8 handle (with (handler {B(x; k) -> 2}) handle (C 3)))
+
+  apply_in
+    exp: (handler {A(x; k) -> 1})
+    in : (with 8 handle (with (handler {B(x; k) -> 2}) handle (C 3)))
+
+  eval
+    exp: (with (handler {B(x; k) -> 2}) handle (C 3))
+    in : 8
+
+  eval
+    exp: (handler {B(x; k) -> 2})
+    in : (with 8 handle (C 3))
+
+  apply_in
+    exp: (handler {B(x; k) -> 2})
+    in : (with 8 handle (C 3))
+
+  eval
+    exp: (C 3)
+    in : 8
+
+  eval
+    exp: 3
+    in : (C 8)
+
+  apply_in
+    exp: 3
+    in : (C 8)
+
+  apply_out handle
+    exp: (C 3)
+    in : 8
+    h  : (handler {B(x; k) -> 2})
+
+  apply_out handle
+    exp: (C 3)
+    in : 8
+    h  : (handler {A(x; k) -> 1})
+
+  apply_out id
+    exp: (C 3)
+Error: no handlers for C
