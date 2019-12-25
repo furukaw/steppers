@@ -1,0 +1,5 @@
+(with handler {A(x; k) -> (fun a -> a (k x))} handle
+(with handler {A(x; k) -> (fun b -> b (A (k x)))} handle
+((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))
+) (fun g -> g)
+) (fun h -> h)

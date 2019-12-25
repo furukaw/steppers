@@ -1,0 +1,66 @@
+
+  eval
+    exp: (with ((fun a -> a) (handler {})) handle 2)
+    in : 8
+    out: 8
+
+  eval
+    exp: ((fun a -> a) (handler {}))
+    in : (with 8 handle 2)
+    out: 8
+
+  eval
+    exp: (handler {})
+    in : (with ((fun a -> a) 8) handle 2)
+    out: 8
+
+  apply_in
+    exp: (handler {})
+    in : (with ((fun a -> a) 8) handle 2)
+    out: 8
+
+  eval
+    exp: (fun a -> a)
+    in : (with (8 (handler {})) handle 2)
+    out: 8
+
+  apply_in
+    exp: (fun a -> a)
+    in : (with (8 (handler {})) handle 2)
+    out: 8
+
+  eval
+    exp: (handler {})
+    in : (with 8 handle 2)
+    out: 8
+
+  apply_in
+    exp: (handler {})
+    in : (with 8 handle 2)
+    out: 8
+
+  eval
+    exp: 2
+    in : 8
+    out: (with (handler {}) handle 8)
+
+  apply_in
+    exp: 2
+    in : 8
+    out: (with (handler {}) handle 8)
+
+  apply_out
+    exp: 2
+    in : 8
+    out: (with (handler {}) handle 8)
+
+  apply_in
+    exp: 2
+    in : 8
+    out: 8
+
+  apply_out
+    exp: 2
+    in : 8
+    out: 8
+Result:  2
