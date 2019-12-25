@@ -1,0 +1,13 @@
+Step 0:  (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) (A 1)))
+Step 1:  ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 1)
+Step 1:  ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 1)
+Step 2:  (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) 1))
+Step 2:  (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) 1))
+Step 3:  ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) (fun a -> a))
+Step 3:  ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) (fun a -> a))
+Step 4:  (with (handler {A(x; k) -> (k x)}) handle ((fun a -> a) 1))
+Step 4:  (with (handler {A(x; k) -> (k x)}) handle ((fun a -> a) 1))
+Step 5:  (with (handler {A(x; k) -> (k x)}) handle 1)
+Step 5:  (with (handler {A(x; k) -> (k x)}) handle 1)
+Step 6:  1
+Result:  1
