@@ -24,8 +24,7 @@ and cont_in = FId
             | FApp1 of v * cont_in
             | FOp of string * cont_in
             | FWith of e * cont_in
-            | FNone of cont_in * h * cont_in
-            | FSome of cont_in * h * cont_in
+            | FCall of cont_in * h * cont_in
 and cont_out = GId
              | GHandle of cont_in * h * cont_out
 
@@ -39,10 +38,8 @@ let rec plug_in_handle (e : e) (cont_in : cont_in) : e = match cont_in with
   | FApp1 (v2, cont_in) -> plug_in_handle (App (e, Val v2)) cont_in
   | FOp (name, cont_in) -> plug_in_handle (Op (name, e)) cont_in
   | FWith (e2, cont_in) -> plug_in_handle (With (e, e2)) cont_in
-  | FNone (cont_in1, h, cont_in2) ->
+  | FCall (cont_in1, h, cont_in2) ->
     plug_in_handle (With (Val (Handler h), plug_in_handle e cont_in2)) cont_in1
-  | FSome (cont_last, h, cont_in) ->
-    plug_in_handle (With (Val (Handler h), plug_in_handle e cont_in)) cont_last
 
 let rec plug_all (e : e) ((cont_in, cont_out) : cont) : e =
   let e_in_handle = plug_in_handle e cont_in in

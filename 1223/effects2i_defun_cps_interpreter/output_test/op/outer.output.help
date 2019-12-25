@@ -8,7 +8,7 @@
   eval
     exp: (handler {A(x; k) -> (k x)})
 
-  apply_in with
+  apply_in
     exp: (handler {A(x; k) -> (k x)})
 
   eval
@@ -20,7 +20,7 @@
   eval
     exp: (handler {B(x; k) -> 1})
 
-  apply_in with
+  apply_in
     exp: (handler {B(x; k) -> 1})
 
   eval
@@ -35,13 +35,13 @@
   eval
     exp: 2
 
-  apply_in app2
+  apply_in
     exp: 2
 
   eval
     exp: (fun d -> d)
 
-  apply_in app1
+  apply_in
     exp: (fun d -> d)
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A ((fun d -> d) 2)))))))
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A 2))))))
@@ -49,7 +49,7 @@
   eval
     exp: 2
 
-  apply_in op
+  apply_in
     exp: 2
 
   apply_out handle
@@ -66,24 +66,24 @@
   eval
     exp: 2
 
-  apply_in app2
+  apply_in
     exp: 2
 
   eval
     exp: <cont>
 
-  apply_in app1
+  apply_in
     exp: <cont>
 ((fun a -> a) ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) y))))) 2))
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) 2)))))
 
-  apply_in app2
+  apply_in
     exp: 2
 
   eval
     exp: (fun c -> c)
 
-  apply_in app1
+  apply_in
     exp: (fun c -> c)
 
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) 2)))))
@@ -92,7 +92,7 @@
   eval
     exp: 2
 
-  apply_in id
+  apply_in
     exp: 2
 
   apply_out handle
@@ -100,13 +100,13 @@
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle 2))))
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) 2)))
 
-  apply_in app2
+  apply_in
     exp: 2
 
   eval
     exp: (fun b -> b)
 
-  apply_in app1
+  apply_in
     exp: (fun b -> b)
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) 2)))
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle 2))
@@ -114,7 +114,7 @@
   eval
     exp: 2
 
-  apply_in id
+  apply_in
     exp: 2
 
   apply_out handle
@@ -122,13 +122,13 @@
 ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle 2))
 ((fun a -> a) 2)
 
-  apply_in app2
+  apply_in
     exp: 2
 
   eval
     exp: (fun a -> a)
 
-  apply_in app1
+  apply_in
     exp: (fun a -> a)
 ((fun a -> a) 2)
 2
@@ -136,7 +136,7 @@
   eval
     exp: 2
 
-  apply_in id
+  apply_in
     exp: 2
 
   apply_out

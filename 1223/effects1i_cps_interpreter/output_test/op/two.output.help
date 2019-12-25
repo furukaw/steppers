@@ -6,7 +6,7 @@
   eval
     exp: (fun h -> h)
 
-  apply_in app2
+  apply_in
     exp: (fun h -> h)
 
   eval
@@ -15,7 +15,7 @@
   eval
     exp: (handler {A(x; k) -> (fun a -> (a (k x)))})
 
-  apply_in with
+  apply_in
     exp: (handler {A(x; k) -> (fun a -> (a (k x)))})
 
   eval
@@ -24,7 +24,7 @@
   eval
     exp: (fun g -> g)
 
-  apply_in app2
+  apply_in
     exp: (fun g -> g)
 
   eval
@@ -33,7 +33,7 @@
   eval
     exp: (handler {A(x; k) -> (fun b -> (b (A (k x))))})
 
-  apply_in with
+  apply_in
     exp: (handler {A(x; k) -> (fun b -> (b (A (k x))))})
 
   eval
@@ -42,7 +42,7 @@
   eval
     exp: (fun f -> f)
 
-  apply_in app2
+  apply_in
     exp: (fun f -> f)
 
   eval
@@ -54,7 +54,7 @@
   eval
     exp: (fun e -> e)
 
-  apply_in app2
+  apply_in
     exp: (fun e -> e)
 
   eval
@@ -63,13 +63,13 @@
   eval
     exp: (fun d -> d)
 
-  apply_in app2
+  apply_in
     exp: (fun d -> d)
 
   eval
     exp: (fun c -> c)
 
-  apply_in app1
+  apply_in
     exp: (fun c -> c)
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A ((fun d -> d) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
@@ -77,7 +77,7 @@
   eval
     exp: (fun d -> d)
 
-  apply_in app1
+  apply_in
     exp: (fun d -> d)
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A ((fun d -> d) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (fun e -> e)) (fun f -> f))) (fun g -> g))) (fun h -> h))
@@ -85,7 +85,7 @@
   eval
     exp: (fun e -> e)
 
-  apply_in op
+  apply_in
     exp: (fun e -> e)
 
   apply_out handle
@@ -96,7 +96,7 @@
   eval
     exp: (fun b -> (b (A (<cont> (fun e -> e)))))
 
-  apply_in app1
+  apply_in
     exp: (fun b -> (b (A (<cont> (fun e -> e)))))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun b -> (b (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e))))) (fun g -> g))) (fun h -> h))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e))))) (fun h -> h))
@@ -113,18 +113,18 @@
   eval
     exp: (fun e -> e)
 
-  apply_in app2
+  apply_in
     exp: (fun e -> e)
 
   eval
     exp: <cont>
 
-  apply_in app1
+  apply_in
     exp: <cont>
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e))))) (fun h -> h))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((fun e -> e) (fun f -> f)))))) (fun h -> h))
 
-  apply_in app1
+  apply_in
     exp: (fun e -> e)
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((fun e -> e) (fun f -> f)))))) (fun h -> h))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (fun f -> f))))) (fun h -> h))
@@ -132,7 +132,7 @@
   eval
     exp: (fun f -> f)
 
-  apply_in id
+  apply_in
     exp: (fun f -> f)
 
   apply_out handle
@@ -140,7 +140,7 @@
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (fun f -> f))))) (fun h -> h))
 ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (A (fun f -> f)))) (fun h -> h))
 
-  apply_in op
+  apply_in
     exp: (fun f -> f)
 
   apply_out handle
@@ -151,7 +151,7 @@
   eval
     exp: (fun a -> (a (<cont> (fun f -> f))))
 
-  apply_in app1
+  apply_in
     exp: (fun a -> (a (<cont> (fun f -> f))))
 ((fun a -> (a ((fun z => (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) z))) (fun f -> f)))))
 ((fun h -> h) ((fun z => (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) z))) (fun f -> f)))
@@ -165,24 +165,24 @@
   eval
     exp: (fun f -> f)
 
-  apply_in app2
+  apply_in
     exp: (fun f -> f)
 
   eval
     exp: <cont>
 
-  apply_in app1
+  apply_in
     exp: <cont>
 ((fun h -> h) ((fun z => (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) z))) (fun f -> f)))
 ((fun h -> h) (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (fun f -> f))))
 
-  apply_in app2
+  apply_in
     exp: (fun f -> f)
 
   eval
     exp: (fun g -> g)
 
-  apply_in app1
+  apply_in
     exp: (fun g -> g)
 ((fun h -> h) (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((fun g -> g) (fun f -> f))))
 ((fun h -> h) (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle (fun f -> f)))
@@ -190,7 +190,7 @@
   eval
     exp: (fun f -> f)
 
-  apply_in id
+  apply_in
     exp: (fun f -> f)
 
   apply_out handle
@@ -198,20 +198,20 @@
 ((fun h -> h) (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle (fun f -> f)))
 ((fun h -> h) (fun f -> f))
 
-  apply_in app2
+  apply_in
     exp: (fun f -> f)
 
   eval
     exp: (fun h -> h)
 
-  apply_in app1
+  apply_in
     exp: (fun h -> h)
 ((fun h -> h) (fun f -> f))
 
   eval
     exp: (fun f -> f)
 
-  apply_in id
+  apply_in
     exp: (fun f -> f)
 
   apply_out id

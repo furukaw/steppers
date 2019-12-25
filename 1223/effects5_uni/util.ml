@@ -1,5 +1,12 @@
 open Syntax
 
+(* op とハンドラを受け取って、ハンドラで op が定義されていればその情報を返す *)
+let search_op (op : string) ({ops} : h) : (string * string * e) option =
+  try
+    let (_, x, k, e) = List.find (fun (name, x, k, e) -> name = op) ops in
+    Some (x, k, e)
+  with Not_found -> None
+
 let rec subst_v (v : v) (pairs : (string * v) list) : v = match v with
   | Var (x) -> (try List.assoc x pairs with Not_found -> v)
   | Num (n) -> v

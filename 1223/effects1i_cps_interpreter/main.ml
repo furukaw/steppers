@@ -10,8 +10,12 @@ let go () =
   end;
   Util.record_var_name program;
   let result = Eval.stepper program in
-  print_string "Result:  ";
-  Syntax.print_v result
+  match result with
+  | Syntax.Return v ->
+    print_string "Result:  ";
+    Syntax.print_v v
+  | Syntax.OpCall (name, _, _) ->
+    print_endline ("Error: no handlers for " ^ name)
 
 (* スタートアップ *)
 let _ = go ()

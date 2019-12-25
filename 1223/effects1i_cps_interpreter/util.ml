@@ -1,11 +1,18 @@
 open Syntax
 
+(* op とハンドラを受け取って、ハンドラで op が定義されていればその情報を返す *)
+let search_op (op : string) ({ops} : h) : (string * string * e) option =
+  try
+    let (_, x, k, e) = List.find (fun (name, x, k, e) -> name = op) ops in
+    Some (x, k, e)
+  with Not_found -> None
+
 let rec subst_v (v : v) (pairs : (string * v) list) : v = match v with
   | Var (x) -> (try List.assoc x pairs with Not_found -> v)
   | Num (n) -> v
   | Fun (x, e) -> if List.mem_assoc x pairs then v else Fun (x, subst e pairs)
   | Handler (h) -> Handler (subst_h h pairs)
-  | Cont (cont_in) -> v
+  | Cont (x, cont_in) -> v
 
 and subst_h ({return; ops} : h) (pairs : (string * v) list) : h =
   let new_return = match return with
@@ -57,7 +64,7 @@ and record_var_name_value : v -> unit = function
   | Num (n) -> ()
   | Fun (x, e) -> add_var_name x; record_var_name e
   | Handler (h) -> record_var_name_handler h
-  | Cont (cont_in) -> ()
+  | Cont (x, cont_in) -> ()
 
 and record_var_name_handler : h -> unit = fun {return; ops} ->
   begin

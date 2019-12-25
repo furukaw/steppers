@@ -2,13 +2,6 @@ open Syntax
 open Util
 open Memo
 
- (* op とハンドラを受け取って、ハンドラで op が定義されていればその情報を返す *)
-let search_op (op : string) ({ops} : h) : (string * string * e) option =
-  try
-    let (_, x, k, e) = List.find (fun (name, x, k, e) -> name = op) ops in
-    Some (x, k, e)
-  with Not_found -> None
-
 let rec eval (exp : e) (cont_in : cont_in) (cont_out : cont_out) : a =
   match exp with
   | Val (v) -> apply_in cont_in v cont_out

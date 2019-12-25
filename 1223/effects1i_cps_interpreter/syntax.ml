@@ -3,7 +3,7 @@ type v = Var of string      (* x *)
        | Num of int         (* n *)
        | Fun of string * e  (* fun x -> e *)
        | Handler of h
-       | Cont of (cont_in -> cont_in)
+       | Cont of string * (cont_in -> cont_in)
 
 and h = {
   return : (string * e) option;              (* handler {return x -> e,      *)
@@ -27,7 +27,7 @@ let rec v_to_string (v : v) : string = match v with
   | Num (n) -> string_of_int n
   | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
   | Handler (h) -> "(handler {" ^ h_to_string h ^ "})"
-  | Cont (cont_in) -> "<cont>"
+  | Cont (x, cont_in) -> "<cont>"
 
 and h_to_string : h -> string = fun {return; ops} ->
   let return_strs = match return with

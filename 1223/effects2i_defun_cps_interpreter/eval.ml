@@ -2,13 +2,6 @@ open Syntax
 open Util
 open Memo
 
- (* op とハンドラを受け取って、ハンドラで op が定義されていればその情報を返す *)
-let search_op (op : string) ({ops} : h) : (string * string * e) option =
-  try
-    let (_, x, k, e) = List.find (fun (name, x, k, e) -> name = op) ops in
-    Some (x, k, e)
-  with Not_found -> None
-
 let rec eval (exp : e) (cont_in : cont_in) : a =
   match exp with
   | Val (v) -> apply_in cont_in v
@@ -16,20 +9,22 @@ let rec eval (exp : e) (cont_in : cont_in) : a =
   | Op (name, e) -> eval e (FOp (name, cont_in))
   | With (e1, e2) -> eval e1 (FWith (e2, cont_in))
 
-and cont_with (cont_last : cont_in) (h : h) (a : a) : a =
+and apply_handler (cont_last : cont_in) (h : h) (a : a) : a =
   match a with
   | Return v ->
     begin match h.return with
       | None -> apply_in cont_last v
-      | Some (x, e) -> eval (subst e [(x, v)]) cont_last end
+      | Some (x, e) ->
+        let reduct = subst e [(x, v)] in
+        eval reduct cont_last end
   | OpCall (name, v, cont_in') ->
     begin match search_op name h with
       | None ->
-        OpCall (name, v, FNone (cont_last, h, cont_in'))
+        OpCall (name, v, FCall (cont_last, h, cont_in'))
       | Some (x, k, e) ->
         let new_var = gen_var_name () in
         let cont_value =
-          Cont (new_var, fun id_in -> FSome (h, cont_in', id_in)) in
+          Cont (new_var, fun cont_last -> FCall (cont_last, h, cont_in')) in
         let reduct = subst e [(x, v); (k, cont_value)] in
         eval reduct cont_last
     end
@@ -54,14 +49,9 @@ and apply_in (cont_in : cont_in) (v : v) : a =
       | Handler (h) -> h
       | _ -> failwith "type error" in
     let a = eval e2 FId in
-    cont_with cont_in h a
-  | FNone (cont_last, h, cont_in') ->
-    cont_with cont_last h (apply_in cont_in' v)
-  | FSome (h, cont_in', id_in) ->
-    cont_with id_in h (apply_in cont_in' v)
+    apply_handler cont_in h a
+  | FCall (cont_last, h, cont_in') ->
+    let a = apply_in cont_in' v in
+    apply_handler cont_last h a
 
-let stepper (e : e) : v =
-  let a = eval e FId in
-  match a with
-  | Return v -> v
-  | OpCall (name, _, _) -> failwith ("no handlers for " ^ name)
+let stepper (e : e) : a = eval e FId
