@@ -25,7 +25,7 @@ and cont_in = FId
             | FOp of string * cont_in
             | FWith of e * cont_in
             | FNone of cont_in * h * cont_in
-            | FSome of h * cont_in
+            | FSome of h * cont_in * cont_in
 
 let hole : e = Val (Var "8")
 
@@ -37,8 +37,8 @@ let rec plug_in_handle (e : e) (cont_in : cont_in) : e = match cont_in with
   | FWith (e2, cont_in) -> plug_in_handle (With (e, e2)) cont_in
   | FNone (cont_in1, h, cont_in2) ->
     plug_in_handle (With (Val (Handler h), plug_in_handle e cont_in2)) cont_in1
-  | FSome (h, cont_in) ->
-    With (Val (Handler h), plug_in_handle e cont_in)
+  | FSome (h, cont_in, cont_in') ->
+    plug_in_handle (With (Val (Handler h), plug_in_handle e cont_in)) cont_in'
 
 (* 値を文字列にする関数 *)
 let rec v_to_string (v : v) : string = match v with

@@ -29,7 +29,7 @@ and cont_with (cont_last : cont_in) (h : h) (a : a) : a =
       | Some (x, k, e) ->
         let new_var = gen_var_name () in
         let cont_value =
-          Cont (new_var, fun id_in -> FSome (h, cont_in')) in
+          Cont (new_var, fun id_in -> FSome (h, cont_in', id_in)) in
         let reduct = subst e [(x, v); (k, cont_value)] in
         eval reduct cont_last
     end
@@ -57,8 +57,8 @@ and apply_in (cont_in : cont_in) (v : v) : a =
     cont_with cont_in h a
   | FNone (cont_last, h, cont_in') ->
     cont_with cont_last h (apply_in cont_in' v)
-  | FSome (h, cont_in') ->
-    cont_with FId h (apply_in cont_in' v)
+  | FSome (h, cont_in', id_in) ->
+    cont_with id_in h (apply_in cont_in' v)
 
 let stepper (e : e) : v =
   let a = eval e FId in

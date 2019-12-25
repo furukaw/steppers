@@ -72,7 +72,7 @@
     in : ((fun b -> b) 8)
     h  : (handler {B(x; k) -> 1})
 
-  apply_out handle 
+  apply_out handle
     exp: (A 2)
     in : ((fun a -> a) 8)
     h  : (handler {A(x; k) -> (k x)})
@@ -99,7 +99,7 @@
 
   apply_in
     exp: 2
-    in : (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) 8))))
+    in : ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) 8)))))
 
   apply_in
     exp: 2
