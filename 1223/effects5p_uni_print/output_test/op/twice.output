@@ -1,0 +1,168 @@
+
+  eval
+    exp: (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) (A 1)))
+    in : 8
+    out: 8
+
+  eval
+    exp: (handler {A(x; k) -> (k x)})
+    in : (with 8 handle ((A (fun a -> a)) (A 1)))
+    out: 8
+
+  apply_in
+    exp: (handler {A(x; k) -> (k x)})
+    in : (with 8 handle ((A (fun a -> a)) (A 1)))
+    out: 8
+
+  eval
+    exp: ((A (fun a -> a)) (A 1))
+    in : 8
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  eval
+    exp: (A 1)
+    in : ((A (fun a -> a)) 8)
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  eval
+    exp: 1
+    in : ((A (fun a -> a)) (A 8))
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  apply_in
+    exp: 1
+    in : ((A (fun a -> a)) (A 8))
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  apply_out
+    exp: (A 1)
+    in : 8
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+Step 0:  (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) (A 1)))
+Step 1:  ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 1)
+
+  eval
+    exp: ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 1)
+    in : 8
+    out: 8
+
+  eval
+    exp: 1
+    in : ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 8)
+    out: 8
+
+  apply_in
+    exp: 1
+    in : ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 8)
+    out: 8
+
+  eval
+    exp: (fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y)))
+    in : (8 1)
+    out: 8
+
+  apply_in
+    exp: (fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y)))
+    in : (8 1)
+    out: 8
+Step 1:  ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) y))) 1)
+Step 2:  (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) 1))
+
+  apply_in
+    exp: 1
+    in : (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) 8))
+    out: 8
+
+  apply_in
+    exp: 1
+    in : ((A (fun a -> a)) 8)
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  eval
+    exp: (A (fun a -> a))
+    in : (8 1)
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  eval
+    exp: (fun a -> a)
+    in : ((A 8) 1)
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  apply_in
+    exp: (fun a -> a)
+    in : ((A 8) 1)
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  apply_out
+    exp: (A (fun a -> a))
+    in : 8
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+Step 2:  (with (handler {A(x; k) -> (k x)}) handle ((A (fun a -> a)) 1))
+Step 3:  ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) (fun a -> a))
+
+  eval
+    exp: ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) (fun a -> a))
+    in : 8
+    out: 8
+
+  eval
+    exp: (fun a -> a)
+    in : ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) 8)
+    out: 8
+
+  apply_in
+    exp: (fun a -> a)
+    in : ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) 8)
+    out: 8
+
+  eval
+    exp: (fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1)))
+    in : (8 (fun a -> a))
+    out: 8
+
+  apply_in
+    exp: (fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1)))
+    in : (8 (fun a -> a))
+    out: 8
+Step 3:  ((fun z => (with (handler {A(x; k) -> (k x)}) handle (z 1))) (fun a -> a))
+Step 4:  (with (handler {A(x; k) -> (k x)}) handle ((fun a -> a) 1))
+
+  apply_in
+    exp: (fun a -> a)
+    in : (with (handler {A(x; k) -> (k x)}) handle (8 1))
+    out: 8
+
+  apply_in
+    exp: (fun a -> a)
+    in : (8 1)
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+Step 4:  (with (handler {A(x; k) -> (k x)}) handle ((fun a -> a) 1))
+Step 5:  (with (handler {A(x; k) -> (k x)}) handle 1)
+
+  eval
+    exp: 1
+    in : 8
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  apply_in
+    exp: 1
+    in : 8
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+
+  apply_out
+    exp: 1
+    in : 8
+    out: (with (handler {A(x; k) -> (k x)}) handle 8)
+Step 5:  (with (handler {A(x; k) -> (k x)}) handle 1)
+Step 6:  1
+
+  apply_in
+    exp: 1
+    in : 8
+    out: 8
+
+  apply_out
+    exp: 1
+    in : 8
+    out: 8
+Result:  1

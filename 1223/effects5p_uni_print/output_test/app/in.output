@@ -1,0 +1,70 @@
+
+  eval
+    exp: ((fun a -> (a a)) (fun b -> b))
+    in : 8
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> (a a)) 8)
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> (a a)) 8)
+    out: 8
+
+  eval
+    exp: (fun a -> (a a))
+    in : (8 (fun b -> b))
+    out: 8
+
+  apply_in
+    exp: (fun a -> (a a))
+    in : (8 (fun b -> b))
+    out: 8
+Step 0:  ((fun a -> (a a)) (fun b -> b))
+Step 1:  ((fun b -> b) (fun b -> b))
+
+  eval
+    exp: ((fun b -> b) (fun b -> b))
+    in : 8
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun b -> b) 8)
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun b -> b) 8)
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : (8 (fun b -> b))
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : (8 (fun b -> b))
+    out: 8
+Step 1:  ((fun b -> b) (fun b -> b))
+Step 2:  (fun b -> b)
+
+  eval
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+Result:  (fun b -> b)

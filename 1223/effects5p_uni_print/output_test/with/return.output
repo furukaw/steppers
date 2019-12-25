@@ -1,0 +1,48 @@
+
+  eval
+    exp: (with (handler {return x -> (fun a -> x)}) handle 2)
+    in : 8
+    out: 8
+
+  eval
+    exp: (handler {return x -> (fun a -> x)})
+    in : (with 8 handle 2)
+    out: 8
+
+  apply_in
+    exp: (handler {return x -> (fun a -> x)})
+    in : (with 8 handle 2)
+    out: 8
+
+  eval
+    exp: 2
+    in : 8
+    out: (with (handler {return x -> (fun a -> x)}) handle 8)
+
+  apply_in
+    exp: 2
+    in : 8
+    out: (with (handler {return x -> (fun a -> x)}) handle 8)
+
+  apply_out
+    exp: 2
+    in : 8
+    out: (with (handler {return x -> (fun a -> x)}) handle 8)
+Step 0:  (with (handler {return x -> (fun a -> x)}) handle 2)
+Step 1:  (fun a -> 2)
+
+  eval
+    exp: (fun a -> 2)
+    in : 8
+    out: 8
+
+  apply_in
+    exp: (fun a -> 2)
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun a -> 2)
+    in : 8
+    out: 8
+Result:  (fun a -> 2)

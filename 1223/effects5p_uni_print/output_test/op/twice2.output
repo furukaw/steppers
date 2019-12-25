@@ -1,0 +1,249 @@
+
+  eval
+    exp: (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) (A 4)))
+    in : 8
+    out: 8
+
+  eval
+    exp: (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))})
+    in : (with 8 handle (((fun c -> c) (A 2)) (A 4)))
+    out: 8
+
+  apply_in
+    exp: (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))})
+    in : (with 8 handle (((fun c -> c) (A 2)) (A 4)))
+    out: 8
+
+  eval
+    exp: (((fun c -> c) (A 2)) (A 4))
+    in : 8
+    out: (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)
+
+  eval
+    exp: (A 4)
+    in : (((fun c -> c) (A 2)) 8)
+    out: (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)
+
+  eval
+    exp: 4
+    in : (((fun c -> c) (A 2)) (A 8))
+    out: (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)
+
+  apply_in
+    exp: 4
+    in : (((fun c -> c) (A 2)) (A 8))
+    out: (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)
+
+  apply_out
+    exp: (A 4)
+    in : 8
+    out: (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)
+Step 0:  (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) (A 4)))
+Step 1:  ((fun a -> a) ((fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y))) (fun b -> b)))
+
+  eval
+    exp: ((fun a -> a) ((fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y))) (fun b -> b)))
+    in : 8
+    out: 8
+
+  eval
+    exp: ((fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y))) (fun b -> b))
+    in : ((fun a -> a) 8)
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y))) 8))
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y))) 8))
+    out: 8
+
+  eval
+    exp: (fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y)))
+    in : ((fun a -> a) (8 (fun b -> b)))
+    out: 8
+
+  apply_in
+    exp: (fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y)))
+    in : ((fun a -> a) (8 (fun b -> b)))
+    out: 8
+Step 1:  ((fun a -> a) ((fun y => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) y))) (fun b -> b)))
+Step 2:  ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) (fun b -> b))))
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) 8)))
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : (((fun c -> c) (A 2)) 8)
+    out: ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8))
+
+  eval
+    exp: ((fun c -> c) (A 2))
+    in : (8 (fun b -> b))
+    out: ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8))
+
+  eval
+    exp: (A 2)
+    in : (((fun c -> c) 8) (fun b -> b))
+    out: ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8))
+
+  eval
+    exp: 2
+    in : (((fun c -> c) (A 8)) (fun b -> b))
+    out: ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8))
+
+  apply_in
+    exp: 2
+    in : (((fun c -> c) (A 8)) (fun b -> b))
+    out: ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8))
+
+  apply_out
+    exp: (A 2)
+    in : 8
+    out: ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8))
+Step 2:  ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (A 2)) (fun b -> b))))
+Step 3:  ((fun a -> a) ((fun a -> a) ((fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b)))) (fun b -> b))))
+
+  eval
+    exp: ((fun a -> a) ((fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b)))) (fun b -> b)))
+    in : ((fun a -> a) 8)
+    out: 8
+
+  eval
+    exp: ((fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b)))) (fun b -> b))
+    in : ((fun a -> a) ((fun a -> a) 8))
+    out: 8
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((fun a -> a) ((fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b)))) 8)))
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((fun a -> a) ((fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b)))) 8)))
+    out: 8
+
+  eval
+    exp: (fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b))))
+    in : ((fun a -> a) ((fun a -> a) (8 (fun b -> b))))
+    out: 8
+
+  apply_in
+    exp: (fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b))))
+    in : ((fun a -> a) ((fun a -> a) (8 (fun b -> b))))
+    out: 8
+Step 3:  ((fun a -> a) ((fun a -> a) ((fun z => (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) z) (fun b -> b)))) (fun b -> b))))
+Step 4:  ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (fun b -> b)) (fun b -> b)))))
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) 8) (fun b -> b)))))
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : (((fun c -> c) 8) (fun b -> b))
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+
+  eval
+    exp: (fun c -> c)
+    in : ((8 (fun b -> b)) (fun b -> b))
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+
+  apply_in
+    exp: (fun c -> c)
+    in : ((8 (fun b -> b)) (fun b -> b))
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+Step 4:  ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (((fun c -> c) (fun b -> b)) (fun b -> b)))))
+Step 5:  ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle ((fun b -> b) (fun b -> b)))))
+
+  eval
+    exp: (fun b -> b)
+    in : (8 (fun b -> b))
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+
+  apply_in
+    exp: (fun b -> b)
+    in : (8 (fun b -> b))
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+Step 5:  ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle ((fun b -> b) (fun b -> b)))))
+Step 6:  ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (fun b -> b))))
+
+  eval
+    exp: (fun b -> b)
+    in : 8
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+
+  apply_in
+    exp: (fun b -> b)
+    in : 8
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+
+  apply_out
+    exp: (fun b -> b)
+    in : 8
+    out: ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle 8)))
+Step 6:  ((fun a -> a) ((fun a -> a) (with (handler {A(x; k) -> ((fun a -> a) (k (fun b -> b)))}) handle (fun b -> b))))
+Step 7:  ((fun a -> a) ((fun a -> a) (fun b -> b)))
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) ((fun a -> a) 8))
+    out: 8
+
+  eval
+    exp: (fun a -> a)
+    in : ((fun a -> a) (8 (fun b -> b)))
+    out: 8
+
+  apply_in
+    exp: (fun a -> a)
+    in : ((fun a -> a) (8 (fun b -> b)))
+    out: 8
+Step 7:  ((fun a -> a) ((fun a -> a) (fun b -> b)))
+Step 8:  ((fun a -> a) (fun b -> b))
+
+  eval
+    exp: (fun b -> b)
+    in : ((fun a -> a) 8)
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : ((fun a -> a) 8)
+    out: 8
+
+  eval
+    exp: (fun a -> a)
+    in : (8 (fun b -> b))
+    out: 8
+
+  apply_in
+    exp: (fun a -> a)
+    in : (8 (fun b -> b))
+    out: 8
+Step 8:  ((fun a -> a) (fun b -> b))
+Step 9:  (fun b -> b)
+
+  eval
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+
+  apply_in
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+
+  apply_out
+    exp: (fun b -> b)
+    in : 8
+    out: 8
+Result:  (fun b -> b)
