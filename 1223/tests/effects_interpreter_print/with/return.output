@@ -1,0 +1,28 @@
+
+  eval
+    exp: (with (handler {return x -> (fun a -> x)}) handle 2)
+
+  eval
+    exp: (handler {return x -> (fun a -> x)})
+
+  apply_in with
+    exp: (handler {return x -> (fun a -> x)})
+
+  eval
+    exp: 2
+
+  apply_in id
+    exp: 2
+
+  apply_out handle
+    exp: 2
+
+  eval
+    exp: (fun a -> 2)
+
+  apply_in id
+    exp: (fun a -> 2)
+
+  apply_out id
+    exp: (fun a -> 2)
+Result:  (fun a -> 2)

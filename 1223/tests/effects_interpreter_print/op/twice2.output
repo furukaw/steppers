@@ -41,9 +41,6 @@
   apply_in app1
     exp: <cont>
 
-  apply_in ?yes
-    exp: (fun b -> b)
-
   apply_in app2
     exp: (fun b -> b)
 
@@ -79,9 +76,6 @@
 
   apply_in app1
     exp: <cont>
-
-  apply_in ?yes
-    exp: (fun b -> b)
 
   apply_in app2
     exp: (fun b -> b)

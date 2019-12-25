@@ -71,12 +71,6 @@
   apply_in app1
     exp: <cont>
 
-  apply_in ?yes
-    exp: 2
-
-  apply_in ?no
-    exp: 2
-
   apply_in app2
     exp: 2
 

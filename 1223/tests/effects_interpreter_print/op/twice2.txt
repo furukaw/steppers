@@ -1,0 +1,2 @@
+with handler {A(x; k) -> (fun a -> a) (k (fun b -> b))}
+handle ((fun c -> c) (A 2)) (A 4)

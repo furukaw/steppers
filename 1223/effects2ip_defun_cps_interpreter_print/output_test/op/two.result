@@ -1,0 +1,199 @@
+
+  eval
+    exp: ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
+    in : 8
+
+  eval
+    exp: (fun h -> h)
+    in : ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) 8)
+
+  apply_in
+    exp: (fun h -> h)
+    in : ((with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) 8)
+
+  eval
+    exp: (with (handler {A(x; k) -> (fun a -> (a (k x)))}) handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g)))
+    in : (8 (fun h -> h))
+
+  eval
+    exp: (handler {A(x; k) -> (fun a -> (a (k x)))})
+    in : ((with 8 handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
+
+  apply_in
+    exp: (handler {A(x; k) -> (fun a -> (a (k x)))})
+    in : ((with 8 handle ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))) (fun h -> h))
+
+  eval
+    exp: ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))
+    in : 8
+
+  eval
+    exp: (fun g -> g)
+    in : ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) 8)
+
+  apply_in
+    exp: (fun g -> g)
+    in : ((with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) 8)
+
+  eval
+    exp: (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f)))
+    in : (8 (fun g -> g))
+
+  eval
+    exp: (handler {A(x; k) -> (fun b -> (b (A (k x))))})
+    in : ((with 8 handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))
+
+  apply_in
+    exp: (handler {A(x; k) -> (fun b -> (b (A (k x))))})
+    in : ((with 8 handle ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))) (fun g -> g))
+
+  eval
+    exp: ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) (fun f -> f))
+    in : 8
+
+  eval
+    exp: (fun f -> f)
+    in : ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) 8)
+
+  apply_in
+    exp: (fun f -> f)
+    in : ((A (((fun c -> c) (fun d -> d)) (fun e -> e))) 8)
+
+  eval
+    exp: (A (((fun c -> c) (fun d -> d)) (fun e -> e)))
+    in : (8 (fun f -> f))
+
+  eval
+    exp: (((fun c -> c) (fun d -> d)) (fun e -> e))
+    in : ((A 8) (fun f -> f))
+
+  eval
+    exp: (fun e -> e)
+    in : ((A (((fun c -> c) (fun d -> d)) 8)) (fun f -> f))
+
+  apply_in
+    exp: (fun e -> e)
+    in : ((A (((fun c -> c) (fun d -> d)) 8)) (fun f -> f))
+
+  eval
+    exp: ((fun c -> c) (fun d -> d))
+    in : ((A (8 (fun e -> e))) (fun f -> f))
+
+  eval
+    exp: (fun d -> d)
+    in : ((A (((fun c -> c) 8) (fun e -> e))) (fun f -> f))
+
+  apply_in
+    exp: (fun d -> d)
+    in : ((A (((fun c -> c) 8) (fun e -> e))) (fun f -> f))
+
+  eval
+    exp: (fun c -> c)
+    in : ((A ((8 (fun d -> d)) (fun e -> e))) (fun f -> f))
+
+  apply_in
+    exp: (fun c -> c)
+    in : ((A ((8 (fun d -> d)) (fun e -> e))) (fun f -> f))
+
+  eval
+    exp: (fun d -> d)
+    in : ((A (8 (fun e -> e))) (fun f -> f))
+
+  apply_in
+    exp: (fun d -> d)
+    in : ((A (8 (fun e -> e))) (fun f -> f))
+
+  eval
+    exp: (fun e -> e)
+    in : ((A 8) (fun f -> f))
+
+  apply_in
+    exp: (fun e -> e)
+    in : ((A 8) (fun f -> f))
+
+  apply_out handle
+    exp: (A (fun e -> e))
+    in : (8 (fun g -> g))
+    h  : (handler {A(x; k) -> (fun b -> (b (A (k x))))})
+
+  eval
+    exp: (fun b -> (b (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e)))))
+    in : (8 (fun g -> g))
+
+  apply_in
+    exp: (fun b -> (b (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e)))))
+    in : (8 (fun g -> g))
+
+  eval
+    exp: ((fun g -> g) (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e))))
+    in : 8
+
+  eval
+    exp: (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e)))
+    in : ((fun g -> g) 8)
+
+  eval
+    exp: ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) (fun e -> e))
+    in : ((fun g -> g) (A 8))
+
+  eval
+    exp: (fun e -> e)
+    in : ((fun g -> g) (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) 8)))
+
+  apply_in
+    exp: (fun e -> e)
+    in : ((fun g -> g) (A ((fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f)))) 8)))
+
+  eval
+    exp: (fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f))))
+    in : ((fun g -> g) (A (8 (fun e -> e))))
+
+  apply_in
+    exp: (fun y => (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (y (fun f -> f))))
+    in : ((fun g -> g) (A (8 (fun e -> e))))
+
+  apply_in
+    exp: (fun e -> e)
+    in : (with (handler {A(x; k) -> (fun b -> (b (A (k x))))}) handle (8 (fun f -> f)))
+
+  apply_in
+    exp: (fun e -> e)
+    in : (8 (fun f -> f))
+
+  eval
+    exp: (fun f -> f)
+    in : 8
+
+  apply_in
+    exp: (fun f -> f)
+    in : 8
+
+  apply_out handle
+    exp: (fun f -> f)
+    in : 8
+    h  : (handler {A(x; k) -> (fun b -> (b (A (k x))))})
+
+  apply_in
+    exp: (fun f -> f)
+    in : 8
+
+  apply_out handle
+    exp: (fun f -> f)
+    in : (8 (fun h -> h))
+    h  : (handler {A(x; k) -> (fun a -> (a (k x)))})
+
+  apply_in
+    exp: (fun f -> f)
+    in : (8 (fun h -> h))
+
+  eval
+    exp: (fun h -> h)
+    in : 8
+
+  apply_in
+    exp: (fun h -> h)
+    in : 8
+
+  apply_out id
+    exp: (fun h -> h)
+Result:  (fun h -> h)

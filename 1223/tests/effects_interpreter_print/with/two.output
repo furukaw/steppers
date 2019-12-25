@@ -1,0 +1,103 @@
+
+  eval
+    exp: ((fun a -> a) (with (handler {}) handle ((fun b -> b) (with (handler {return x -> (fun c -> x)}) handle ((fun d -> d) ((fun e -> e) 1))))))
+
+  eval
+    exp: (with (handler {}) handle ((fun b -> b) (with (handler {return x -> (fun c -> x)}) handle ((fun d -> d) ((fun e -> e) 1)))))
+
+  eval
+    exp: (handler {})
+
+  apply_in with
+    exp: (handler {})
+
+  eval
+    exp: ((fun b -> b) (with (handler {return x -> (fun c -> x)}) handle ((fun d -> d) ((fun e -> e) 1))))
+
+  eval
+    exp: (with (handler {return x -> (fun c -> x)}) handle ((fun d -> d) ((fun e -> e) 1)))
+
+  eval
+    exp: (handler {return x -> (fun c -> x)})
+
+  apply_in with
+    exp: (handler {return x -> (fun c -> x)})
+
+  eval
+    exp: ((fun d -> d) ((fun e -> e) 1))
+
+  eval
+    exp: ((fun e -> e) 1)
+
+  eval
+    exp: 1
+
+  apply_in app2
+    exp: 1
+
+  eval
+    exp: (fun e -> e)
+
+  apply_in app1
+    exp: (fun e -> e)
+
+  eval
+    exp: 1
+
+  apply_in app2
+    exp: 1
+
+  eval
+    exp: (fun d -> d)
+
+  apply_in app1
+    exp: (fun d -> d)
+
+  eval
+    exp: 1
+
+  apply_in id
+    exp: 1
+
+  apply_out handle
+    exp: 1
+
+  eval
+    exp: (fun c -> 1)
+
+  apply_in app2
+    exp: (fun c -> 1)
+
+  eval
+    exp: (fun b -> b)
+
+  apply_in app1
+    exp: (fun b -> b)
+
+  eval
+    exp: (fun c -> 1)
+
+  apply_in id
+    exp: (fun c -> 1)
+
+  apply_out handle
+    exp: (fun c -> 1)
+
+  apply_in app2
+    exp: (fun c -> 1)
+
+  eval
+    exp: (fun a -> a)
+
+  apply_in app1
+    exp: (fun a -> a)
+
+  eval
+    exp: (fun c -> 1)
+
+  apply_in id
+    exp: (fun c -> 1)
+
+  apply_out id
+    exp: (fun c -> 1)
+Result:  (fun c -> 1)

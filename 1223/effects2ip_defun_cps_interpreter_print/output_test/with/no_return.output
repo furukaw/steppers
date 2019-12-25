@@ -1,0 +1,33 @@
+
+  eval
+    exp: (with (handler {A(x; k) -> 1}) handle 2)
+    in : 8
+
+  eval
+    exp: (handler {A(x; k) -> 1})
+    in : (with 8 handle 2)
+
+  apply_in
+    exp: (handler {A(x; k) -> 1})
+    in : (with 8 handle 2)
+
+  eval
+    exp: 2
+    in : 8
+
+  apply_in
+    exp: 2
+    in : 8
+
+  apply_out handle
+    exp: 2
+    in : 8
+    h  : (handler {A(x; k) -> 1})
+
+  apply_in
+    exp: 2
+    in : 8
+
+  apply_out id
+    exp: 2
+Result:  2

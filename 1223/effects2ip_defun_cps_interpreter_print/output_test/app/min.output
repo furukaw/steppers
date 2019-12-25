@@ -1,0 +1,32 @@
+
+  eval
+    exp: ((fun a -> a) 1)
+    in : 8
+
+  eval
+    exp: 1
+    in : ((fun a -> a) 8)
+
+  apply_in
+    exp: 1
+    in : ((fun a -> a) 8)
+
+  eval
+    exp: (fun a -> a)
+    in : (8 1)
+
+  apply_in
+    exp: (fun a -> a)
+    in : (8 1)
+
+  eval
+    exp: 1
+    in : 8
+
+  apply_in
+    exp: 1
+    in : 8
+
+  apply_out id
+    exp: 1
+Result:  1

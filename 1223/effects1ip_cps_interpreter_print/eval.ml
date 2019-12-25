@@ -69,15 +69,23 @@ and g (cont_last : cont_in) (h : h) (a : a) : a =
   | OpCall (name, v, cont_in') ->
     begin match search_op name h with
       | None ->
-        OpCall (name, v, (fun v -> g cont_last h (cont_in' v)))
+        OpCall (name, v, (fun v ->
+            print_newline ();
+            print_endline "  apply_in ?no";
+            print_string "    exp: "; print_v v;
+            g cont_last h (cont_in' v)))
       | Some (x, k, e) ->
+        let cont_value = Cont (fun id_in -> fun v ->
+            print_newline ();
+            print_endline "  apply_in ?yes";
+            print_string "    exp: "; print_v v;
+            g id_in h (cont_in' v)) in
         let reduct =
-          subst e [(x, v);
-                   (k, Cont (fun id_in -> fun v -> g id_in h (cont_in' v)))] in
+          subst e [(x, v); (k, cont_value)] in
         eval reduct cont_last
     end
 
-hlet stepper (e : e) : v =
+let stepper (e : e) : v =
   let a = eval e id_in in
   print_newline ();
   print_endline "  apply_out id";
