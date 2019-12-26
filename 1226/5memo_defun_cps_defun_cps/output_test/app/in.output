@@ -1,0 +1,5 @@
+Step 0:  ((fun a -> (a a)) (fun b -> b))
+Step 1:  ((fun b -> b) (fun b -> b))
+Step 1:  ((fun b -> b) (fun b -> b))
+Step 2:  (fun b -> b)
+Result:  (fun b -> b)

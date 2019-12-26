@@ -1,0 +1,1 @@
+with (with handler {A (x; k) -> x} handle A (handler {A(x; k) -> x})) handle A 1

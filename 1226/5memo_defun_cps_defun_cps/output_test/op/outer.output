@@ -1,0 +1,17 @@
+Step 0:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A ((fun d -> d) 2)))))))
+Step 1:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A 2))))))
+Step 1:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) (A 2))))))
+Step 2:  ((fun a -> a) ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) y))))) 2))
+Step 2:  ((fun a -> a) ((fun y => (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) y))))) 2))
+Step 3:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) 2)))))
+Step 3:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle ((fun c -> c) 2)))))
+Step 4:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle 2))))
+Step 4:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) (with (handler {B(x; k) -> 1}) handle 2))))
+Step 5:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) 2)))
+Step 5:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle ((fun b -> b) 2)))
+Step 6:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle 2))
+Step 6:  ((fun a -> a) (with (handler {A(x; k) -> (k x)}) handle 2))
+Step 7:  ((fun a -> a) 2)
+Step 7:  ((fun a -> a) 2)
+Step 8:  2
+Result:  2

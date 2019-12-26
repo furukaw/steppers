@@ -1,0 +1,5 @@
+Step 0:  (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) 1) 2)
+Step 1:  ((fun b -> (fun c -> ((1 b) ((c b) 1)))) 2)
+Step 1:  ((fun b -> (fun c -> ((1 b) ((c b) 1)))) 2)
+Step 2:  (fun c -> ((1 2) ((c 2) 1)))
+Result:  (fun c -> ((1 2) ((c 2) 1)))
