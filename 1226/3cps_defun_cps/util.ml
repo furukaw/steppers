@@ -12,7 +12,7 @@ let rec subst_v (v : v) (pairs : (string * v) list) : v = match v with
   | Num (n) -> v
   | Fun (x, e) -> if List.mem_assoc x pairs then v else Fun (x, subst e pairs)
   | Handler (h) -> Handler (subst_h h pairs)
-  | Cont (x, cont_in) -> v
+  | Cont (x, k) -> v
 
 and subst_h ({return; ops} : h) (pairs : (string * v) list) : h =
   let new_return = match return with
@@ -64,7 +64,7 @@ and record_var_name_value : v -> unit = function
   | Num (n) -> ()
   | Fun (x, e) -> add_var_name x; record_var_name e
   | Handler (h) -> record_var_name_handler h
-  | Cont (x, cont_in) -> ()
+  | Cont (x, k) -> ()
 
 and record_var_name_handler : h -> unit = fun {return; ops} ->
   begin

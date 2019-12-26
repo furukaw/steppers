@@ -57,7 +57,7 @@ let rec v_to_string (v : v) : string = match v with
   | Num (n) -> string_of_int n
   | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
   | Handler (h) -> "(handler {" ^ h_to_string h ^ "})"
-  | Cont (x, cont_in) -> "<cont>"
+  | Cont (x, k) -> "<cont>"
 
 and h_to_string : h -> string = fun {return; ops} ->
   let return_strs = match return with

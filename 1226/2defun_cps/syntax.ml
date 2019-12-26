@@ -3,7 +3,7 @@ type v = Var of string      (* x *)
        | Num of int         (* n *)
        | Fun of string * e  (* fun x -> e *)
        | Handler of h
-       | Cont of string * (cont_in -> cont_in)
+       | Cont of string * (k -> k)
 
 and h = {
   return : (string * e) option;              (* handler {return x -> e,      *)
@@ -17,25 +17,25 @@ and e = Val of v          (* v *)
       | With of e * e     (* with e handle e *)
 
 and a = Return of v
-      | OpCall of string * v * cont_in
+      | OpCall of string * v * k
 
-and cont_in = FId
-            | FApp2 of e * cont_in
-            | FApp1 of v * cont_in
-            | FOp of string * cont_in
-            | FWith of e * cont_in
-            | FCall of cont_in * h * cont_in
+and k = FId
+            | FApp2 of e * k
+            | FApp1 of v * k
+            | FOp of string * k
+            | FWith of e * k
+            | FCall of k * h * k
 
 let hole : e = Val (Var "8")
 
-let rec plug_in_handle (e : e) (cont_in : cont_in) : e = match cont_in with
+let rec plug_in_handle (e : e) (k : k) : e = match k with
   | FId -> e
-  | FApp2 (e1, cont_in) -> plug_in_handle (App (e1, e)) cont_in
-  | FApp1 (v2, cont_in) -> plug_in_handle (App (e, Val v2)) cont_in
-  | FOp (name, cont_in) -> plug_in_handle (Op (name, e)) cont_in
-  | FWith (e2, cont_in) -> plug_in_handle (With (e, e2)) cont_in
-  | FCall (cont_in1, h, cont_in2) ->
-    plug_in_handle (With (Val (Handler h), plug_in_handle e cont_in2)) cont_in1
+  | FApp2 (e1, k) -> plug_in_handle (App (e1, e)) k
+  | FApp1 (v2, k) -> plug_in_handle (App (e, Val v2)) k
+  | FOp (name, k) -> plug_in_handle (Op (name, e)) k
+  | FWith (e2, k) -> plug_in_handle (With (e, e2)) k
+  | FCall (k1, h, k2) ->
+    plug_in_handle (With (Val (Handler h), plug_in_handle e k2)) k1
 
 (* 値を文字列にする関数 *)
 let rec v_to_string (v : v) : string = match v with
@@ -43,9 +43,9 @@ let rec v_to_string (v : v) : string = match v with
   | Num (n) -> string_of_int n
   | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
   | Handler (h) -> h_to_string h
-  | Cont (x, cont_in) ->
+  | Cont (x, k) ->
     "(fun " ^ x ^ " => " ^
-    e_to_string (plug_in_handle (Val (Var x)) (cont_in FId)) ^ ")"
+    e_to_string (plug_in_handle (Val (Var x)) (k FId)) ^ ")"
 
 and h_to_string : h -> string = fun {return; ops} ->
   let return_strs = match return with

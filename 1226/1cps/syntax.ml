@@ -3,7 +3,7 @@ type v = Var of string      (* x *)
        | Num of int         (* n *)
        | Fun of string * e  (* fun x -> e *)
        | Handler of h
-       | Cont of string * (cont_in -> cont_in)
+       | Cont of string * (k -> k)
 
 and h = {
   return : (string * e) option;              (* handler {return x -> e,      *)
@@ -17,9 +17,9 @@ and e = Val of v          (* v *)
       | With of e * e     (* with e handle e *)
 
 and a = Return of v
-      | OpCall of string * v * cont_in
+      | OpCall of string * v * k
 
-and cont_in = v -> a
+and k = v -> a
 
 (* 値を文字列にする関数 *)
 let rec v_to_string (v : v) : string = match v with
@@ -27,7 +27,7 @@ let rec v_to_string (v : v) : string = match v with
   | Num (n) -> string_of_int n
   | Fun (x, e) -> "(fun " ^ x ^ " -> " ^ e_to_string e ^ ")"
   | Handler (h) -> "(handler {" ^ h_to_string h ^ "})"
-  | Cont (x, cont_in) -> "<cont>"
+  | Cont (x, k) -> "<cont>"
 
 and h_to_string : h -> string = fun {return; ops} ->
   let return_strs = match return with
