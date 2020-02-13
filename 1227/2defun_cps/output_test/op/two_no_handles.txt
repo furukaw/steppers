@@ -1,0 +1,1 @@
+with handler {return x -> x, A(x; k) -> x} handle with handler {return x -> x, B(x; k) -> x} handle C (fun a -> a)

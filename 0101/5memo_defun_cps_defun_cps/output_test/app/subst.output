@@ -1,0 +1,5 @@
+Step 0:  (((fun a -> (fun b -> (fun c -> ((a b) ((c b) a))))) (fun d -> d)) (fun e -> e))
+Step 1:  ((fun b -> (fun c -> (((fun d -> d) b) ((c b) (fun d -> d))))) (fun e -> e))
+Step 1:  ((fun b -> (fun c -> (((fun d -> d) b) ((c b) (fun d -> d))))) (fun e -> e))
+Step 2:  (fun c -> (((fun d -> d) (fun e -> e)) ((c (fun e -> e)) (fun d -> d))))
+Result:  (fun c -> (((fun d -> d) (fun e -> e)) ((c (fun e -> e)) (fun d -> d))))

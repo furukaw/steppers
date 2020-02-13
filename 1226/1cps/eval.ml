@@ -16,9 +16,7 @@ let rec eval (exp : e) (k : k) : a =
               eval reduct k
             | Cont (x, k') ->
               (k' k) v2
-            | _ -> failwith "type error"
-          )
-      )
+            | _ -> failwith "type error"))
   | Op (name, e) ->
     eval e (fun v -> OpCall (name, v, k))
   | With (e1, e2) ->
@@ -27,8 +25,7 @@ let rec eval (exp : e) (k : k) : a =
           | Handler (h) -> h
           | _ -> failwith "type error" in
         let a = eval e2 id_in in
-        apply_handler k h a
-      )
+        apply_handler k h a)
 
 and apply_handler (cont_last : k) (h : h) (a : a) : a =
   match a with
