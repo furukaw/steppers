@@ -1,1 +1,0 @@
-(fun a -> a) (with {return x -> x, A(x; k) -> k x} handle ((fun b -> b) (with {return x -> x, B(x; k) -> x} handle (fun c -> c) (A ((fun d -> d) (fun e -> e))))))
