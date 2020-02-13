@@ -1,0 +1,1 @@
+with {return x -> x, A(x; k) -> (fun a -> k x)} handle A (fun b -> b)
