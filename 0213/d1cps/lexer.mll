@@ -26,6 +26,9 @@ rule token = parse
 | "}"    { RBRACE }
 | "with" { WITH }
 | "handle" { HANDLE }
+| "+"    { PLUS }
+| "-"    { MINUS }
+| "*"    { TIMES }
 | digit+
          { NUMBER (int_of_string (Lexing.lexeme lexbuf)) }
 | (lower | '_')+(alpha | digit | '_')*

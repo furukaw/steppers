@@ -1,1 +1,0 @@
-with {return x -> x, A(x; k) -> x} handle B (fun a -> a)

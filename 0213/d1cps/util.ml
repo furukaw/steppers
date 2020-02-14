@@ -11,6 +11,8 @@ let rec subst_v (v : v) (pairs : (string * v) list) : v = match v with
   | Var (x) -> (try List.assoc x pairs with Not_found -> v)
   | Fun (x, e) -> if List.mem_assoc x pairs then v else Fun (x, subst e pairs)
   | Cont (k) -> v
+  | Int (n) -> v
+  | Unit -> v
 
 and subst_h ({return; ops} : h) (pairs : (string * v) list) : h =
   let new_return = match return with
@@ -31,6 +33,8 @@ and subst (e : e) (pairs : (string * v) list) : e = match e with
   | App (e1, e2) -> App (subst e1 pairs, subst e2 pairs)
   | Op (name, e) -> Op (name, subst e pairs)
   | With (h, e) -> With (subst_h h pairs, subst e pairs)
+  | BinOp (e1, binop, e2) ->
+    BinOp (subst e1 pairs, binop, subst e2 pairs)
 
 (* プログラム内で使われている変数のリストを格納する変数 *)
 let var_names = ref []
@@ -56,11 +60,14 @@ let rec record_var_name : e -> unit = function
   | App (e1, e2) -> record_var_name e1; record_var_name e2
   | Op (name, e) -> record_var_name e
   | With (h, e2) -> record_var_name_handler h; record_var_name e2
+  | BinOp (e1, binop, e2) -> record_var_name e1; record_var_name e2
 
 and record_var_name_value : v -> unit = function
   | Var (x) -> ()
   | Fun (x, e) -> add_var_name x; record_var_name e
   | Cont (k) -> ()
+  | Int (n) -> ()
+  | Unit -> ()
 
 and record_var_name_handler : h -> unit = fun {return; ops} ->
   begin

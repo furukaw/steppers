@@ -8,6 +8,7 @@ open Syntax
 %token LPAREN RPAREN
 %token FUN RIGHT
 %token LBRACE RETURN COMMA SEMI RBRACE WITH HANDLE
+%token PLUS MINUS TIMES
 %token <int> NUMBER
 %token <string> VAR
 %token <string> OP
@@ -22,9 +23,13 @@ open Syntax
 
 /* 演算子の優先順位を指定する */
 /* 下に行くほど強く結合する */
+%nonassoc COMMA
 %nonassoc WITH HANDLE
 %right FUN RIGHT
 %nonassoc OP
+%left PLUS MINUS
+%nonassoc DUMMY
+$left TIMES
 /* nonassoc は結合なし（毎回、かっこを書かなくてはならない）、
    left は左結合、right は右結合 */
 
@@ -32,8 +37,8 @@ open Syntax
 %%
 
 expr:
-| simple_expr
-        { $1 }
+| LPAREN expr RPAREN
+        { $2 }
 | value
         { Val ($1) }
 | simple_expr simple_expr
@@ -42,6 +47,12 @@ expr:
         { Op ($1, $2) }
 | WITH LBRACE handler RBRACE HANDLE expr
         { With ($3, $6) }
+| expr TIMES expr
+        { BinOp ($1, Times, $3) }
+| expr PLUS expr
+        { BinOp ($1, Plus, $3) }
+| expr MINUS expr
+        { BinOp ($1, Minus, $3) }
 
 value:
 | simple_value
@@ -52,6 +63,10 @@ value:
 simple_value:
 | VAR
         { Var ($1) }
+| NUMBER
+        { Int ($1) }
+| LPAREN RPAREN
+        { Unit }
 
 simple_expr:
 | LPAREN expr RPAREN
@@ -60,16 +75,14 @@ simple_expr:
         { Val ($1) }
 
 handler:
-| ret_opt COMMA ops
-        { {return = $1; ops = $3} }
-| ret_opt
-        { {return = $1; ops = []} }
-
-ret_opt:
+| ret COMMA ops
+        { {return = Some $1; ops = $3} }
+| ops
+        { {return = None; ops = $1} }
 | ret
-        { Some ($1) }
+        { {return = Some $1; ops = []} }
 |
-        { None }
+        { {return = None; ops = []} }
 
 ret:
 | RETURN VAR RIGHT expr

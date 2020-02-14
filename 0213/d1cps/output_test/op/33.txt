@@ -1,0 +1,2 @@
+with {B(x; k) -> (fun b -> x)}
+handle with {A(x; k) -> B (fun a -> x)} handle A 1
