@@ -1,0 +1,1 @@
+with {A(x; k) -> (fun b -> k x)} handle (fun a -> a) (1 + A 10)
