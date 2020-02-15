@@ -36,12 +36,12 @@ let rec eval (exp : e) (k : k) : a = match exp with
          | None ->
            OpCall (name, v, (fun v ->
                let a' = k' v in
-               apply k a'))
+               apply_k_to_a k a'))
          | Some (x, y, e) ->
            let cont_value =
              Cont (fun k'' -> fun v ->
                  let a' = k' v in
-                 apply k a') in
+                 apply_k_to_a k a') in
            let reduct = subst e [(x, v); (y, cont_value)] in
            eval reduct k)
     end
@@ -52,12 +52,12 @@ let rec eval (exp : e) (k : k) : a = match exp with
             | (Int (n1), Int (n2)) -> k (Int (eval_binop n1 binop n2))
             | _ -> failwith "type error"))
 
-and apply (k : k) (a : a) : a = match a with
+and apply_k_to_a (k : k) (a : a) : a = match a with
   | Return v -> k v
   | OpCall (name, v, k') ->
     OpCall (name, v, (fun v ->
         let a' = k' v in
-        apply k a'))
+        apply_k_to_a k a'))
       
 (* 初期継続を渡して実行を始める *)
 let interpreter (e : e) : a = eval e (fun v -> Return v)
