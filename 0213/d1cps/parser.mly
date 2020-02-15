@@ -91,8 +91,8 @@ ret:
 ops:
 | op
         { [$1] }
-| op ops
-        { $1 :: $2 }
+| op COMMA ops
+        { $1 :: $3 }
 
 op:
 | OP LPAREN VAR SEMI VAR RPAREN RIGHT expr
