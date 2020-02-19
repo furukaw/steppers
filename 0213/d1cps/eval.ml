@@ -16,8 +16,8 @@ let rec eval (exp : e) (k : k) : a = match exp with
             | Fun (x, e) ->
               let reduct = subst e [(x, v2)] in
               eval reduct k
-            | Cont (k') ->
-              (k' k) v2  (* 現在の継続の後ろに継続値が保持するメタ継続を合成して値を渡す *)
+            | Cont (cont_value) -> (cont_value k) v2
+            (* 現在の継続の後ろに継続値が保持するメタ継続を合成して値を渡す *)
             | _ -> failwith "type error"))
   | Op (name, e) ->
     eval e (fun v -> OpCall (name, v, k))  (* 現在の継続の情報を返す *)

@@ -1,0 +1,3 @@
+with {A(x; k) -> k x} handle
+with {B(x; k) -> k x} handle
+B 1 + A 0
